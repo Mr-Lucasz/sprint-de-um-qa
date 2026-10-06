@@ -130,6 +130,7 @@ function garantirBase() {
   return basePronta;
 }
 
+// Tudo com IF NOT EXISTS: rodar de novo num ambiente antigo só acrescenta o que falta.
 function sqlTabelas(s) {
   return `
     CREATE SCHEMA IF NOT EXISTS ${s};
@@ -152,6 +153,8 @@ function sqlTabelas(s) {
       vagas     integer NOT NULL,
       local     text NOT NULL DEFAULT ''
     );
+    ALTER TABLE ${s}.cursos ADD COLUMN IF NOT EXISTS ministrante text NOT NULL DEFAULT '';
+    ALTER TABLE ${s}.cursos ADD COLUMN IF NOT EXISTS pre_requisitos text NOT NULL DEFAULT '';
     CREATE TABLE IF NOT EXISTS ${s}.inscricoes (
       id         serial PRIMARY KEY,
       usuario_id integer NOT NULL REFERENCES ${s}.usuarios(id),
@@ -165,6 +168,33 @@ function sqlTabelas(s) {
       usuario_id integer NOT NULL REFERENCES ${s}.usuarios(id) ON DELETE CASCADE,
       criada_em  timestamptz NOT NULL DEFAULT now()
     );
+    CREATE TABLE IF NOT EXISTS ${s}.lista_espera (
+      id         serial PRIMARY KEY,
+      usuario_id integer NOT NULL REFERENCES ${s}.usuarios(id) ON DELETE CASCADE,
+      curso_id   integer NOT NULL REFERENCES ${s}.cursos(id) ON DELETE CASCADE,
+      criada_em  timestamptz NOT NULL DEFAULT now(),
+      UNIQUE (usuario_id, curso_id)
+    );
+    CREATE TABLE IF NOT EXISTS ${s}.tokens_senha (
+      token_hash text PRIMARY KEY,
+      usuario_id integer NOT NULL REFERENCES ${s}.usuarios(id) ON DELETE CASCADE,
+      expira_em  timestamptz NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS ${s}.emails (
+      id         serial PRIMARY KEY,
+      para       text NOT NULL,
+      assunto    text NOT NULL,
+      corpo      text NOT NULL,
+      enviado_em timestamptz NOT NULL DEFAULT now()
+    );
+    CREATE TABLE IF NOT EXISTS ${s}.presencas (
+      id         serial PRIMARY KEY,
+      usuario_id integer NOT NULL REFERENCES ${s}.usuarios(id) ON DELETE CASCADE,
+      curso_id   integer NOT NULL REFERENCES ${s}.cursos(id) ON DELETE CASCADE,
+      codigo     text NOT NULL UNIQUE,
+      marcada_em timestamptz NOT NULL DEFAULT now(),
+      UNIQUE (usuario_id, curso_id)
+    );
   `;
 }
 
@@ -176,13 +206,14 @@ const USUARIOS_INICIAIS = [
   { nome: 'João Pereira', email: 'joao@inscrevi.dev', senha: 'Senha@123', perfil: 'aluno' },
 ];
 
+// título, descrição, data, início, fim, vagas, local, ministrante, pré-requisitos
 const CURSOS_INICIAIS = [
-  ['A Sprint de um QA — Dia 1', 'Fundamentos, análise de requisitos, testes manuais e gestão de defeitos.', '2026-10-06', '19:00', '22:00', 42, 'Laboratório 003'],
-  ['Git para quem testa', 'Branches, commits e pull requests no dia a dia de QA.', '2026-10-06', '20:00', '21:00', 30, 'Laboratório 005'],
-  ['A Sprint de um QA — Dia 2', 'APIs com Postman, automação com Playwright e Cypress, IA e CI/CD.', '2026-10-07', '19:00', '22:00', 42, 'Laboratório 003'],
-  ['Oficina de acessibilidade web', 'Leitores de tela, contraste e navegação por teclado na prática.', '2026-10-07', '14:00', '17:00', 2, 'Sala 112'],
-  ['Testes de performance com K6', 'Primeiros scripts de carga e leitura de métricas.', '2026-10-08', '19:00', '21:00', 25, 'Laboratório 003'],
-  ['Palestra: carreira em QA', 'Bate-papo sobre mercado, certificações e primeiros passos.', '2026-10-08', '10:00', '11:00', 1, 'Auditório'],
+  ['A Sprint de um QA — Dia 1', 'Fundamentos, análise de requisitos, testes manuais e gestão de defeitos.', '2026-10-06', '19:00', '22:00', 42, 'Laboratório 003', 'Lucas da Cunha Rodrigues', 'Nenhum.'],
+  ['Git para quem testa', 'Branches, commits e pull requests no dia a dia de QA.', '2026-10-06', '20:00', '21:00', 30, 'Laboratório 005', 'Camila Nogueira', 'Conta no GitHub.'],
+  ['A Sprint de um QA — Dia 2', 'APIs com Postman, automação com Playwright e Cypress, IA e CI/CD.', '2026-10-07', '19:00', '22:00', 42, 'Laboratório 003', 'Lucas da Cunha Rodrigues', 'Ter participado do Dia 1 e o ambiente do SETUP.md instalado.'],
+  ['Oficina de acessibilidade web', 'Leitores de tela, contraste e navegação por teclado na prática.', '2026-10-07', '14:00', '17:00', 2, 'Sala 112', 'Renata Albuquerque', 'Noções de HTML.'],
+  ['Testes de performance com K6', 'Primeiros scripts de carga e leitura de métricas.', '2026-10-08', '19:00', '21:00', 25, 'Laboratório 003', 'Diego Martins', 'Noções de JavaScript.'],
+  ['Palestra: carreira em QA', 'Bate-papo sobre mercado, certificações e primeiros passos.', '2026-10-08', '10:00', '11:00', 1, 'Auditório', 'Patrícia Antunes', 'Nenhum.'],
 ];
 
 // [usuário, curso] pelos IDs acima: João no Dia 1, Maria na palestra
@@ -203,15 +234,18 @@ function marcadores(linhas, colunas) {
 // Apaga tudo do ambiente e recria os dados iniciais, numa transação só.
 async function semear(slug) {
   const s = esquemaDe(slug);
+  await executar(sqlTabelas(s));
   const hashes = await hashesDosUsuariosIniciais();
   await transacao(async (q) => {
-    await q(`TRUNCATE ${s}.sessoes, ${s}.inscricoes, ${s}.cursos, ${s}.usuarios RESTART IDENTITY CASCADE`);
+    await q(`TRUNCATE ${s}.presencas, ${s}.emails, ${s}.tokens_senha, ${s}.lista_espera, ${s}.sessoes,
+      ${s}.inscricoes, ${s}.cursos, ${s}.usuarios RESTART IDENTITY CASCADE`);
     await q(
       `INSERT INTO ${s}.usuarios (nome, email, senha_hash, perfil) VALUES ${marcadores(USUARIOS_INICIAIS.length, 4)}`,
       USUARIOS_INICIAIS.flatMap((u, i) => [u.nome, u.email, hashes[i], u.perfil]),
     );
     await q(
-      `INSERT INTO ${s}.cursos (titulo, descricao, data, inicio, fim, vagas, local) VALUES ${marcadores(CURSOS_INICIAIS.length, 7)}`,
+      `INSERT INTO ${s}.cursos (titulo, descricao, data, inicio, fim, vagas, local, ministrante, pre_requisitos)
+       VALUES ${marcadores(CURSOS_INICIAIS.length, 9)}`,
       CURSOS_INICIAIS.flat(),
     );
     await q(

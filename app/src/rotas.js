@@ -39,6 +39,7 @@ const COLUNAS_INSCRICAO = 'id, usuario_id AS "usuarioId", curso_id AS "cursoId",
 function sqlCursos(s, filtro = '') {
   return `
     SELECT c.id, c.titulo, c.descricao, c.data, c.inicio, c.fim, c.vagas, c.local,
+           c.ministrante, c.pre_requisitos AS "preRequisitos",
            (SELECT count(*)::int FROM ${s}.inscricoes i WHERE i.curso_id = c.id) AS inscritos
       FROM ${s}.cursos c ${filtro}`;
 }
@@ -139,7 +140,12 @@ router.get('/usuarios/:id/inscricoes', autenticar, async (req, res) => {
   if (!existe) return erro(res, 404, 'Usuário não encontrado.');
 
   const [inscricoes, cursos] = await Promise.all([
-    banco.consultar(`SELECT ${COLUNAS_INSCRICAO} FROM ${s}.inscricoes WHERE usuario_id = $1 ORDER BY id`, [id]),
+    banco.consultar(
+      `SELECT i.id, i.usuario_id AS "usuarioId", i.curso_id AS "cursoId", i.criada_em AS "criadaEm",
+              EXISTS (SELECT 1 FROM ${s}.presencas p WHERE p.usuario_id = i.usuario_id AND p.curso_id = i.curso_id) AS "presencaRegistrada"
+         FROM ${s}.inscricoes i WHERE i.usuario_id = $1 ORDER BY i.id`,
+      [id],
+    ),
     banco.consultar(sqlCursos(s, `WHERE c.id IN (SELECT curso_id FROM ${s}.inscricoes WHERE usuario_id = $1)`), [id]),
   ]);
   if (alheio) await registrar('F08');
@@ -149,8 +155,15 @@ router.get('/usuarios/:id/inscricoes', autenticar, async (req, res) => {
 
 // ---------- cursos ----------
 
+// Comparação de texto sem diferenciar maiúsculas nem acentos
+function semAcento(texto) {
+  return String(texto).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
+
 router.get('/cursos', async (req, res) => {
-  const cursos = await banco.consultar(sqlCursos(req.amb.s, 'ORDER BY c.data, c.inicio, c.id'));
+  let cursos = await banco.consultar(sqlCursos(req.amb.s, 'ORDER BY c.data, c.inicio, c.id'));
+  const busca = semAcento(typeof req.query.busca === 'string' ? req.query.busca.trim() : '');
+  if (busca) cursos = cursos.filter((c) => semAcento(`${c.titulo} ${c.descricao}`).includes(busca));
   res.json(cursos.map(cursoPublico));
 });
 
@@ -162,7 +175,7 @@ router.get('/cursos/:id', async (req, res) => {
 });
 
 router.post('/cursos', autenticar, somenteAdmin, async (req, res) => {
-  const { titulo, descricao = '', data, inicio, fim, vagas, local = '' } = req.body || {};
+  const { titulo, descricao = '', data, inicio, fim, vagas, local = '', ministrante = '', preRequisitos = '' } = req.body || {};
   if (typeof titulo !== 'string' || titulo.trim().length < 3) return erro(res, 400, 'Informe um título com pelo menos 3 caracteres.');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(data || '')) return erro(res, 400, 'A data deve estar no formato AAAA-MM-DD.');
   if (!/^\d{2}:\d{2}$/.test(inicio || '') || !/^\d{2}:\d{2}$/.test(fim || '')) return erro(res, 400, 'Os horários devem estar no formato HH:MM.');
@@ -170,10 +183,11 @@ router.post('/cursos', autenticar, somenteAdmin, async (req, res) => {
   if (!Number.isInteger(vagas) || vagas < 1 || vagas > 500) return erro(res, 400, 'O número de vagas deve ser um inteiro entre 1 e 500.');
 
   const [curso] = await banco.consultar(
-    `INSERT INTO ${req.amb.s}.cursos (titulo, descricao, data, inicio, fim, vagas, local)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)
-     RETURNING id, titulo, descricao, data, inicio, fim, vagas, local, 0 AS inscritos`,
-    [titulo.trim(), String(descricao), data, inicio, fim, vagas, String(local)],
+    `INSERT INTO ${req.amb.s}.cursos (titulo, descricao, data, inicio, fim, vagas, local, ministrante, pre_requisitos)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+     RETURNING id, titulo, descricao, data, inicio, fim, vagas, local, ministrante,
+               pre_requisitos AS "preRequisitos", 0 AS inscritos`,
+    [titulo.trim(), String(descricao), data, inicio, fim, vagas, String(local), String(ministrante), String(preRequisitos)],
   );
   res.status(201).json(cursoPublico(curso));
 });
@@ -252,9 +266,19 @@ router.delete('/inscricoes/:id', autenticar, async (req, res) => {
   if (inscricao.usuario_id !== req.usuario.id && req.usuario.perfil !== 'admin') {
     return erro(res, 403, 'Você só pode cancelar as suas próprias inscrições.');
   }
-  await banco.consultar(`DELETE FROM ${s}.inscricoes WHERE id = $1`, [id]);
+  await banco.transacao(async (q) => {
+    const [cancelada] = await q(`DELETE FROM ${s}.inscricoes WHERE id = $1 RETURNING curso_id, usuario_id`, [id]);
+    if (!cancelada) return;
+    await q(`DELETE FROM ${s}.presencas WHERE usuario_id = $1 AND curso_id = $2`, [cancelada.usuario_id, cancelada.curso_id]);
+    await promoverDaListaDeEspera(q, s, cancelada.curso_id);
+  });
   res.status(204).end();
 });
+
+// ---------- histórias das próximas Sprints (US07 a US16) ----------
+
+const utilitarios = { erro, lerId, cursoPublico, sqlCursos, horariosConflitam, autenticar, somenteAdmin };
+const { promoverDaListaDeEspera } = require('./rotas-proximas')(router, utilitarios);
 
 // ---------- apoio a testes ----------
 

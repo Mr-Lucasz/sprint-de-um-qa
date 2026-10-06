@@ -15,6 +15,7 @@
     "test:api": "playwright test --project=api",
     "test:e2e": "playwright test --project=e2e",
     "test:playwright": "playwright test",
+    "test:app": "node --test app/testes/proximas.test.js",
     "test:ui": "playwright test --ui",
     "report": "playwright show-report",
     "test:postman": "newman run dia-2/02-postman/inscrevi.postman_collection.json -e dia-2/02-postman/local.postman_environment.json",

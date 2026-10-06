@@ -18,6 +18,9 @@
       <ul class="menu">
         <li><a href="#/cursos" data-testid="menu-cursos">Programação</a></li>
         <li data-so-logado hidden><a href="#/minhas-inscricoes" data-testid="menu-minhas-inscricoes">Minhas inscrições</a></li>
+        <li data-so-logado hidden><a href="#/perfil" data-testid="menu-perfil">Meu perfil</a></li>
+        <li data-so-admin hidden><a href="#/admin/cursos" data-testid="menu-admin-cursos">Gerenciar minicursos</a></li>
+        <li data-so-admin hidden><a href="#/admin/emails" data-testid="menu-admin-emails">E-mails enviados</a></li>
         <li data-so-visitante><a href="#/entrar" data-testid="menu-entrar">Entrar</a></li>
         <li data-so-visitante><a href="#/criar-conta" data-testid="menu-criar-conta">Criar conta</a></li>
       </ul>
@@ -53,6 +56,7 @@
         <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
         <button type="submit" class="botao" data-testid="botao-entrar">Entrar</button>
       </form>
+      <p class="apoio"><a href="#/recuperar-senha">Esqueci minha senha</a></p>
       <p class="apoio">Ainda não tem conta? <a href="#/criar-conta">Criar conta</a></p>
     </section>
   </template>
@@ -74,6 +78,82 @@
       </form>
       <p class="apoio">Já tem conta? <a href="#/entrar">Entrar</a></p>
     </section>
+  </template>
+
+  <template id="tpl-perfil">
+    <section class="formulario" aria-labelledby="titulo-perfil">
+      <h1 id="titulo-perfil">Meu perfil</h1>
+      <p class="apoio">O nome é o que aparece na lista de presença e no certificado.</p>
+      <form id="form-perfil" novalidate>
+        <label for="perfil-nome">Nome completo</label>
+        <input id="perfil-nome" name="nome" autocomplete="name" aria-describedby="dica-nome" data-testid="campo-nome" required>
+        <p id="dica-nome" class="dica">Entre 3 e 80 caracteres.</p>
+        <p class="rotulo">E-mail</p>
+        <p id="perfil-email" class="valor-fixo" data-testid="perfil-email"></p>
+        <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
+        <button type="submit" class="botao" data-testid="botao-salvar-perfil">Salvar</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="tpl-recuperar">
+    <section class="formulario" aria-labelledby="titulo-recuperar">
+      <h1 id="titulo-recuperar">Recuperar senha</h1>
+      <p class="apoio">Informe o e-mail da sua conta. Enviaremos um link para você definir uma senha nova.</p>
+      <form id="form-recuperar" novalidate>
+        <label for="recuperar-email">E-mail</label>
+        <input id="recuperar-email" name="email" type="email" autocomplete="email" data-testid="campo-email" required>
+        <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
+        <button type="submit" class="botao" data-testid="botao-recuperar">Enviar link</button>
+      </form>
+      <p class="apoio"><a href="#/entrar">Voltar para o login</a></p>
+    </section>
+  </template>
+
+  <template id="tpl-redefinir">
+    <section class="formulario" aria-labelledby="titulo-redefinir">
+      <h1 id="titulo-redefinir">Definir nova senha</h1>
+      <form id="form-redefinir" novalidate>
+        <label for="redefinir-senha">Nova senha</label>
+        <input id="redefinir-senha" name="senha" type="password" autocomplete="new-password" aria-describedby="dica-nova-senha" data-testid="campo-senha" required>
+        <p id="dica-nova-senha" class="dica">Entre 8 e 64 caracteres.</p>
+        <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
+        <button type="submit" class="botao" data-testid="botao-redefinir">Salvar nova senha</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="tpl-admin-cursos">
+    <div class="cabecalho-pagina">
+      <h1>Gerenciar minicursos</h1>
+      <p class="apoio">Cadastre minicursos novos e acompanhe a ocupação dos existentes.</p>
+    </div>
+    <section class="formulario formulario-largo" aria-labelledby="titulo-novo-curso">
+      <h2 id="titulo-novo-curso" class="subtitulo">Novo minicurso</h2>
+      <form id="form-curso" novalidate>
+        <label for="curso-titulo">Título</label>
+        <input id="curso-titulo" name="titulo" required>
+        <label for="curso-descricao">Descrição</label>
+        <textarea id="curso-descricao" name="descricao" rows="2"></textarea>
+        <label for="curso-ministrante">Ministrante</label>
+        <input id="curso-ministrante" name="ministrante">
+        <label for="curso-prerequisitos">Pré-requisitos</label>
+        <input id="curso-prerequisitos" name="preRequisitos">
+        <div class="linha-campos">
+          <div><label for="curso-data">Data</label><input id="curso-data" name="data" type="date" required></div>
+          <div><label for="curso-inicio">Início</label><input id="curso-inicio" name="inicio" type="time" required></div>
+          <div><label for="curso-fim">Término</label><input id="curso-fim" name="fim" type="time" required></div>
+          <div><label for="curso-vagas">Vagas</label><input id="curso-vagas" name="vagas" type="number" min="1" max="500" aria-describedby="dica-vagas" required></div>
+        </div>
+        <p id="dica-vagas" class="dica">De 1 a 500 vagas.</p>
+        <label for="curso-local">Local</label>
+        <input id="curso-local" name="local">
+        <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
+        <button type="submit" class="botao" data-testid="botao-criar-curso">Criar minicurso</button>
+      </form>
+    </section>
+    <h2 class="subtitulo">Minicursos cadastrados</h2>
+    <ul id="admin-cursos" class="inscricoes" data-testid="admin-cursos"></ul>
   </template>
 
   <script src="app.js"></script>
