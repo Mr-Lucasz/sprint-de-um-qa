@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscrevi — inscrições em minicursos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/config.js"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topo">
+    <a class="marca" href="#/cursos" data-testid="link-inicio">Inscrevi</a>
+    <nav aria-label="Principal">
+      <ul class="menu">
+        <li><a href="#/cursos" data-testid="menu-cursos">Programação</a></li>
+        <li data-so-logado hidden><a href="#/minhas-inscricoes" data-testid="menu-minhas-inscricoes">Minhas inscrições</a></li>
+        <li data-so-visitante><a href="#/entrar" data-testid="menu-entrar">Entrar</a></li>
+        <li data-so-visitante><a href="#/criar-conta" data-testid="menu-criar-conta">Criar conta</a></li>
+      </ul>
+    </nav>
+    <div class="sessao" data-so-logado hidden>
+      <span data-testid="usuario-logado"></span>
+      <button type="button" class="botao botao-discreto" id="sair" data-testid="botao-sair">Sair</button>
+    </div>
+  </header>
+
+  <div id="aviso" class="aviso" role="status" aria-live="polite" data-testid="mensagem" hidden></div>
+
+  <main id="conteudo" tabindex="-1"></main>
+
+  <template id="tpl-entrar">
+    <section class="formulario" aria-labelledby="titulo-entrar">
+      <h1 id="titulo-entrar">Entrar</h1>
+      <p class="apoio">Use o e-mail e a senha que você cadastrou.</p>
+      <form id="form-entrar" novalidate>
+        <label for="entrar-email">E-mail</label>
+        <input id="entrar-email" name="email" type="email" autocomplete="email" data-testid="campo-email" required>
+        <label for="entrar-senha">Senha</label>
+        <input id="entrar-senha" name="senha" type="password" autocomplete="current-password" data-testid="campo-senha" required>
+        <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
+        <button type="submit" class="botao" data-testid="botao-entrar">Entrar</button>
+      </form>
+      <p class="apoio">Ainda não tem conta? <a href="#/criar-conta">Criar conta</a></p>
+    </section>
+  </template>
+
+  <template id="tpl-criar-conta">
+    <section class="formulario" aria-labelledby="titulo-criar">
+      <h1 id="titulo-criar">Criar conta</h1>
+      <p class="apoio">Com a conta criada você pode se inscrever nos minicursos.</p>
+      <form id="form-criar" novalidate>
+        <label for="criar-nome">Nome completo</label>
+        <input id="criar-nome" name="nome" autocomplete="name" data-testid="campo-nome" required>
+        <label for="criar-email">E-mail</label>
+        <input id="criar-email" name="email" type="email" autocomplete="email" data-testid="campo-email" required>
+        <label for="criar-senha">Senha</label>
+        <input id="criar-senha" name="senha" type="password" autocomplete="new-password" aria-describedby="dica-senha" data-testid="campo-senha" required>
+        <p id="dica-senha" class="dica">Entre 8 e 64 caracteres.</p>
+        <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
+        <button type="submit" class="botao" data-testid="botao-criar-conta">Criar conta</button>
+      </form>
+    </section>
+  </template>
+
+  <script src="/app.js"></script>
+</body>
+</html>

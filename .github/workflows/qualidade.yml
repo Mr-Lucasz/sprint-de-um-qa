@@ -1,0 +1,88 @@
+# Pipeline de qualidade do Inscrevi.
+# Baseado em: https://playwright.dev/docs/ci-intro
+#             https://docs.github.com/actions
+#
+# Em push e pull request o app sobe no modo "sprint" (o mesmo que os alunos testam),
+# então o pipeline FALHA enquanto houver defeitos. Para ver tudo verde, rode
+# manualmente (aba Actions > Qualidade > Run workflow) escolhendo o modo "estavel".
+
+name: Qualidade
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: 'Modo do app'
+        type: choice
+        options: [sprint, estavel]
+        default: sprint
+
+env:
+  MODO: ${{ inputs.modo || 'sprint' }}
+
+jobs:
+  api:
+    name: API (Newman + Cucumber)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Subir o app
+        run: |
+          node app/server.js --modo=$MODO &
+          for i in $(seq 1 30); do curl -sf http://localhost:3000/api/cursos > /dev/null && exit 0; sleep 1; done
+          echo "O app não subiu a tempo" && exit 1
+
+      - name: Testes de API com Newman (Postman)
+        run: npm run test:postman -- --reporters cli,junit --reporter-junit-export resultados/newman.xml
+
+      - name: Cenários BDD com Cucumber
+        if: success() || failure()
+        run: npm run test:bdd
+
+      - name: Publicar relatórios
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: relatorios-api
+          path: |
+            resultados/
+            dia-2/06-bdd-cucumber/relatorio.html
+          retention-days: 14
+
+  playwright:
+    name: Playwright (API + E2E)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # Só o Chromium, como recomenda a documentação oficial
+      - name: Instalar navegador
+        run: npx playwright install chromium --with-deps
+
+      # O próprio Playwright sobe o app (webServer no playwright.config.ts)
+      - name: Rodar testes
+        run: npx playwright test
+
+      - name: Publicar relatório HTML
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14

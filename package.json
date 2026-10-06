@@ -1,0 +1,31 @@
+{
+  "name": "sprint-de-um-qa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Repositório do minicurso \"A Sprint de um QA: qualidade de software na prática\"",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node app/server.js",
+    "start:estavel": "node app/server.js --modo=estavel",
+    "test:api": "playwright test --project=api",
+    "test:e2e": "playwright test --project=e2e",
+    "test:playwright": "playwright test",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "test:postman": "newman run dia-2/02-postman/inscrevi.postman_collection.json -e dia-2/02-postman/local.postman_environment.json",
+    "test:bdd": "cucumber-js --config dia-2/06-bdd-cucumber/cucumber.js",
+    "massa": "node dia-2/05-ia/gerar-massa.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0",
+    "@faker-js/faker": "^10.6.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.0.0",
+    "newman": "^6.2.2"
+  }
+}

@@ -1,0 +1,94 @@
+# Formulário de relato de defeito.
+# Campos alinhados ao conteúdo de um relatório de defeito do syllabus CTFL v4.0 (seção 5.5).
+# Sintaxe de issue forms: https://docs.github.com/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+name: Relatar defeito
+description: Registre uma falha encontrada no Inscrevi
+title: "[Defeito] "
+labels: ["defeito", "triagem"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de enviar, confira se outra pessoa já não relatou o mesmo problema.
+        Um bom título responde: **onde**, **o quê** e **em que condição**.
+        Exemplo: *Inscrição aceita quando o curso já não tem vagas*.
+
+  - type: dropdown
+    id: historia
+    attributes:
+      label: História relacionada
+      options: [US01 · Cadastro, US02 · Login, US03 · Programação, US04 · Inscrição, US05 · Minhas inscrições, US06 · Cancelamento, Outra]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: camada
+    attributes:
+      label: Onde a falha aparece
+      options: [API, Interface (front), As duas]
+    validations:
+      required: true
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      description: Numerados, a partir de um estado conhecido. Inclua os dados usados.
+      placeholder: |
+        1. Fazer login com maria@inscrevi.dev
+        2. Abrir a Programação
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado
+      description: O que deveria acontecer, citando o critério de aceite quando houver.
+    validations:
+      required: true
+
+  - type: textarea
+    id: obtido
+    attributes:
+      label: Resultado obtido
+      description: O que aconteceu de fato. Mensagens, status HTTP e corpo da resposta ajudam muito.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severidade
+    attributes:
+      label: Severidade (impacto no sistema)
+      options: [Crítica, Alta, Média, Baixa]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: prioridade
+    attributes:
+      label: Prioridade sugerida (urgência da correção)
+      options: [Alta, Média, Baixa]
+    validations:
+      required: true
+
+  - type: input
+    id: ambiente
+    attributes:
+      label: Ambiente
+      placeholder: "Windows 11, Chrome 140, app em http://localhost:3000"
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências
+      description: Arraste prints, vídeos ou cole logs e respostas da API.
+
+  - type: input
+    id: caso
+    attributes:
+      label: Caso de teste ou charter de origem
+      placeholder: "CT-04 ou Charter 2"

@@ -1,0 +1,12 @@
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+resultados/
+dia-2/06-bdd-cucumber/relatorio.html
+dia-2/04-cypress/cypress/screenshots/
+dia-2/04-cypress/cypress/videos/
+dia-2/04-cypress/cypress/downloads/
+.DS_Store
+instrutor/

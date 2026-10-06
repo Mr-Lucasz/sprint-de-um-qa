@@ -1,0 +1,12 @@
+{
+  "name": "sprint-qa-cypress-demo",
+  "private": true,
+  "description": "Demonstração com Cypress (instalação separada para não pesar o projeto principal)",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^16.1.1"
+  }
+}
