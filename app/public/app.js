@@ -15,7 +15,7 @@ const aviso = document.getElementById('aviso');
 async function api(caminho, opcoes = {}) {
   const cabecalhos = { 'Content-Type': 'application/json' };
   if (estado.token) cabecalhos.Authorization = `Bearer ${estado.token}`;
-  const resposta = await fetch(`/api${caminho}`, { ...opcoes, headers: cabecalhos });
+  const resposta = await fetch(`api${caminho}`, { ...opcoes, headers: cabecalhos });
   const corpo = resposta.status === 204 ? null : await resposta.json().catch(() => null);
   if (!resposta.ok) {
     const falha = new Error(corpo?.mensagem || 'Não foi possível concluir a ação.');
@@ -93,14 +93,12 @@ async function minhasInscricoes() {
 // ---------- medidor de vagas ----------
 
 function medidor(curso) {
-  const ocupadas = curso.vagas - curso.vagasDisponiveis;
-  const lista = el('ol', { class: 'assentos', 'aria-hidden': 'true' });
-  const total = Math.min(curso.vagas, 50);
-  const proporcaoOcupada = Math.round((ocupadas / curso.vagas) * total);
-  for (let i = 0; i < total; i += 1) {
-    lista.append(el('li', { class: i < proporcaoOcupada ? 'ocupado' : '' }));
-  }
-  return lista;
+  const ocupadas = Math.min(curso.vagas - curso.vagasDisponiveis, curso.vagas);
+  const barra = el('div', { class: 'ocupacao', 'aria-hidden': 'true' });
+  const preenchida = el('div', { class: 'ocupacao-preenchida' });
+  preenchida.style.width = `${Math.round((ocupadas / curso.vagas) * 100)}%`;
+  barra.append(preenchida);
+  return barra;
 }
 
 // ---------- telas ----------
@@ -287,6 +285,14 @@ document.getElementById('sair').addEventListener('click', () => {
   location.hash = '#/cursos';
   navegar();
 });
+
+document.querySelector('[data-testid="rodape-ambiente"]').textContent = CONFIG.ambiente || 'local';
+document.querySelector('[data-testid="rodape-versao"]').textContent = CONFIG.versao || '';
+if (CONFIG.urlDefeitos) {
+  const link = document.getElementById('link-defeitos');
+  link.href = CONFIG.urlDefeitos;
+  link.hidden = false;
+}
 
 window.addEventListener('hashchange', navegar);
 atualizarCabecalho();

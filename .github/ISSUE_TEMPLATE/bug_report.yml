@@ -77,7 +77,7 @@ body:
     id: ambiente
     attributes:
       label: Ambiente
-      placeholder: "Windows 11, Chrome 140, app em http://localhost:3000"
+      placeholder: "Windows 11, Chrome 140, ambiente dupla-07, versão 1.0.0-sprint (os dois últimos estão no rodapé do app)"
     validations:
       required: true
 

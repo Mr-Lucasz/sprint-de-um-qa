@@ -17,7 +17,7 @@ Use também a **suposição de erro** (4.4.1): pense nos erros que um dev comete
 
 ## Charters
 
-Cada dupla pega **um** charter. Ferramentas permitidas: navegador, DevTools (aba Network) e a documentação em http://localhost:3000/docs.
+Cada dupla pega **um** charter. Ferramentas permitidas: navegador, DevTools (aba Network) e a documentação da API (link "Documentação da API" no rodapé do app).
 
 **Charter 1 · Limites de cadastro**
 Explore o cadastro de usuário com dados nas bordas e fora delas, para descobrir se as regras da US01 são respeitadas pela tela e pela API.

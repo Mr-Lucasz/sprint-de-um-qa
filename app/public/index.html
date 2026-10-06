@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
-  <script src="/config.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -31,6 +31,15 @@
   <div id="aviso" class="aviso" role="status" aria-live="polite" data-testid="mensagem" hidden></div>
 
   <main id="conteudo" tabindex="-1"></main>
+
+  <footer class="rodape">
+    <div class="rodape-conteudo">
+      <span>Ambiente <strong data-testid="rodape-ambiente"></strong></span>
+      <span>Versão <strong data-testid="rodape-versao"></strong></span>
+      <a class="rodape-fim" href="docs/">Documentação da API</a>
+      <a id="link-defeitos" href="#" hidden>Relatar defeito</a>
+    </div>
+  </footer>
 
   <template id="tpl-entrar">
     <section class="formulario" aria-labelledby="titulo-entrar">
@@ -63,9 +72,10 @@
         <p class="erro" role="alert" data-testid="erro-formulario" hidden></p>
         <button type="submit" class="botao" data-testid="botao-criar-conta">Criar conta</button>
       </form>
+      <p class="apoio">Já tem conta? <a href="#/entrar">Entrar</a></p>
     </section>
   </template>
 
-  <script src="/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

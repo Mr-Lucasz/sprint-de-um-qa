@@ -1,0 +1,12 @@
+instrutor
+dia-1
+dia-2
+sprint
+.github
+.env*
+node_modules
+test-results
+playwright-report
+resultados
+*.md
+playwright.config.ts

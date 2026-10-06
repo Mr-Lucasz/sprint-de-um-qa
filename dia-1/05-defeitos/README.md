@@ -11,7 +11,7 @@ Alinhado ao conteúdo sugerido pelo syllabus:
 | Campo | Para quê |
 |---|---|
 | Identificador e título | Achar e entender o problema só pelo título |
-| Objeto de teste e ambiente | Saber **onde** e **em que versão/configuração** aconteceu |
+| Objeto de teste e ambiente | Saber **onde** e **em que versão/configuração** aconteceu. No Inscrevi, o ambiente e a versão estão no rodapé |
 | Contexto | Qual caso de teste, charter ou história estava sendo testado |
 | Passos para reproduzir | Sequência mínima e numerada, com dados concretos |
 | Resultado esperado × obtido | A diferença que caracteriza o defeito |

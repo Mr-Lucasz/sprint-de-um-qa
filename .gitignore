@@ -10,3 +10,9 @@ dia-2/04-cypress/cypress/videos/
 dia-2/04-cypress/cypress/downloads/
 .DS_Store
 instrutor/
+.env
+.env.*
+!.env.example
+.vercel
+
+.vercel

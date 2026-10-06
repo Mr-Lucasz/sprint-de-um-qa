@@ -4,10 +4,14 @@
   "private": true,
   "description": "Repositório do minicurso \"A Sprint de um QA: qualidade de software na prática\"",
   "license": "MIT",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node app/server.js",
     "start:estavel": "node app/server.js --modo=estavel",
+    "start:hospedado": "node --env-file=.env.hospedado app/server.js",
+    "banco:preparar": "node --env-file=.env.hospedado app/scripts/preparar-banco.js",
     "test:api": "playwright test --project=api",
     "test:e2e": "playwright test --project=e2e",
     "test:playwright": "playwright test",
@@ -18,7 +22,9 @@
     "massa": "node dia-2/05-ia/gerar-massa.js"
   },
   "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "express": "^5.2.1",
+    "pg": "^8.23.1",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
