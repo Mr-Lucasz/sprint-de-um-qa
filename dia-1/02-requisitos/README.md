@@ -6,34 +6,70 @@ Base: CTFL v4.0.1, seções **3.2** (revisões), **4.2** (técnicas caixa-preta)
 
 Revisar uma história é **teste estático** (CTFL 3.1). Um requisito ambíguo vira defeito no código; uma pergunta no refinamento é o defeito mais barato que existe.
 
-Uma boa história segue o **INVEST**: Independente, Negociável, Valiosa, Estimável, Pequena (Small) e Testável. Critérios de aceite podem ser escritos como **regras** (lista) ou como **cenários** (Dado/Quando/Então) (CTFL 4.5.2).
+Critérios de aceite podem ser escritos como **regras** (lista) ou como **cenários** (Dado/Quando/Então) (CTFL 4.5.2). No backlog do Inscrevi eles estão em cenários Gherkin.
+
+## INVEST: a régua do refinamento
+
+Uma história está pronta para entrar na Sprint quando passa nos seis critérios:
+
+| Letra | Critério | Pergunta que o QA faz | Sinais de problema |
+|---|---|---|---|
+| **I** | Independente | Dá para entregar e testar esta história sem esperar outra? | Cita funcionalidade de outra história; depende de algo que não existe |
+| **N** | Negociável | A história diz **o que** resolver e deixa o **como** em aberto? | Cor de botão, nome de tabela, biblioteca, tamanho em pixels |
+| **V** | Valiosa | Quem ganha o quê com isso? | "Para" que só interessa ao sistema; persona que não é quem usa |
+| **E** | Estimável | O time sabe o suficiente para dimensionar? | Regra faltando; "nome válido" sem dizer o que é válido; cenário negativo ausente |
+| **S** | Pequena (Small) | Cabe numa Sprint? É uma coisa só? | "E também...", várias funcionalidades na mesma história |
+| **T** | Testável | Consigo escrever um caso de teste com resultado esperado claro? | "Rapidamente", "adequadamente", "razoável"; cenário que contradiz a regra; `Então` sem resultado observável |
+
+Além do INVEST, confira o **Gherkin**: o `Dado` descreve o estado de partida com dados concretos, o `Quando` é uma ação só, e o `Então` é algo que dá para observar. E compare as partes da história entre si: a narrativa, a solução e os cenários contam a mesma coisa?
 
 ---
 
-## Exercício 1 · Refinando a US07 (20 min, em grupos de 3 ou 4)
+## Exercício 1 · QA de plantão no refinamento (25 min, em duplas)
 
-O PO trouxe esta história para o refinamento. Vocês são o "amigo do teste" na conversa dos três amigos.
+O PO trouxe 16 histórias para o refinamento. **Nenhuma está pronta**: todas chegaram como rascunho e têm problemas. Vocês são o "amigo do teste" na conversa dos três amigos, e a história da sua dupla só entra na Sprint depois que passar por vocês.
 
-> **US07 · Lista de espera (rascunho)**
->
-> **Como** estudante
-> **Quero** entrar numa lista de espera quando o curso estiver lotado
-> **Para** não perder a chance de participar
->
-> **Critérios de aceite**
-> 1. Quando o curso estiver cheio, aparece o botão "Entrar na lista de espera".
-> 2. Quando alguém cancelar, a próxima pessoa da fila é inscrita automaticamente.
-> 3. O aluno é avisado rapidamente quando conseguir a vaga.
-> 4. A lista de espera tem um limite razoável de pessoas.
-> 5. O sistema não deve deixar a pessoa entrar duas vezes.
+As histórias estão no [backlog](../../sprint/backlog.md) e no [quadro da Sprint](https://github.com/users/Mr-Lucasz/projects/4), na coluna **Em refinamento**, agrupadas por épico.
 
 **Tarefas**
 
-1. Liste **todas as perguntas** que vocês fariam ao PO. Procure ambiguidades, palavras vagas, regras que faltam e conflitos com as histórias US04 a US06.
-2. Reescreva os critérios que puderem tornando-os **testáveis**.
-3. Escreva **2 cenários em Gherkin** para a regra 2.
+1. Leiam a história da dupla inteira: narrativa de negócio, problemática, solução, história e critérios de aceite.
+2. Preencham a **ficha INVEST** abaixo, dando uma nota de 0 a 2 para cada letra.
+3. Listem **todos os problemas** que encontrarem e as **perguntas para o PO**. Para cada problema, indiquem a letra do INVEST e o trecho da história.
+4. Reescrevam **um cenário** corrigido em Gherkin.
+5. Publiquem a ficha como **comentário na issue** da história.
 
-**Dicas para caçar ambiguidade:** palavras como *rapidamente*, *razoável*, *automaticamente*; o que acontece com conflito de horário; quem é "a próxima pessoa"; como a pessoa é avisada; o que "duas vezes" significa (duas vezes na fila? na fila e inscrita?).
+**Dicas para caçar problemas:** palavras vagas (*rapidamente*, *razoável*, *adequadamente*, *automaticamente*); números que mudam entre a solução e os cenários; o que acontece quando dá errado; quem pode fazer a ação; conflito com as regras de outra história.
+
+### Ficha INVEST
+
+```
+História:                                Dupla:
+
+Nota: 0 = não atende · 1 = atende em parte · 2 = atende
+
+| Letra | Nota | Justificativa |
+|-------|------|---------------|
+| I     |      |               |
+| N     |      |               |
+| V     |      |               |
+| E     |      |               |
+| S     |      |               |
+| T     |      |               |
+Total:    / 12
+
+Problemas encontrados (letra do INVEST · trecho · por que é problema):
+1.
+2.
+3.
+
+Perguntas para o PO:
+-
+
+Cenário reescrito:
+```
+
+**Socialização (10 min):** algumas duplas apresentam o que encontraram. Ao final, o PO publica a versão fechada no refinamento, que passa a ser a referência para os casos de teste do resto do curso.
 
 ---
 
@@ -78,4 +114,4 @@ Uma vaga passa por estados: **livre → ocupada → livre** (após cancelamento)
 
 ## Exercício 2 · Aplicando as técnicas (15 min)
 
-Escolha **uma** das histórias US01, US04 ou US06 e, em [../03-casos-de-teste/casos-de-teste.csv](../03-casos-de-teste/casos-de-teste.csv), escreva pelo menos **5 casos de teste**, indicando a técnica usada em cada um.
+Com a versão **refinada** do backlog em mãos, escolha **uma** das histórias US01, US04 ou US06 e, em [../03-casos-de-teste/casos-de-teste.csv](../03-casos-de-teste/casos-de-teste.csv), escreva pelo menos **5 casos de teste**, indicando a técnica usada em cada um.
