@@ -36,7 +36,7 @@ Revise esta história como um QA num refinamento. Aponte palavras vagas,
 regras ausentes, conflitos com as outras histórias e critérios não testáveis.
 Para cada ponto, sugira uma pergunta objetiva ao PO.
 
-<cole aqui a US07 de dia-1/02-requisitos>
+<cole aqui a US07 de sprint/backlog.md>
 ```
 
 **3. Massa de teste**
