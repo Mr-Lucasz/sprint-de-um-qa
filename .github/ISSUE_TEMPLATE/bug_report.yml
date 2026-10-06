@@ -1,17 +1,37 @@
-# Formulário de relato de defeito.
+# Formulário de report de bug.
 # Campos alinhados ao conteúdo de um relatório de defeito do syllabus CTFL v4.0 (seção 5.5).
 # Sintaxe de issue forms: https://docs.github.com/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
-name: Relatar defeito
-description: Registre uma falha encontrada no Inscrevi
-title: "[Defeito] "
+name: Reportar bug
+description: Registre uma falha encontrada no Inscrevi com informações para reprodução
+title: "[Bug] "
 labels: ["defeito", "triagem"]
 body:
   - type: markdown
     attributes:
       value: |
         Antes de enviar, confira se outra pessoa já não relatou o mesmo problema.
-        Um bom título responde: **onde**, **o quê** e **em que condição**.
-        Exemplo: *Inscrição aceita quando o curso já não tem vagas*.
+        Use este padrão no título: **[Bug] [área] - [comportamento observado] - [condição]**.
+        Exemplo: *[Bug] Inscrição - aceita aluno - quando o curso está sem vagas*.
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição breve
+      description: Resuma o problema em uma ou duas frases, sem incluir hipóteses sobre a causa.
+      placeholder: "Ao tentar se inscrever em um curso sem vagas, o sistema confirma a inscrição."
+    validations:
+      required: true
+
+  - type: textarea
+    id: precondicoes
+    attributes:
+      label: Pré-condições
+      description: Informe o estado necessário antes do teste, incluindo conta, dados e permissões.
+      placeholder: |
+        - Usuário autenticado como participante
+        - Curso "Introdução a QA" criado e sem vagas disponíveis
+    validations:
+      required: true
 
   - type: dropdown
     id: historia
@@ -86,6 +106,12 @@ body:
     attributes:
       label: Evidências
       description: Arraste prints, vídeos ou cole logs e respostas da API.
+
+  - type: textarea
+    id: adicionais
+    attributes:
+      label: Informações adicionais
+      description: Inclua qualquer contexto útil, como frequência, workaround, links ou observações.
 
   - type: input
     id: caso
