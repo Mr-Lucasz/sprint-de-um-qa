@@ -12,7 +12,8 @@ decisão de qualidade.
 
 ## Template da dinâmica
 
-Em duplas, escolham uma história refinada da [Sprint](../../sprint/) e
+Em duplas, escolham uma história da Sprint atual (US01 a US06), na versão
+refinada do [backlog](../../sprint/backlog.md), e
 preencham o plano abaixo. Usem os casos de teste da etapa anterior como ponto
 de partida e considerem que a aplicação estará disponível no ambiente de
 homologação.

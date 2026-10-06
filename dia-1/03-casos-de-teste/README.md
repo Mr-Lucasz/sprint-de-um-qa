@@ -36,7 +36,9 @@ Cenário: Aceitar senha com exatamente 8 caracteres
 
 ## Exercício (25 min)
 
-1. Escolha uma história refinada e escreva pelo menos 5 cenários no CSV.
+1. Escolha uma história da Sprint atual (**US01 a US06**), na versão refinada
+   do [backlog](../../sprint/backlog.md), e escreva pelo menos 5 cenários no CSV.
+   As histórias US07 a US16 ainda não têm versão refinada publicada.
 2. Para cada cenário, use uma única ação em `quando` e um resultado
    observável em `entao`.
 3. Inclua exemplos positivos, negativos e valores de fronteira quando a regra

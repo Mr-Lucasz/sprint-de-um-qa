@@ -28,7 +28,7 @@ Explore o cadastro de usuário com dados nas bordas e fora delas, para descobrir
 
 **Charter 2 · Disputa por vagas**
 Explore a inscrição em cursos com poucas vagas usando várias contas, para descobrir se o limite de vagas da US04 é respeitado em todos os caminhos.
-_Dica: a Oficina de acessibilidade web tem só 2 vagas._
+_Dica: a Oficina de acessibilidade web tem só 2 vagas. Como a turma inteira usa o mesmo sistema, ela pode já estar cheia: confira antes de começar e, se precisar, peça ao instrutor para reiniciar os dados._
 
 **Charter 3 · Agenda da pessoa estudante**
 Explore inscrições em cursos de datas e horários variados, para descobrir se as regras de duplicidade e de conflito de horário da US04 se sustentam.
