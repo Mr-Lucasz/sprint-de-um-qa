@@ -8,6 +8,8 @@ const config = require('./src/config');
 const openapi = require('./openapi.json');
 
 const AMBIENTE_LOCAL = 'local';
+// Com DATABASE_URL, a raiz do site atende este ambiente, compartilhado por todo mundo.
+const AMBIENTE_COMPARTILHADO = process.env.AMBIENTE_RAIZ || 'turma';
 
 const app = express();
 
@@ -33,7 +35,15 @@ function ambienteLocal(req, res, next) {
   next();
 }
 
-// /t/<ambiente>/...: cada ambiente tem os seus dados e o seu modo.
+// Com DATABASE_URL: a raiz é o ambiente compartilhado, com o modo gravado no banco.
+async function ambienteCompartilhado(req, res, next) {
+  const ambiente = await banco.buscarAmbiente(AMBIENTE_COMPARTILHADO);
+  if (!ambiente) return res.status(503).json({ mensagem: 'Ambiente ainda não preparado.' });
+  montarAmbiente(req, ambiente.slug, ambiente.modo, '');
+  next();
+}
+
+// /t/<ambiente>/...: ambientes extras, cada um com os seus dados e o seu modo.
 async function ambienteDaUrl(req, res, next) {
   const ambiente = await banco.buscarAmbiente(req.params.ambiente);
   if (!ambiente) {
@@ -67,7 +77,7 @@ site.use('/api', rotas);
 site.use('/api', (req, res) => res.status(404).json({ mensagem: 'Rota não encontrada.' }));
 
 function documentacao(req) {
-  if (!req.amb.base) return openapi;
+  if (!req.amb.base) return banco.hospedado ? { ...openapi, servers: [{ url: '/api' }] } : openapi;
   return { ...openapi, servers: [{ url: `${req.amb.base}/api` }] };
 }
 
@@ -81,13 +91,7 @@ site.use(express.static(path.join(__dirname, 'public')));
 app.use('/instrutor', painel);
 app.use('/t/:ambiente', ambienteDaUrl, site);
 
-if (banco.hospedado) {
-  app.get('/', (req, res) => {
-    res.type('html').send(pagina('Inscrevi', 'Abra o endereço do ambiente de teste que você recebeu do time.'));
-  });
-} else {
-  app.use(ambienteLocal, site);
-}
+app.use(banco.hospedado ? ambienteCompartilhado : ambienteLocal, site);
 
 function pagina(titulo, texto) {
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">

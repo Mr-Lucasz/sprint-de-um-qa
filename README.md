@@ -31,7 +31,7 @@ Rodando assim, o Inscrevi usa um banco PostgreSQL embutido em memória: reinicia
 
 ### Ambiente de homologação
 
-No dia 1 cada dupla testa num ambiente hospedado, com dados só seus: `https://inscrevi.vercel.app/t/<ambiente>/` (o instrutor informa o nome do ambiente da sua dupla, por exemplo `dupla-07`). A API fica em `/t/<ambiente>/api` e a documentação em `/t/<ambiente>/docs`. As contas de exemplo acima existem em todos os ambientes.
+No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.vercel.app. A API fica em https://inscrevi.vercel.app/api e a documentação em https://inscrevi.vercel.app/docs. Os dados são compartilhados: o que uma pessoa cadastra ou altera, todas as outras veem.
 
 > **Regra do dia 1:** não abra a pasta `app/`. Um QA testando em caixa-preta não vê o código, e é isso que vamos praticar. No dia 2 ela fica liberada.
 
@@ -74,7 +74,7 @@ No dia 1 cada dupla testa num ambiente hospedado, com dados só seus: `https://i
 | `npm run test:bdd` | Roda os cenários Gherkin com Cucumber (app precisa estar no ar) |
 | `npm run massa` | Gera massa de teste com Faker |
 | `npm run start:hospedado` | Sobe o Inscrevi ligado a um Postgres externo (precisa do `.env.hospedado`, veja `.env.example`) |
-| `npm run banco:preparar` | Cria os ambientes de teste no Postgres externo |
+| `npm run banco:preparar` | Cria as tabelas e os dados iniciais no Postgres externo |
 
 ## Estrutura
 

@@ -141,6 +141,7 @@ async function carregar() {
 }
 
 const SO_TELA = new Set(['F09', 'F10']);
+const RAIZ = banco.hospedado ? (process.env.AMBIENTE_RAIZ || 'turma') : 'local';
 const CONTAS_INICIAIS = 3;
 const INSCRICOES_INICIAIS = 2;
 
@@ -189,7 +190,7 @@ function telaPainel({ ambientes, itens }, aviso) {
       <td class="num">${a.inscricoes}</td>
       <td class="num">${a.ocorridos.length ? esc(a.ocorridos.join(', ')) : 'nenhum'}</td>
       <td class="num">
-        <a href="/t/${esc(a.slug)}/">Abrir</a>
+        <a href="${a.slug === RAIZ ? "/" : `/t/${esc(a.slug)}/`}">Abrir</a>
         <form method="post" action="/instrutor/ambientes/${esc(a.slug)}/reiniciar"><button class="perigo" aria-label="Reiniciar ${esc(a.slug)}">Reiniciar</button></form>
       </td>
     </tr>`).join('');
@@ -199,12 +200,12 @@ function telaPainel({ ambientes, itens }, aviso) {
     <section class="linha" style="justify-content: space-between">
       <div>
         <h1>Ambientes de teste</h1>
-        <p class="apoio">Cada dupla testa num ambiente isolado, com os mesmos dados iniciais.</p>
+        <p class="apoio">A turma usa o ambiente da raiz do site. Os demais são extras, com dados isolados.</p>
       </div>
       <form method="post" action="/instrutor/ambientes">
-        <label>Nome ou prefixo <input name="prefixo" value="dupla" size="10" required></label>
-        <label>Quantidade <input name="quantidade" type="number" min="1" max="40" value="20" style="width: 6rem"></label>
-        <button>Criar ambientes</button>
+        <label>Nome do ambiente <input name="prefixo" size="12" required></label>
+        <input type="hidden" name="quantidade" value="1">
+        <button>Criar ambiente</button>
       </form>
     </section>
 

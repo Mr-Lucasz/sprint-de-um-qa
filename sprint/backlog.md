@@ -2,7 +2,7 @@
 
 **Produto:** Inscrevi, sistema de inscrição em minicursos de eventos acadêmicos.
 **Objetivo da Sprint:** permitir que estudantes criem conta, vejam a programação e gerenciem as próprias inscrições com segurança.
-**Ambiente de teste (homologação):** `https://inscrevi.vercel.app/t/<ambiente>/` · API: `/t/<ambiente>/api` · Documentação: `/t/<ambiente>/docs`
+**Ambiente de teste (homologação):** https://inscrevi.vercel.app · API: https://inscrevi.vercel.app/api · Documentação: https://inscrevi.vercel.app/docs
 **Ambiente local:** http://localhost:3000 · API: http://localhost:3000/api · Documentação: http://localhost:3000/docs
 
 As histórias seguem o formato dos 3 Cs (cartão, conversa e confirmação) descrito no syllabus CTFL v4.0, seção 4.5.1. Os critérios de aceite estão em formato de regras, e alguns também em cenários Gherkin.

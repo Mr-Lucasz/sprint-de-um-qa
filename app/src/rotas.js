@@ -259,6 +259,8 @@ router.delete('/inscricoes/:id', autenticar, async (req, res) => {
 // ---------- apoio a testes ----------
 
 router.post('/test/reset', async (req, res) => {
+  // Num banco compartilhado, quem reinicia os dados é o painel do instrutor.
+  if (banco.hospedado) return erro(res, 403, 'Disponível apenas no ambiente local.');
   await banco.semear(req.amb.slug);
   res.status(204).end();
 });
