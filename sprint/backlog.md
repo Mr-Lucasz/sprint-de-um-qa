@@ -5,6 +5,7 @@
 **Ambiente de teste (homologação):** https://inscrevi.vercel.app · API: https://inscrevi.vercel.app/api · Documentação: https://inscrevi.vercel.app/docs
 **Ambiente local:** http://localhost:3000 · API: http://localhost:3000/api · Documentação: http://localhost:3000/docs
 **Quadro da Sprint:** https://github.com/users/Mr-Lucasz/projects/4
+**Protótipos de tela:** https://claude.ai/artifact/EppH87VQmyfY2aCtzQXuov
 
 > **Estas histórias são rascunhos e ainda não passaram pelo refinamento.** Elas chegaram do PO como estão. Antes de qualquer teste, o time avalia cada uma com o INVEST (veja [dia-1/02-requisitos](../dia-1/02-requisitos/)) e registra os apontamentos na issue correspondente. A versão fechada no refinamento substitui este arquivo.
 

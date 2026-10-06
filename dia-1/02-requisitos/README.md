@@ -31,15 +31,20 @@ O PO trouxe 16 histórias para o refinamento. **Nenhuma está pronta**: todas ch
 
 As histórias estão no [backlog](../../sprint/backlog.md) e no [quadro da Sprint](https://github.com/users/Mr-Lucasz/projects/4), na coluna **Em refinamento**, agrupadas por épico.
 
+Cada história tem também um **protótipo de tela**, feito pelo time de design a partir do mesmo rascunho: [protótipos do Inscrevi](https://claude.ai/artifact/EppH87VQmyfY2aCtzQXuov). Cada tela leva no título o número da história. Protótipo também é artefato de teste: revisá-lo é teste estático, do mesmo jeito que revisar a história.
+
 **Tarefas**
 
 1. Leiam a história da dupla inteira: narrativa de negócio, problemática, solução, história e critérios de aceite.
 2. Preencham a **ficha INVEST** abaixo, dando uma nota de 0 a 2 para cada letra.
 3. Listem **todos os problemas** que encontrarem e as **perguntas para o PO**. Para cada problema, indiquem a letra do INVEST e o trecho da história.
-4. Reescrevam **um cenário** corrigido em Gherkin.
-5. Publiquem a ficha como **comentário na issue** da história.
+4. Abram o **protótipo** da história e comparem com o texto: a tela mostra o que a história pede? Mostra algo que a história não pede? Os números, nomes e mensagens batem entre si?
+5. Reescrevam **um cenário** corrigido em Gherkin.
+6. Publiquem a ficha como **comentário na issue** da história.
 
-**Dicas para caçar problemas:** palavras vagas (*rapidamente*, *razoável*, *adequadamente*, *automaticamente*); números que mudam entre a solução e os cenários; o que acontece quando dá errado; quem pode fazer a ação; conflito com as regras de outra história.
+**Dicas para o protótipo:** contadores que não batem com a lista; nome de pessoa ou de minicurso diferente entre partes da tela; botão habilitado quando a regra proíbe; campo sem rótulo; ação destrutiva em destaque ou sem confirmação; informação que a história pede e a tela não mostra.
+
+**Dicas para caçar problemas na história:** palavras vagas (*rapidamente*, *razoável*, *adequadamente*, *automaticamente*); números que mudam entre a solução e os cenários; o que acontece quando dá errado; quem pode fazer a ação; conflito com as regras de outra história.
 
 ### Ficha INVEST
 
@@ -62,6 +67,10 @@ Problemas encontrados (letra do INVEST · trecho · por que é problema):
 1.
 2.
 3.
+
+Protótipo (o que a tela mostra · o que a história diz · por que é problema):
+1.
+2.
 
 Perguntas para o PO:
 -
@@ -114,4 +123,4 @@ Uma vaga passa por estados: **livre → ocupada → livre** (após cancelamento)
 
 ## Exercício 2 · Aplicando as técnicas (15 min)
 
-Com a versão **refinada** do backlog em mãos, escolha **uma** das histórias US01, US04 ou US06 e, em [../03-casos-de-teste/casos-de-teste.csv](../03-casos-de-teste/casos-de-teste.csv), escreva pelo menos **5 casos de teste**, indicando a técnica usada em cada um.
+Com a versão **refinada** do backlog em mãos, escolha **uma** das histórias US01, US04 ou US06 e, em [../03-casos-de-teste/casos-de-teste.csv](../03-casos-de-teste/casos-de-teste.csv), escreva pelo menos **5 cenários de teste em BDD**, indicando a técnica complementar usada em cada um.

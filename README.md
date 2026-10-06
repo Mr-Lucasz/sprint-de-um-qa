@@ -35,6 +35,15 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 
 > **Regra do dia 1:** não abra a pasta `app/`. Um QA testando em caixa-preta não vê o código, e é isso que vamos praticar. No dia 2 ela fica liberada.
 
+### Artefatos da Sprint
+
+| Artefato | Onde está |
+|---|---|
+| Backlog (16 histórias em 5 épicos) | [sprint/backlog.md](sprint/backlog.md) |
+| Quadro da Sprint | https://github.com/users/Mr-Lucasz/projects/4 |
+| Protótipos de tela | https://claude.ai/artifact/EppH87VQmyfY2aCtzQXuov |
+| Definition of Done | [sprint/definition-of-done.md](sprint/definition-of-done.md) |
+
 ## Agenda
 
 ### Dia 1 (06/10) · Fundamentos, requisitos e testes manuais
@@ -45,8 +54,9 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 | 19:15 | Fundamentos de teste | [dia-1/01-fundamentos](dia-1/01-fundamentos/) |
 | 19:40 | Análise de requisitos e técnicas de teste | [dia-1/02-requisitos](dia-1/02-requisitos/) |
 | 20:20 | Intervalo | |
-| 20:35 | Casos de teste e teste exploratório | [dia-1/03-casos-de-teste](dia-1/03-casos-de-teste/), [dia-1/04-exploratorio](dia-1/04-exploratorio/) |
-| 21:20 | Gestão de defeitos | [dia-1/05-defeitos](dia-1/05-defeitos/) |
+| 20:35 | Casos de teste e Plano de Teste | [dia-1/03-casos-de-teste](dia-1/03-casos-de-teste/) |
+| 21:20 | Execução de testes: API e funcional | [dia-1/04-execucao-de-testes](dia-1/04-execucao-de-testes/) |
+| 21:50 | Gestão de defeitos e encerramento | [dia-1/05-defeitos](dia-1/05-defeitos/) |
 | 21:50 | Daily de encerramento e preparação para o dia 2 | |
 
 ### Dia 2 (07/10) · APIs, automação, IA e CI/CD
@@ -73,6 +83,7 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 | `npm run test:postman` | Roda a coleção do Postman com Newman (app precisa estar no ar) |
 | `npm run test:bdd` | Roda os cenários Gherkin com Cucumber (app precisa estar no ar) |
 | `npm run massa` | Gera massa de teste com Faker |
+| `npm run test:app` | Testes das rotas das histórias US07 a US16 |
 | `npm run start:hospedado` | Sobe o Inscrevi ligado a um Postgres externo (precisa do `.env.hospedado`, veja `.env.example`) |
 | `npm run banco:preparar` | Cria as tabelas e os dados iniciais no Postgres externo |
 
@@ -81,7 +92,7 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 ```
 app/                 o sistema sob teste (API + front)
 sprint/              backlog com as histórias e Definition of Done
-dia-1/               fundamentos, requisitos, casos de teste, exploratório, defeitos
+dia-1/               fundamentos, requisitos, casos e plano de teste, execução e defeitos
 dia-2/               Git, Postman, Playwright, Cypress, IA, Cucumber, CI/CD
 .github/             template de defeito, template de PR e pipeline
 ```
