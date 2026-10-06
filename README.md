@@ -81,6 +81,7 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 | `npm run test:ui` | Abre o modo UI do Playwright |
 | `npm run report` | Abre o último relatório HTML do Playwright |
 | `npm run test:postman` | Roda a coleção do Postman com Newman (app precisa estar no ar) |
+| `npm run test:postman:dia1` | Roda a coleção completa do dia 1, com todas as rotas (app precisa estar no ar) |
 | `npm run test:bdd` | Roda os cenários Gherkin com Cucumber (app precisa estar no ar) |
 | `npm run massa` | Gera massa de teste com Faker |
 | `npm run test:app` | Testes das rotas das histórias US07 a US16 |

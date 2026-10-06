@@ -42,6 +42,42 @@ Nesta primeira execução, não é necessário escrever scripts de teste. O foco
 aprender a observar a resposta da API e comparar o comportamento com o caso de
 teste e o plano de teste.
 
+## Collection automatizada ponta a ponta
+
+Depois da execução manual, você pode rodar todas as rotas da API de uma vez,
+com encadeamento de token, IDs e massa dinâmica. Importe no Postman:
+
+- `inscrevi-api-completa.postman_collection.json`: a collection, com 31 requisições;
+- `inscrevi-api-homologacao.postman_environment.json`: o ambiente que aponta
+  para `https://inscrevi.vercel.app/api`.
+
+A collection tem scripts visíveis em cada requisição, nas abas
+`Scripts > Before request` e `Scripts > After response`, com um comentário em
+cada linha explicando o que ela faz. O fluxo cobre usuários, login e logout,
+cursos, inscrições, lista de espera, recuperação de senha, e-mails simulados,
+presença e certificados.
+
+Dois cuidados na homologação:
+
+- a primeira requisição, `POST /test/reset`, é recusada com 403: num ambiente
+  compartilhado só o instrutor reinicia os dados. As demais seguem normalmente;
+- a collection cria contas, minicursos e inscrições de verdade no sistema que a
+  turma inteira está usando.
+
+Para rodar no terminal, contra o app local (`npm start` em outro terminal):
+
+```bash
+npm run test:postman:dia1
+```
+
+Esse comando usa o ambiente `inscrevi-api-local-run.postman_environment.json`,
+que aponta para `http://localhost:3000/api`. O `npm run test:postman`, sem o
+sufixo, roda a coleção do dia 2.
+
+As variáveis de ambiente mais importantes são `baseUrl`, `emailAluno`,
+`senhaAluno`, `emailAdmin`, `senhaAdmin`, `token`, `cursoId` e `inscricaoId`.
+Os IDs e o token são preenchidos automaticamente pelos scripts.
+
 ## Checklist mínimo
 
 - método, URL e coleção corretos;

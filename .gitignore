@@ -16,3 +16,6 @@ instrutor/
 .vercel
 
 .vercel
+
+# Cópia local do ambiente de homologação, com outro nome
+dia-1/04-execucao-de-testes/01-api/inscrevi-api-local.postman_environment.json
