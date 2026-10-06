@@ -12,7 +12,7 @@ decisão de qualidade.
 
 ## Template da dinâmica
 
-Em duplas, escolham uma história da Sprint atual (US01 a US06), na versão
+Cada pessoa usa a **sua história**, a mesma do refinamento, na versão
 refinada do [backlog](../../sprint/backlog.md), e
 preencham o plano abaixo. Usem os casos de teste da etapa anterior como ponto
 de partida e considerem que a aplicação estará disponível no ambiente de
@@ -22,7 +22,7 @@ homologação.
 2. Identifiquem os riscos mais importantes para o usuário e para o negócio.
 3. Escolham a abordagem: funcional, API, exploratória, regressão ou outra.
 4. Definam dados, ambiente, responsabilidades e evidências esperadas.
-5. Compartilhem o plano com outra dupla e ajustem os pontos que ficaram
+5. Compartilhem o plano com outra pessoa e ajustem os pontos que ficaram
    ambíguos.
 
 ## Template

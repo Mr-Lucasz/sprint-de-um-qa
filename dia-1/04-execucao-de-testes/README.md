@@ -17,7 +17,7 @@ mesmos dados. Isso muda a forma de testar:
 - **Criem as suas próprias contas** para os testes, em vez de usar só as contas
   de exemplo, que todo mundo conhece.
 - **Não contem com o estado inicial.** Uma vaga que estava livre pode ter sido
-  ocupada por outra dupla um minuto antes. Confiram a pré-condição do cenário
+  ocupada por outra pessoa um minuto antes. Confiram a pré-condição do cenário
   antes de executar e anotem o que encontraram.
 - **Os minicursos pequenos esgotam rápido.** Se precisarem de vagas de volta,
   peçam ao instrutor para reiniciar os dados.
@@ -26,7 +26,7 @@ mesmos dados. Isso muda a forma de testar:
 
 ## Dinâmica · Compartilhando evidências (10 min)
 
-Cada dupla apresenta:
+Cada pessoa apresenta:
 
 - qual história e risco priorizou;
 - quais testes executou;

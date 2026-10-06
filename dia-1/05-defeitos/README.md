@@ -52,4 +52,4 @@ Novo → Em triagem → Aberto → Em correção → Pronto para teste → Fecha
 2. Registre os defeitos que você encontrou nos casos de teste, na execução de
    API e na execução funcional.
 3. Antes de criar, procure se alguém já relatou o mesmo. Se sim, comente com informações novas em vez de duplicar.
-4. Revise o relato de uma dupla vizinha: dá para reproduzir só com o que está escrito?
+4. Revise o relato de outra pessoa: dá para reproduzir só com o que está escrito?

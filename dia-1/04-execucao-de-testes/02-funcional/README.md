@@ -20,8 +20,21 @@ Use também a **suposição de erro** (4.4.1): pense nos erros que um dev comete
 
 ## Charters
 
-Cada dupla pega **um** charter. Ferramentas permitidas: navegador, DevTools e a
-documentação da API apenas para observar as chamadas feitas pela interface.
+Cada pessoa pega **o charter da sua história** (a tabela abaixo diz qual).
+Ferramentas permitidas: navegador, DevTools e a documentação da API apenas para
+observar as chamadas feitas pela interface.
+
+| Sua história | Charter |
+|---|---|
+| US01 | 1 |
+| US04 | 2 e 3 |
+| US03, US06 | 4 |
+| US05 | 5 |
+| US02, US08, US09, US10 | 6 |
+| US07 | 7 |
+| US11, US12 | 8 |
+| US13, US14 | 9 |
+| US15, US16 | 10 |
 
 **Charter 1 · Limites de cadastro**
 Explore o cadastro de usuário com dados nas bordas e fora delas, para descobrir se as regras da US01 são respeitadas pela tela e pela API.
@@ -39,6 +52,24 @@ Explore inscrever, cancelar e voltar a se inscrever, observando a programação 
 **Charter 5 · Privacidade**
 Explore o que uma pessoa logada consegue ver e fazer com dados de outras pessoas, para descobrir se a US05 e a US06 protegem as informações.
 _Dica: observe as URLs da API na aba Network do DevTools._
+
+**Charter 6 · Acesso à conta**
+Explore entrar, sair, recuperar a senha e corrigir o nome, para descobrir se a conta de uma pessoa fica protegida e correta do começo ao fim (US02, US08, US09 e US10).
+_Dica: os e-mails não são enviados de verdade. Entre com a conta de administrador de exemplo e abra "E-mails enviados" para achar o link de redefinição._
+
+**Charter 7 · Fila pela vaga**
+Explore a lista de espera de um minicurso lotado com várias contas, entrando, saindo e cancelando inscrições, para descobrir se a vaga liberada vai para a pessoa certa (US07).
+_Dica: experimente uma pessoa da fila que já tem outro minicurso no mesmo horário._
+
+**Charter 8 · Encontrar e conhecer um minicurso**
+Explore a busca da programação e a página de detalhes com termos variados, endereços digitados à mão e minicursos em situações diferentes, para descobrir se a pessoa sempre chega à informação certa (US11 e US12).
+
+**Charter 9 · Administração da programação**
+Explore o cadastro e a exclusão de minicursos com dados nas bordas e fora delas, e com contas de perfis diferentes, para descobrir se só quem pode consegue mexer na programação (US13 e US14).
+_Dica: use a conta de administrador de exemplo e compare com o que uma conta de estudante consegue fazer pela API._
+
+**Charter 10 · Da presença ao certificado**
+Explore o registro de presença e o download do certificado, com e sem presença e com contas diferentes, para descobrir se o certificado só chega a quem participou e com os dados certos (US15 e US16).
 
 ## Ficha da execução
 

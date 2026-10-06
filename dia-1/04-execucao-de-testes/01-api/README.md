@@ -12,8 +12,14 @@ em `http://localhost:3000/api`.
 
 ## Dinâmica · Validando o contrato da API (25 min)
 
-Em duplas, escolham uma história com comportamento de API explícito
-([backlog](../../../sprint/backlog.md)).
+Cada pessoa testa a **sua história** pela API, usando a versão refinada do
+[backlog](../../../sprint/backlog.md). Todas as 16 histórias têm rotas na API;
+a documentação em `/docs` mostra quais.
+
+Algumas rotas são só de administrador (cadastrar e excluir minicurso, lista de
+presença, e-mails enviados). Para testá-las, use a conta de administrador de
+exemplo, que está no [README](../../../README.md). Os e-mails do sistema não são
+enviados de verdade: ficam em `GET /emails`, visível só para administradores.
 
 1. Abram o Postman e criem uma requisição para o endpoint escolhido.
 2. Identifiquem método HTTP, URL, autenticação e pré-condições.

@@ -25,9 +25,11 @@ Além do INVEST, confira o **Gherkin**: o `Dado` descreve o estado de partida co
 
 ---
 
-## Exercício 1 · QA de plantão no refinamento (25 min, em duplas)
+## Exercício 1 · QA de plantão no refinamento (25 min, individual)
 
-O PO trouxe 16 histórias para o refinamento. **Nenhuma está pronta**: todas chegaram como rascunho e têm problemas. Vocês são o "amigo do teste" na conversa dos três amigos, e a história da sua dupla só entra na Sprint depois que passar por vocês.
+O PO trouxe 16 histórias para o refinamento. **Nenhuma está pronta**: todas chegaram como rascunho e têm problemas. Você é o "amigo do teste" na conversa dos três amigos, e a sua história só entra na Sprint depois que passar por você.
+
+**Cada pessoa escolhe uma história, e cada história pode ter no máximo duas pessoas.** O trabalho é individual: quem dividir a história com alguém faz a própria ficha e compara os achados no final. A história que você escolher agora acompanha você nas próximas dinâmicas (casos de teste, plano de teste e execução).
 
 As histórias estão no [backlog](../../sprint/backlog.md) e no [quadro da Sprint](https://github.com/users/Mr-Lucasz/projects/4), na coluna **Em refinamento**, agrupadas por épico.
 
@@ -35,12 +37,13 @@ Cada história tem também um **protótipo de tela**, feito pelo time de design 
 
 **Tarefas**
 
-1. Leiam a história da dupla inteira: narrativa de negócio, problemática, solução, história e critérios de aceite.
-2. Preencham a **ficha INVEST** abaixo, dando uma nota de 0 a 2 para cada letra.
-3. Listem **todos os problemas** que encontrarem e as **perguntas para o PO**. Para cada problema, indiquem a letra do INVEST e o trecho da história.
-4. Abram o **protótipo** da história e comparem com o texto: a tela mostra o que a história pede? Mostra algo que a história não pede? Os números, nomes e mensagens batem entre si?
-5. Reescrevam **um cenário** corrigido em Gherkin.
-6. Publiquem a ficha como **comentário na issue** da história.
+1. Escolha a sua história no quadro e comente "é minha" na issue, para a turma ver quais já têm duas pessoas.
+2. Leia a história inteira: narrativa de negócio, problemática, solução, história e critérios de aceite.
+3. Preencha a **ficha INVEST** abaixo, dando uma nota de 0 a 2 para cada letra.
+4. Liste **todos os problemas** que encontrar e as **perguntas para o PO**. Para cada problema, indique a letra do INVEST e o trecho da história.
+5. Abra o **protótipo** da história e compare com o texto: a tela mostra o que a história pede? Mostra algo que a história não pede? Os números, nomes e mensagens batem entre si?
+6. Reescreva **um cenário** corrigido em Gherkin.
+7. Publique a ficha como **comentário na issue** da história.
 
 **Dicas para o protótipo:** contadores que não batem com a lista; nome de pessoa ou de minicurso diferente entre partes da tela; botão habilitado quando a regra proíbe; campo sem rótulo; ação destrutiva em destaque ou sem confirmação; informação que a história pede e a tela não mostra.
 
@@ -49,7 +52,7 @@ Cada história tem também um **protótipo de tela**, feito pelo time de design 
 ### Ficha INVEST
 
 ```
-História:                                Dupla:
+História:                                Nome:
 
 Nota: 0 = não atende · 1 = atende em parte · 2 = atende
 
@@ -78,7 +81,7 @@ Perguntas para o PO:
 Cenário reescrito:
 ```
 
-**Socialização (10 min):** algumas duplas apresentam o que encontraram. Ao final, o PO publica a versão fechada no refinamento, que passa a ser a referência para os casos de teste do resto do curso.
+**Socialização (10 min):** algumas pessoas apresentam o que encontraram; onde duas pessoas pegaram a mesma história, elas comparam as fichas. Ao final, o PO publica a versão fechada no refinamento das 16 histórias, que passa a ser a referência para os casos de teste, o plano de teste e a execução.
 
 ---
 
@@ -123,4 +126,4 @@ Uma vaga passa por estados: **livre → ocupada → livre** (após cancelamento)
 
 ## Exercício 2 · Aplicando as técnicas (15 min)
 
-Com a versão **refinada** do backlog em mãos, escolha **uma** das histórias US01, US04 ou US06 e, em [../03-casos-de-teste/casos-de-teste.csv](../03-casos-de-teste/casos-de-teste.csv), escreva pelo menos **5 cenários de teste em BDD**, indicando a técnica complementar usada em cada um.
+Com a versão **refinada** do backlog em mãos, pegue a **sua história** e, em [../03-casos-de-teste/casos-de-teste.csv](../03-casos-de-teste/casos-de-teste.csv), escreva pelo menos **5 cenários de teste em BDD**, indicando a técnica complementar usada em cada um.

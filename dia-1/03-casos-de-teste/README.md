@@ -36,19 +36,19 @@ Cenário: Aceitar senha com exatamente 8 caracteres
 
 ## Exercício (25 min)
 
-1. Escolha uma história da Sprint atual (**US01 a US06**), na versão refinada
+1. Trabalhe com a **sua história**, a mesma do refinamento, na versão refinada
    do [backlog](../../sprint/backlog.md), e escreva pelo menos 5 cenários no CSV.
-   As histórias US07 a US16 ainda não têm versão refinada publicada.
+   Todas as 16 histórias estão implementadas no sistema e podem ser testadas.
 2. Para cada cenário, use uma única ação em `quando` e um resultado
    observável em `entao`.
 3. Inclua exemplos positivos, negativos e valores de fronteira quando a regra
    exigir.
-4. Troque de arquivo com a dupla do lado e **execute os cenários dela** no
-   Inscrevi.
+4. Troque de arquivo com uma pessoa de **outra história** e **execute os
+   cenários dela** no Inscrevi.
 5. Preencha `resultado_obtido` e `status` (`Passou`, `Falhou` ou `Bloqueado`).
 6. Todo cenário com status **Falhou** vira um relato de defeito no bloco 05.
 
-> O passo 4 é de propósito: se a sua dupla não conseguiu executar o cenário
+> O passo 4 é de propósito: se a outra pessoa não conseguiu executar o cenário
 > sem te perguntar nada, o `Dado`, o `Quando` ou o `Então` precisa de ajuste.
 
 ## Plano de teste
@@ -59,11 +59,11 @@ parte da mesma dinâmica: os casos dizem **o que verificar** e o plano registra
 **como, onde, com quais dados, riscos e critérios de saída** a validação será
 conduzida.
 
-Na mesma dupla:
+Individualmente, para a sua história:
 
 1. defina o objetivo, escopo e fora de escopo;
 2. priorize os riscos da história;
 3. escolha a abordagem e os tipos de teste;
 4. registre ambiente, dados, dependências e evidências;
 5. defina critérios de entrada e saída;
-6. troque o plano com outra dupla e revise os pontos ambíguos.
+6. troque o plano com outra pessoa e revise os pontos ambíguos.
