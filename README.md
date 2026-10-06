@@ -13,7 +13,7 @@ Siga o [SETUP.md](SETUP.md). Leva uns 15 minutos e evita perder tempo de aula co
 ## Como começar
 
 ```bash
-git clone <url-deste-repositorio>
+git clone https://github.com/Mr-Lucasz/sprint-de-um-qa.git
 cd sprint-de-um-qa
 npm install
 npm start

@@ -28,7 +28,7 @@ Você vai precisar dela no dia 1 (registrar defeitos como issues) e no dia 2 (pu
 ## 3. Clone e instale o projeto
 
 ```bash
-git clone <url-deste-repositorio>
+git clone https://github.com/Mr-Lucasz/sprint-de-um-qa.git
 cd sprint-de-um-qa
 npm install
 npx playwright install chromium
