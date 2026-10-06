@@ -23,7 +23,10 @@ function lerArg(nome) {
 const modo = (lerArg('modo') || process.env.MODO || 'sprint').trim();
 const porta = Number(lerArg('porta') || process.env.PORT || 3000);
 
-const TODOS = ['F01', 'F02', 'F03', 'F04', 'F05', 'F06', 'F07', 'F08', 'F09', 'F10'];
+const TODOS = [
+  'F01', 'F02', 'F03', 'F04', 'F05', 'F06', 'F07', 'F08', 'F09', 'F10', 'F11',
+  'F12', 'F13', 'F14', 'F15', 'F16', 'F17', 'F18', 'F19', 'F20', 'F21', 'F22',
+];
 
 function itensDoModo(texto) {
   const valor = String(texto || '').trim();

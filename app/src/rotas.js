@@ -19,8 +19,8 @@ function lerId(valor) {
   return Number.isInteger(id) && id > 0 && id <= 2147483647 ? id : null;
 }
 
-function cursoPublico(c) {
-  return { ...c, vagasDisponiveis: Math.max(c.vagas - c.inscritos, 0) };
+function cursoPublico(c, semPiso = false) {
+  return { ...c, vagasDisponiveis: semPiso ? c.vagas - c.inscritos : Math.max(c.vagas - c.inscritos, 0) };
 }
 
 function minutos(hhmm) {
@@ -110,12 +110,16 @@ router.post('/usuarios', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const { s } = req.amb;
+  const { s, ativo, registrar } = req.amb;
   const { email, senha } = req.body || {};
   const [usuario] = await banco.consultar(
     `SELECT ${COLUNAS_USUARIO}, senha_hash FROM ${s}.usuarios WHERE email = $1`,
     [String(email || '').trim().toLowerCase()],
   );
+  if (!usuario && ativo('F11')) {
+    await registrar('F11');
+    return erro(res, 404, 'Usuário não encontrado.');
+  }
   if (!usuario || typeof senha !== 'string' || !(await banco.conferirSenha(senha, usuario.senha_hash))) {
     return erro(res, 401, 'E-mail ou senha incorretos.');
   }
@@ -161,17 +165,24 @@ function semAcento(texto) {
 }
 
 router.get('/cursos', async (req, res) => {
+  const { ativo, registrar } = req.amb;
   let cursos = await banco.consultar(sqlCursos(req.amb.s, 'ORDER BY c.data, c.inicio, c.id'));
-  const busca = semAcento(typeof req.query.busca === 'string' ? req.query.busca.trim() : '');
-  if (busca) cursos = cursos.filter((c) => semAcento(`${c.titulo} ${c.descricao}`).includes(busca));
-  res.json(cursos.map(cursoPublico));
+  const termo = typeof req.query.busca === 'string' ? req.query.busca.trim() : '';
+  if (termo) {
+    const todos = cursos;
+    const normalizar = ativo('F18') ? (t) => String(t).toLowerCase() : semAcento;
+    cursos = todos.filter((c) => normalizar(`${c.titulo} ${c.descricao}`).includes(normalizar(termo)));
+    if (ativo('F18') && cursos.length !== todos.filter((c) => semAcento(`${c.titulo} ${c.descricao}`).includes(semAcento(termo))).length) await registrar('F18');
+  }
+  if (ativo('F12') && cursos.some((c) => c.inscritos > c.vagas)) await registrar('F12');
+  res.json(cursos.map((c) => cursoPublico(c, ativo('F12'))));
 });
 
 router.get('/cursos/:id', async (req, res) => {
   const id = lerId(req.params.id);
   const [curso] = id ? await banco.consultar(sqlCursos(req.amb.s, 'WHERE c.id = $1'), [id]) : [];
   if (!curso) return erro(res, 404, 'Curso não encontrado.');
-  res.json(cursoPublico(curso));
+  res.json(cursoPublico(curso, req.amb.ativo('F12')));
 });
 
 router.post('/cursos', autenticar, somenteAdmin, async (req, res) => {
@@ -180,7 +191,9 @@ router.post('/cursos', autenticar, somenteAdmin, async (req, res) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(data || '')) return erro(res, 400, 'A data deve estar no formato AAAA-MM-DD.');
   if (!/^\d{2}:\d{2}$/.test(inicio || '') || !/^\d{2}:\d{2}$/.test(fim || '')) return erro(res, 400, 'Os horários devem estar no formato HH:MM.');
   if (minutos(inicio) >= minutos(fim)) return erro(res, 400, 'O horário de início deve ser anterior ao de término.');
-  if (!Number.isInteger(vagas) || vagas < 1 || vagas > 500) return erro(res, 400, 'O número de vagas deve ser um inteiro entre 1 e 500.');
+  const minimoDeVagas = req.amb.ativo('F19') ? 0 : 1;
+  if (!Number.isInteger(vagas) || vagas < minimoDeVagas || vagas > 500) return erro(res, 400, 'O número de vagas deve ser um inteiro entre 1 e 500.');
+  if (vagas < 1) await req.amb.registrar('F19');
 
   const [curso] = await banco.consultar(
     `INSERT INTO ${req.amb.s}.cursos (titulo, descricao, data, inicio, fim, vagas, local, ministrante, pre_requisitos)
@@ -196,6 +209,10 @@ router.delete('/cursos/:id', autenticar, somenteAdmin, async (req, res) => {
   const { s } = req.amb;
   const id = lerId(req.params.id);
   const [curso] = id ? await banco.consultar(sqlCursos(s, 'WHERE c.id = $1'), [id]) : [];
+  if (!curso && req.amb.ativo('F20')) {
+    await req.amb.registrar('F20');
+    return res.status(204).end();
+  }
   if (!curso) return erro(res, 404, 'Curso não encontrado.');
   if (curso.inscritos > 0) return erro(res, 409, 'Não é possível excluir um curso com inscrições.');
   await banco.consultar(`DELETE FROM ${s}.cursos WHERE id = $1`, [id]);

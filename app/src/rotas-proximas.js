@@ -1,5 +1,5 @@
 // Rotas das histórias US07 a US16: lista de espera, sair, recuperar senha, perfil,
-// presença e certificado. Estas rotas não têm comportamento alternado pelo modo do app.
+// presença e certificado.
 const crypto = require('node:crypto');
 const banco = require('./banco');
 const { gerarPdf, cargaHoraria } = require('./certificado');
@@ -17,7 +17,8 @@ module.exports = function registrar(router, { erro, lerId, cursoPublico, sqlCurs
 
   router.post('/logout', autenticar, async (req, res) => {
     const token = (req.get('authorization') || '').split(' ')[1];
-    await banco.consultar(`DELETE FROM ${req.amb.s}.sessoes WHERE token_hash = $1`, [banco.hashToken(token)]);
+    if (req.amb.ativo('F14')) await req.amb.registrar('F14');
+    else await banco.consultar(`DELETE FROM ${req.amb.s}.sessoes WHERE token_hash = $1`, [banco.hashToken(token)]);
     res.status(204).end();
   });
 
@@ -28,13 +29,15 @@ module.exports = function registrar(router, { erro, lerId, cursoPublico, sqlCurs
     if (Object.keys(dados).some((campo) => campo !== 'nome')) {
       return erro(res, 400, 'Por enquanto só o nome pode ser alterado.');
     }
-    if (typeof dados.nome !== 'string' || dados.nome.trim().length < 3 || dados.nome.trim().length > 80) {
+    const maximo = req.amb.ativo('F16') ? 100 : 80;
+    if (typeof dados.nome !== 'string' || dados.nome.trim().length < 3 || dados.nome.trim().length > maximo) {
       return erro(res, 400, 'O nome deve ter entre 3 e 80 caracteres.');
     }
     const [usuario] = await banco.consultar(
       `UPDATE ${req.amb.s}.usuarios SET nome = $1 WHERE id = $2 RETURNING id, nome, email, perfil, criado_em AS "criadoEm"`,
       [dados.nome.trim(), req.usuario.id],
     );
+    if (dados.nome.trim().length > 80) await req.amb.registrar('F16');
     res.json(usuario);
   });
 
@@ -44,6 +47,10 @@ module.exports = function registrar(router, { erro, lerId, cursoPublico, sqlCurs
     const { s } = req.amb;
     const email = String((req.body || {}).email || '').trim().toLowerCase();
     const [usuario] = await banco.consultar(`SELECT id, nome FROM ${s}.usuarios WHERE email = $1`, [email]);
+    if (!usuario && req.amb.ativo('F15')) {
+      await req.amb.registrar('F15');
+      return erro(res, 404, 'E-mail não cadastrado.');
+    }
     if (usuario) {
       const token = crypto.randomBytes(24).toString('hex');
       await banco.transacao(async (q) => {
@@ -101,7 +108,7 @@ module.exports = function registrar(router, { erro, lerId, cursoPublico, sqlCurs
       const [curso] = await q(sqlCursos(s, 'WHERE c.id = $1'), [cursoId]);
 
       const [inscrito] = await q(`SELECT 1 FROM ${s}.inscricoes WHERE usuario_id = $1 AND curso_id = $2`, [req.usuario.id, cursoId]);
-      if (inscrito) return { status: 409, mensagem: 'Você já está inscrito neste curso.' };
+      if (inscrito && !req.amb.ativo('F13')) return { status: 409, mensagem: 'Você já está inscrito neste curso.' };
       if (curso.inscritos < curso.vagas) return { status: 409, mensagem: 'Este curso ainda tem vagas disponíveis.' };
 
       const fila = await q(`SELECT usuario_id FROM ${s}.lista_espera WHERE curso_id = $1 ORDER BY id`, [cursoId]);
@@ -113,8 +120,9 @@ module.exports = function registrar(router, { erro, lerId, cursoPublico, sqlCurs
          RETURNING id, usuario_id AS "usuarioId", curso_id AS "cursoId", criada_em AS "criadaEm"`,
         [req.usuario.id, cursoId],
       );
-      return { entrada: { ...entrada, posicao: fila.length + 1 } };
+      return { entrada: { ...entrada, posicao: fila.length + 1 }, jaInscrito: Boolean(inscrito) };
     });
+    if (resultado.jaInscrito) await req.amb.registrar('F13');
 
     if (resultado.mensagem) return erro(res, resultado.status, resultado.mensagem);
     res.status(201).json(resultado.entrada);
@@ -210,7 +218,8 @@ module.exports = function registrar(router, { erro, lerId, cursoPublico, sqlCurs
       return erro(res, 400, 'Informe usuarioId, cursoId e presente (true ou false).');
     }
     const [inscricao] = await banco.consultar(`SELECT 1 FROM ${s}.inscricoes WHERE usuario_id = $1 AND curso_id = $2`, [aluno, curso]);
-    if (!inscricao) return erro(res, 409, 'A pessoa precisa estar inscrita no minicurso.');
+    if (!inscricao && !req.amb.ativo('F21')) return erro(res, 409, 'A pessoa precisa estar inscrita no minicurso.');
+    if (!inscricao) await req.amb.registrar('F21');
 
     if (presente) {
       await banco.consultar(
@@ -236,10 +245,10 @@ module.exports = function registrar(router, { erro, lerId, cursoPublico, sqlCurs
       [id],
     ) : [];
     if (!registro) return erro(res, 404, 'Inscrição não encontrada.');
-    if (registro.usuario_id !== req.usuario.id && req.usuario.perfil !== 'admin') {
-      return erro(res, 403, 'Você só pode baixar os seus próprios certificados.');
-    }
+    const alheio = registro.usuario_id !== req.usuario.id && req.usuario.perfil !== 'admin';
+    if (alheio && !req.amb.ativo('F22')) return erro(res, 403, 'Você só pode baixar os seus próprios certificados.');
     if (!registro.codigo) return erro(res, 409, 'O certificado fica disponível depois que a sua presença for registrada.');
+    if (alheio) await req.amb.registrar('F22');
     res.type('application/pdf')
       .set('Content-Disposition', `attachment; filename="certificado-${id}.pdf"`)
       .send(gerarPdf({ nome: registro.nome, curso: registro, codigo: registro.codigo }));

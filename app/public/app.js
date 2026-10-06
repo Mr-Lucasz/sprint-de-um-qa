@@ -1,5 +1,8 @@
 // Front do Inscrevi — JavaScript puro, sem build.
-const CONFIG = window.INSCREVI_CONFIG || { atualizaVagasAoCancelar: true, mostraMensagemDaApi: true };
+const CONFIG = {
+  atualizaVagasAoCancelar: true, mostraMensagemDaApi: true, avisaMinicursoInexistente: true, buscaIgnoraAcentos: true,
+  ...window.INSCREVI_CONFIG,
+};
 
 const estado = {
   token: localStorage.getItem('inscrevi.token'),
@@ -128,8 +131,9 @@ async function telaCursos() {
   const lista = el('div', { 'data-testid': 'lista-cursos' });
 
   function desenharLista() {
-    const termo = semAcento(estado.busca.trim());
-    const visiveis = termo ? cursos.filter((c) => semAcento(`${c.titulo} ${c.descricao}`).includes(termo)) : cursos;
+    const normalizar = CONFIG.buscaIgnoraAcentos ? semAcento : (texto) => String(texto).toLowerCase();
+    const termo = normalizar(estado.busca.trim());
+    const visiveis = termo ? cursos.filter((c) => normalizar(`${c.titulo} ${c.descricao}`).includes(termo)) : cursos;
     if (visiveis.length === 0) {
       lista.replaceChildren(el('p', { class: 'vazio', 'data-testid': 'busca-vazia' }, `Nenhum minicurso encontrado para "${estado.busca.trim()}".`));
       return;
@@ -252,6 +256,7 @@ async function telaDetalhes(id) {
   try {
     curso = await api(`/cursos/${id}`);
   } catch (e) {
+    if (!CONFIG.avisaMinicursoInexistente) return;
     conteudo.replaceChildren(
       el('div', { class: 'cabecalho-pagina' }, el('h1', {}, 'Minicurso não encontrado')),
       el('div', { class: 'vazio' },

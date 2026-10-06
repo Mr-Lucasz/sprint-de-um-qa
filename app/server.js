@@ -64,6 +64,8 @@ site.get('/config.js', (req, res) => {
   const front = {
     atualizaVagasAoCancelar: !req.amb.ativo('F09'),
     mostraMensagemDaApi: !req.amb.ativo('F10'),
+    avisaMinicursoInexistente: !req.amb.ativo('F17'),
+    buscaIgnoraAcentos: !req.amb.ativo('F18'),
     ambiente: req.amb.slug,
     versao: config.versaoDoModo(req.amb.modo),
     urlDefeitos: process.env.URL_DEFEITOS || '',
