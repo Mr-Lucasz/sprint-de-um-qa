@@ -10,7 +10,7 @@ Use a documentação Swagger em `/docs` para localizar os endpoints. No ambiente
 hospedado, a API está em `https://inscrevi.vercel.app/api`; no ambiente local,
 em `http://localhost:3000/api`.
 
-## Dinâmica · Validando o contrato da API (25 min)
+## Roteiro · Validando o contrato da API (25 min no ritmo completo)
 
 Cada pessoa testa a **sua história** pela API, usando a versão refinada do
 [backlog](../../../sprint/backlog.md). Todas as 16 histórias têm rotas na API;

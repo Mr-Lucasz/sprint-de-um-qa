@@ -34,7 +34,7 @@ Cenário: Aceitar senha com exatamente 8 caracteres
   Então a conta é criada e sou redirecionado para "Entrar"
 ```
 
-## Exercício (25 min)
+## Prática da Parte 2 · Cenários e plano de teste (25 min, individual)
 
 1. Trabalhe com a **sua história**, a mesma do refinamento, na versão refinada
    do [backlog](../../sprint/backlog.md), e escreva pelo menos 5 cenários no CSV.
@@ -43,12 +43,18 @@ Cenário: Aceitar senha com exatamente 8 caracteres
    observável em `entao`.
 3. Inclua exemplos positivos, negativos e valores de fronteira quando a regra
    exigir.
-4. Troque de arquivo com uma pessoa de **outra história** e **execute os
-   cenários dela** no Inscrevi.
-5. Preencha `resultado_obtido` e `status` (`Passou`, `Falhou` ou `Bloqueado`).
-6. Todo cenário com status **Falhou** vira um relato de defeito no bloco 05.
+4. Indique na coluna `tecnica` a técnica usada em cada cenário (valor limite,
+   particionamento, tabela de decisão ou transição de estado, vistas em
+   [02 · Requisitos](../02-requisitos/)).
+5. Preencha o [plano de teste](plano-de-teste.md) da sua história (seção abaixo).
+6. Troque os cenários e o plano com uma pessoa de **outra história** e revise:
+   dá para executar sem perguntar nada a quem escreveu?
 
-> O passo 4 é de propósito: se a outra pessoa não conseguiu executar o cenário
+Reserve uns 15 minutos para os cenários e 10 para o plano. As colunas
+`resultado_obtido` e `status` ficam em branco por enquanto: a execução é a
+prática da Parte 3, em [04 · Execução de testes](../04-execucao-de-testes/).
+
+> O passo 6 é de propósito: se a outra pessoa não conseguiria executar o cenário
 > sem te perguntar nada, o `Dado`, o `Quando` ou o `Então` precisa de ajuste.
 
 ## Plano de teste

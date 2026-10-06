@@ -46,7 +46,7 @@ Novo → Em triagem → Aberto → Em correção → Pronto para teste → Fecha
 | "Testei e quebrou" | Passos numerados com os dados usados |
 | Opinião ("o dev esqueceu de validar") | Fato observado (o que fez, o que esperava, o que aconteceu) |
 
-## Exercício (25 min)
+## Prática · Relatar os defeitos encontrados (junto com a execução, na Parte 3)
 
 1. No repositório da turma no GitHub, abra **Issues → New issue → Relatar defeito**.
 2. Registre os defeitos que você encontrou nos casos de teste, na execução de

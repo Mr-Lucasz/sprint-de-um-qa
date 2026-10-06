@@ -51,13 +51,13 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 | Horário | Bloco | Material |
 |---|---|---|
 | 19:00 | Abertura, apresentação do produto e da Sprint | [sprint/](sprint/) |
-| 19:15 | Fundamentos de teste | [dia-1/01-fundamentos](dia-1/01-fundamentos/) |
-| 19:40 | Análise de requisitos e técnicas de teste | [dia-1/02-requisitos](dia-1/02-requisitos/) |
+| 19:10 | **Parte 1** · Fundamentos de teste e análise de requisitos. Prática: refinamento de uma história com o INVEST | [dia-1/01-fundamentos](dia-1/01-fundamentos/), [dia-1/02-requisitos](dia-1/02-requisitos/) |
 | 20:20 | Intervalo | |
-| 20:35 | Casos de teste e Plano de Teste | [dia-1/03-casos-de-teste](dia-1/03-casos-de-teste/) |
-| 21:20 | Execução de testes: API e funcional | [dia-1/04-execucao-de-testes](dia-1/04-execucao-de-testes/) |
-| 21:50 | Gestão de defeitos e encerramento | [dia-1/05-defeitos](dia-1/05-defeitos/) |
-| 21:50 | Daily de encerramento e preparação para o dia 2 | |
+| 20:35 | **Parte 2** · Técnicas de teste, casos de teste em BDD e plano de teste. Prática: cenários e plano da sua história | [dia-1/02-requisitos](dia-1/02-requisitos/), [dia-1/03-casos-de-teste](dia-1/03-casos-de-teste/) |
+| 21:15 | **Parte 3** · Execução de testes (API e funcional) e relato de defeitos. Prática: executar e relatar | [dia-1/04-execucao-de-testes](dia-1/04-execucao-de-testes/), [dia-1/05-defeitos](dia-1/05-defeitos/) |
+| 21:55 | Métricas de qualidade, encerramento e preparação para o dia 2 | |
+
+As práticas são individuais: cada pessoa escolhe **uma história** do backlog, com no máximo duas pessoas por história, e segue com ela nas três partes.
 
 ### Dia 2 (07/10) · APIs, automação, IA e CI/CD
 

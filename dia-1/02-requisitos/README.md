@@ -25,7 +25,7 @@ Além do INVEST, confira o **Gherkin**: o `Dado` descreve o estado de partida co
 
 ---
 
-## Exercício 1 · QA de plantão no refinamento (25 min, individual)
+## Prática da Parte 1 · QA de plantão no refinamento (30 min, individual)
 
 O PO trouxe 16 histórias para o refinamento. **Nenhuma está pronta**: todas chegaram como rascunho e têm problemas. Você é o "amigo do teste" na conversa dos três amigos, e a sua história só entra na Sprint depois que passar por você.
 
@@ -87,6 +87,8 @@ Cenário reescrito:
 
 ## Técnicas de teste caixa-preta (CTFL 4.2)
 
+> Esta seção abre a **Parte 2** da noite, depois do intervalo e com o backlog refinado já publicado.
+
 ### Particionamento de equivalência (4.2.1)
 
 Divida as entradas em grupos que o sistema deve tratar **da mesma forma**. Testar um valor de cada partição cobre o grupo.
@@ -124,6 +126,6 @@ Uma vaga passa por estados: **livre → ocupada → livre** (após cancelamento)
 
 ---
 
-## Exercício 2 · Aplicando as técnicas (15 min)
+## Aplicando as técnicas
 
-Com a versão **refinada** do backlog em mãos, pegue a **sua história** e, em [../03-casos-de-teste/casos-de-teste.csv](../03-casos-de-teste/casos-de-teste.csv), escreva pelo menos **5 cenários de teste em BDD**, indicando a técnica complementar usada em cada um.
+As técnicas acima são usadas na prática da Parte 2, em [03 · Casos de teste e plano de teste](../03-casos-de-teste/): é lá que você escreve os cenários da sua história, indicando a técnica usada em cada um.

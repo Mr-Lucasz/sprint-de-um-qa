@@ -1,13 +1,30 @@
 # 04 · Execução de testes
 
-Nesta etapa o plano vira execução. A turma será dividida em duas frentes:
+Nesta etapa o plano vira execução. Há dois caminhos para executar os cenários
+da sua história:
 
-1. [Execução de testes de API](01-api/);
-2. [Execução de testes funcionais](02-funcional/).
+1. [pela API](01-api/), com o Postman;
+2. [pela interface](02-funcional/), com um charter de teste exploratório.
 
-As duas frentes devem usar os mesmos critérios de aceite e registrar evidências
-concretas. Ao final, comparem os resultados: um teste pode passar na API e a
-interface ainda apresentar uma falha, ou o contrário.
+Os dois usam os mesmos critérios de aceite e precisam de evidências concretas.
+Um teste pode passar na API e a interface ainda apresentar uma falha, ou o
+contrário.
+
+## Prática da Parte 3 · Executar e relatar (25 min, individual)
+
+1. Execute os cenários que você escreveu na Parte 2, pela tela ou pela API.
+2. Explore com o charter da sua história (a tabela está em
+   [02-funcional](02-funcional/)).
+3. Preencha `resultado_obtido` e `status` (`Passou`, `Falhou` ou `Bloqueado`) no
+   seu arquivo de casos de teste.
+4. Para cada cenário que falhou, abra um relato pelo formulário de defeito,
+   como explica [05 · Gestão de defeitos](../05-defeitos/).
+5. Revise o relato de outra pessoa.
+
+Em 25 minutos não dá para percorrer os dois caminhos inteiros. Escolha o que
+faz mais sentido para a sua história e use os tempos indicados nos roteiros de
+API e de execução funcional como referência para estudar depois. O que não der
+tempo de relatar em aula pode ser registrado até o início do dia 2.
 
 ## Antes de começar: o ambiente é compartilhado
 
@@ -24,7 +41,7 @@ mesmos dados. Isso muda a forma de testar:
 - **Anotem o ambiente e a versão** que aparecem no rodapé do app: eles entram
   no relato de defeito.
 
-## Dinâmica · Compartilhando evidências (10 min)
+## Compartilhando evidências (5 min)
 
 Cada pessoa apresenta:
 
