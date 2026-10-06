@@ -7,6 +7,18 @@
 
 As histórias seguem o formato dos 3 Cs (cartão, conversa e confirmação) descrito no syllabus CTFL v4.0, seção 4.5.1. Os critérios de aceite estão em formato de regras, e alguns também em cenários Gherkin.
 
+## Épicos
+
+As histórias estão agrupadas em épicos, que também organizam o [quadro da Sprint](https://github.com/users/Mr-Lucasz/projects/4).
+
+| Épico | Objetivo | Histórias desta Sprint |
+|---|---|---|
+| EP01 · Conta e acesso | Cada estudante tem uma conta própria e entra nela com segurança | US01, US02 |
+| EP02 · Programação do evento | Qualquer pessoa consegue ver os minicursos e escolher o que cursar | US03 |
+| EP03 · Inscrições | A vaga de quem se inscreve é garantida e o limite de cada minicurso é respeitado | US04, US05, US06 |
+| EP04 · Gestão dos minicursos | A organização do evento controla os minicursos oferecidos | Nenhuma |
+| EP05 · Participação e certificação | Registrar quem participou e emitir o certificado | Nenhuma |
+
 ---
 
 ## US01 · Cadastro de usuário
