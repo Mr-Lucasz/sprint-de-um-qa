@@ -11,9 +11,10 @@ const { createEsbuildPlugin } = require('@badeball/cypress-cucumber-preprocessor
 
 module.exports = defineConfig({
   e2e: {
-    // Boa prática oficial: definir baseUrl e subir o servidor ANTES do Cypress
+    // Boa prática oficial: definir baseUrl. Aqui é o Inscrevi em homologação,
+    // o mesmo ambiente da execução manual. O sistema precisa estar no ar.
     // https://docs.cypress.io/app/core-concepts/best-practices
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://inscrevi.vercel.app',
     // Testes escritos em JavaScript (.cy.js) e em Gherkin (.feature)
     specPattern: ['cypress/e2e/**/*.cy.js', 'cypress/e2e/**/*.feature'],
     supportFile: 'cypress/support/e2e.js',

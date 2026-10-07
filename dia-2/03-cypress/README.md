@@ -122,8 +122,12 @@ npx cypress install
 npx cypress open
 ```
 
-Deixe o Inscrevi no ar em outro terminal (`npm start`, na raiz do repositório).
-O `baseUrl` é `http://localhost:3000`, então `cy.visit('/#/entrar')` basta.
+O `baseUrl` é `https://inscrevi.vercel.app`, a homologação do Inscrevi, então
+`cy.visit('/#/entrar')` basta e não é preciso subir nada na sua máquina.
+
+O ambiente é o mesmo da execução manual, compartilhado com a turma: os testes
+criam contas, minicursos e inscrições de verdade. Gere os seus próprios dados
+(e-mail novo, curso novo) em vez de contar com o que já está lá.
 
 ### O que a pasta entrega
 
@@ -149,7 +153,7 @@ Comandos customizados, para montar a pré-condição sem passar pela tela:
 
 Rotas da interface: `/#/cursos`, `/#/entrar`, `/#/criar-conta`,
 `/#/minhas-inscricoes`, `/#/perfil`, `/#/recuperar-senha` e `/#/admin/cursos`.
-A API fica em `/api` e está documentada em http://localhost:3000/docs.
+A API fica em `/api` e está documentada em https://inscrevi.vercel.app/docs.
 
 Para descobrir o `data-testid` de um elemento, clique nele com o botão direito
 e escolha **Inspecionar**. No modo interativo do Cypress, o ícone de alvo ao
@@ -195,7 +199,7 @@ corrigido. Não ajuste a asserção para o teste passar.
 | `npx cypress run` | Roda tudo, sem abrir janela |
 | `npx cypress run --spec "cypress/e2e/arquivo.cy.js"` | Roda só um arquivo |
 | `npx cypress run --browser chrome` | Escolhe o navegador |
-| `npx cypress run --config baseUrl=https://inscrevi.vercel.app` | Roda contra a homologação (dados compartilhados com a turma) |
+| `npx cypress run --config baseUrl=http://localhost:3000` | Roda contra o Inscrevi local (`npm start` na raiz do repositório) |
 
 Quando um teste falha no terminal, o Cypress salva um print em
 `cypress/screenshots/`.

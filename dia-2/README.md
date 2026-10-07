@@ -18,12 +18,12 @@ casos de teste: ele é a entrada das três partes.
 ```bash
 git pull
 npm install
-npm start
 ```
 
-O Inscrevi sobe em http://localhost:3000. Deixe esse terminal aberto: o Postman
-e o Cypress vão usar o app local. Para o Cypress, a instalação é separada e
-está no [README da Parte 3](03-cypress/).
+As três partes usam a homologação do Inscrevi, em https://inscrevi.vercel.app,
+compartilhada com a turma. Não é preciso subir o app na sua máquina; se quiser
+um ambiente só seu, `npm start` sobe uma cópia em http://localhost:3000. Para o
+Cypress, a instalação é separada e está no [README da Parte 3](03-cypress/).
 
 A pasta `app/` está liberada a partir de hoje.
 

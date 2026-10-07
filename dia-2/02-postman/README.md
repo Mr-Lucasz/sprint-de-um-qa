@@ -6,8 +6,13 @@ Na [Parte 1](../01-execucao-e-defeitos/) você testou pela tela. Agora a mesma
 história é testada direto na API, sem a interface no meio: uma regra que a tela
 protege pode estar aberta para quem chama a API.
 
-Deixe o Inscrevi no ar (`npm start`, na raiz do repositório). A documentação
-das rotas fica em http://localhost:3000/docs.
+Vamos testar a homologação, o mesmo ambiente da execução manual: a API fica em
+`https://inscrevi.vercel.app/api` e a documentação das rotas em
+https://inscrevi.vercel.app/docs. Não é preciso subir nada na sua máquina.
+
+O ambiente é compartilhado com a turma: as requisições criam contas e
+inscrições de verdade. Use e-mails seus e confira a pré-condição antes de
+enviar.
 
 ## Conceitos rápidos
 
@@ -21,11 +26,25 @@ Faixas de status: **2xx** sucesso, **4xx** erro de quem chamou (400 dados invál
 
 ## Importando
 
-1. No Postman: **Import** e selecione os dois arquivos desta pasta.
-2. No canto superior direito, escolha o ambiente **Inscrevi local**.
-3. Com o app no ar (`npm start`), rode a coleção inteira com **Run collection**.
+1. No Postman: **Import** e selecione `inscrevi.postman_collection.json` e
+   `homologacao.postman_environment.json`.
+2. No canto superior direito, escolha o ambiente **Inscrevi homologação**.
+3. Rode a coleção inteira com **Run collection**.
 
-Também dá para importar direto do contrato: **Import → Link** com `http://localhost:3000/openapi.json`.
+Também dá para importar direto do contrato: **Import → Link** com
+`https://inscrevi.vercel.app/openapi.json`.
+
+A coleção foi escrita para um ambiente recém-reiniciado. Na homologação,
+algumas falhas vêm do **ambiente**, e não do produto:
+
+| Requisição | O que acontece na homologação | Por quê |
+|---|---|---|
+| Restaurar dados iniciais | 403 | Só o instrutor reinicia os dados de um ambiente compartilhado |
+| Inscrever-se em um curso | A contagem de vagas pode não bater, ou a inscrição ser recusada | A Oficina tem 2 vagas e outra pessoa pode tê-las ocupado |
+| Qualquer uma | "responde em menos de 1 segundo" pode falhar | A rede do laboratório e o servidor na nuvem são mais lentos que o app local |
+
+Separar falha de ambiente de falha do produto faz parte do trabalho: antes de
+abrir um bug, confirme que ele se repete com a pré-condição certa.
 
 ## O que observar na coleção
 
@@ -38,10 +57,13 @@ Também dá para importar direto do contrato: **Import → Link** com `http://lo
 ## Linha de comando com Newman
 
 ```bash
-npm run test:postman
+npm start              # em um terminal, na raiz do repositório
+npm run test:postman   # em outro
 ```
 
-É o mesmo comando que roda no pipeline. Newman: https://github.com/postmanlabs/newman
+Esse comando usa o ambiente `local.postman_environment.json`, que aponta para
+`http://localhost:3000/api`, onde os dados voltam ao estado inicial a cada
+execução. É o mesmo comando que roda no pipeline. Newman: https://github.com/postmanlabs/newman
 
 ## Prática (25 min, individual)
 
