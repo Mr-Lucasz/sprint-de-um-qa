@@ -34,7 +34,7 @@ A Semana Acadêmica recebe cerca de 400 estudantes por edição. Até o ano pass
 Sem uma conta por pessoa, a organização não sabe quem ocupa cada vaga: na última edição, 1 em cada 5 nomes das planilhas estava duplicado ou incompleto.
 
 ### Solução proposta
-Cada estudante cria a própria conta com nome, e-mail e senha. O e-mail identifica a pessoa e não pode se repetir. A senha deve ter entre 8 e 64 caracteres. O botão "Criar conta" deve ser verde, ficar no canto inferior direito do formulário e usar fonte Arial 14.
+Cada estudante cria a própria conta com nome, e-mail e senha. O e-mail identifica a pessoa e não pode se repetir. A senha deve ter entre 8 e 64 caracteres.
 
 ### História
 **Como** estudante
@@ -86,7 +86,7 @@ Com as contas criadas, cada estudante precisa entrar para ver e gerenciar as pr�
 Sem login, qualquer pessoa poderia alterar a inscrição de outra. Em 2025 houve três relatos de inscrições canceladas por terceiros nas planilhas.
 
 ### Solução proposta
-Login com e-mail e senha. Em caso de erro, a mensagem não indica qual dos dois campos está errado. O login também deve oferecer "manter conectado por 30 dias" e entrada com conta Google.
+Login com e-mail e senha. Em caso de erro, a mensagem não indica qual dos dois campos está errado.
 
 ### História
 **Como** estudante cadastrado
@@ -114,7 +114,7 @@ Regra: Credenciais erradas não dão acesso
 ```
 
 ### Fora de escopo
-Recuperação de senha (US09).
+Recuperação de senha (US09), "manter conectado" e login com conta Google.
 
 ### Dependências
 US01.
