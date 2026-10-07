@@ -39,6 +39,14 @@ caso de teste (dia 1)
 Um cenário que falhou à mão continua falhando depois de automatizado. Isso é o
 esperado: o teste automatizado passa a vigiar o defeito até ele ser corrigido.
 
+## Prompts de IA para as práticas
+
+A pasta [prompts](prompts/) traz um prompt pronto para cada etapa de hoje:
+refinamento, plano de teste, execução, reporte de bug, testes de API,
+automação, review de código de teste e métricas. Funcionam em qualquer IA de
+chat; quem usa o Claude Code tem as mesmas tarefas como skills em
+[`.claude/skills`](../.claude/skills/).
+
 ## Material extra
 
 Os módulos abaixo não entram na aula, mas estão prontos para quem quiser

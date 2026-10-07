@@ -13,6 +13,9 @@ A parte tem dois momentos:
 Esta pasta é um projeto Cypress já configurado e **sem testes prontos**: os
 testes do Inscrevi são seus.
 
+> Se perdeu no meio do caminho? A [colinha](COLINHA.md) tem os comandos mais
+> usados e o que fazer com os erros mais comuns.
+
 ## Momento 1 · Acompanhando o live coding
 
 Crie o seu projeto numa pasta nova, fora deste repositório:
@@ -190,6 +193,122 @@ corrigido. Não ajuste a asserção para o teste passar.
 - [ ] Ele passa rodando sozinho e também junto com os outros?
 - [ ] Não há `cy.wait` com número?
 - [ ] Os dados são criados pelo próprio teste (e-mail novo, curso novo)?
+
+## Publicando o seu projeto e ligando o pipeline
+
+Teste automatizado é código: vai para o Git e roda sozinho a cada mudança.
+Publique o projeto que **você** criou num repositório seu no GitHub. Não é
+preciso fazer fork deste repositório.
+
+Se você usou esta pasta em vez de criar o projeto do zero, copie-a antes para
+fora do repositório do curso (por exemplo, para `cypress-do-zero`) e trabalhe
+na cópia.
+
+### 1. Primeiro commit
+
+Confira se há um `.gitignore` com `node_modules/`, `cypress/screenshots/`,
+`cypress/videos/` e `cypress/downloads/`. Depois, na pasta do projeto:
+
+```bash
+git init -b main
+git add .
+git commit -m "test: cenários da minha história"
+```
+
+Se o Git pedir identificação:
+
+```bash
+git config --global user.name "Seu Nome"
+git config --global user.email "voce@exemplo.com"
+```
+
+### 2. Repositório no GitHub
+
+No GitHub: **+ → New repository**, nome `cypress-do-zero`, sem README,
+.gitignore ou licença. Depois, trocando `SEU-USUARIO`:
+
+```bash
+git remote add origin https://github.com/SEU-USUARIO/cypress-do-zero.git
+git push -u origin main
+```
+
+No primeiro `push` o navegador abre para você entrar no GitHub.
+
+### 3. Pipeline
+
+Crie o arquivo `.github/workflows/cypress.yml` na raiz do projeto:
+
+```yaml
+# nome que aparece na aba Actions do GitHub
+name: Testes Cypress
+
+# quando o pipeline roda
+on:
+  # a cada push na branch principal
+  push:
+    branches: [main]
+  # a cada pull request aberto ou atualizado
+  pull_request:
+  # e manualmente, pelo botão "Run workflow"
+  workflow_dispatch:
+
+jobs:
+  # um job chamado "cypress"
+  cypress:
+    # máquina Linux nova, criada pelo GitHub só para esta execução
+    runs-on: ubuntu-latest
+    # se passar de 10 minutos, cancela (evita pipeline preso)
+    timeout-minutes: 10
+    steps:
+      # baixa o código do repositório para a máquina
+      - uses: actions/checkout@v7
+
+      # instala o Node e guarda o cache do npm para as próximas execuções
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      # instala exatamente as versões do package-lock.json
+      - run: npm ci
+
+      # garante que o aplicativo do Cypress foi baixado
+      - run: npx cypress install
+
+      # roda todos os testes em headless, no Chrome
+      - run: npx cypress run --browser chrome
+
+      # se algum teste falhar, guarda os prints como evidência
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          retention-days: 7
+```
+
+Envie numa branch e abra um pull request para ver o pipeline rodar:
+
+```bash
+git switch -c ci/pipeline
+git add .github/workflows/cypress.yml
+git commit -m "ci: roda os testes do Cypress a cada push e pull request"
+git push -u origin ci/pipeline
+```
+
+No GitHub, clique em **Compare & pull request** e acompanhe a verificação no
+rodapé do PR ou na aba **Actions**.
+
+| Prefixo do commit | Quando usar |
+|---|---|
+| `test:` | Teste novo ou alterado |
+| `fix:` | Correção de um teste que estava errado |
+| `ci:` | Mudança no pipeline |
+| `chore:` | Configuração e dependências |
+
+Se o pipeline ficar vermelho por causa de um bug do Inscrevi, ele está fazendo
+o trabalho dele. Os prints da falha ficam no artefato `cypress-screenshots`, na
+página da execução.
 
 ## Rodando no terminal
 
