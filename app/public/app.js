@@ -1,6 +1,8 @@
 // Front do Inscrevi — JavaScript puro, sem build.
 const CONFIG = {
   atualizaVagasAoCancelar: true, mostraMensagemDaApi: true, avisaMinicursoInexistente: true, buscaIgnoraAcentos: true,
+  mostraLocalNasInscricoes: true, mostraPosicaoNaFila: true, limpaCabecalhoAoSair: true, confirmacaoCitaMinicurso: true,
+  mostraEmailNaPresenca: true, certificadoSoComPresenca: true,
   ...window.INSCREVI_CONFIG,
 };
 
@@ -186,7 +188,7 @@ function acoesDoCurso(curso, inscrito, posicao, depois) {
 
   if (esgotado && estado.token && posicao) {
     acoes.push(
-      el('p', { class: 'selo', 'data-testid': `na-fila-${curso.id}` }, `Você é a ${posicao}ª pessoa na lista de espera`),
+      el('p', { class: 'selo', 'data-testid': `na-fila-${curso.id}` }, CONFIG.mostraPosicaoNaFila ? `Você é a ${posicao}ª pessoa na lista de espera` : 'Você está na lista de espera'),
       el('button', {
         type: 'button', class: 'botao botao-secundario', 'data-testid': `botao-sair-fila-${curso.id}`,
         'aria-label': `Sair da lista de espera de ${curso.titulo}`,
@@ -239,7 +241,7 @@ async function listaDeEspera(curso, metodo, depois = telaCursos) {
   try {
     const entrada = await api(`/cursos/${curso.id}/lista-espera`, { method: metodo });
     avisar(metodo === 'POST'
-      ? `Você entrou na lista de espera de "${curso.titulo}", na posição ${entrada.posicao}.`
+      ? `Você entrou na lista de espera de "${curso.titulo}"${CONFIG.mostraPosicaoNaFila ? `, na posição ${entrada.posicao}` : ''}.`
       : `Você saiu da lista de espera de "${curso.titulo}".`);
   } catch (e) {
     avisar(e.message, 'erro');
@@ -255,6 +257,7 @@ async function telaDetalhes(id) {
   let curso;
   try {
     curso = await api(`/cursos/${id}`);
+    if (!curso?.id) throw new Error('Curso não encontrado.');
   } catch (e) {
     if (!CONFIG.avisaMinicursoInexistente) return;
     conteudo.replaceChildren(
@@ -297,8 +300,9 @@ async function telaMinhasInscricoes() {
   if (!estado.token) { location.hash = '#/entrar'; return; }
   const quando = (curso) => {
     const { dia, mes } = partesData(curso.data);
-    return `${dia} ${mes}, ${curso.inicio}–${curso.fim} · ${curso.local}`;
+    return `${dia} ${mes}, ${curso.inicio}–${curso.fim}`;
   };
+  const quandoEOnde = (curso) => `${quando(curso)} · ${curso.local}`;
 
   const corpo = inscricoes.length === 0
     ? el('div', { class: 'vazio', 'data-testid': 'lista-vazia' },
@@ -308,9 +312,9 @@ async function telaMinhasInscricoes() {
         el('li', { class: 'inscricao', 'data-testid': `inscricao-${i.id}` },
           el('div', {},
             el('h3', {}, i.curso.titulo),
-            el('p', { class: 'apoio' }, quando(i.curso))),
+            el('p', { class: 'apoio' }, CONFIG.mostraLocalNasInscricoes ? quandoEOnde(i.curso) : quando(i.curso))),
           el('div', { class: 'inscricao-acoes' },
-            i.presencaRegistrada ? el('button', {
+            i.presencaRegistrada || !CONFIG.certificadoSoComPresenca ? el('button', {
               type: 'button',
               class: 'botao botao-secundario',
               'data-testid': `botao-certificado-${i.id}`,
@@ -331,7 +335,7 @@ async function telaMinhasInscricoes() {
       el('li', { class: 'inscricao' },
         el('div', {},
           el('h3', {}, f.curso.titulo),
-          el('p', { class: 'apoio' }, `${quando(f.curso)} · você é a ${f.posicao}ª pessoa da fila`)),
+          el('p', { class: 'apoio' }, CONFIG.mostraPosicaoNaFila ? `${quandoEOnde(f.curso)} · você é a ${f.posicao}ª pessoa da fila` : quandoEOnde(f.curso))),
         el('button', {
           type: 'button', class: 'botao botao-secundario',
           'aria-label': `Sair da lista de espera de ${f.curso.titulo}`,
@@ -453,7 +457,13 @@ async function sair() {
   } catch (e) {
     // a sessão local é encerrada mesmo que o servidor não responda
   }
+  const saudacao = document.querySelector('[data-testid="usuario-logado"]');
+  const textoDaSaudacao = saudacao.textContent;
   salvarSessao(null, null);
+  if (!CONFIG.limpaCabecalhoAoSair) {
+    saudacao.textContent = textoDaSaudacao;
+    saudacao.parentElement.hidden = false;
+  }
   avisar('Você saiu da sua conta.');
   location.hash = '#/cursos';
   navegar();
@@ -499,7 +509,8 @@ async function desenharCursosAdmin() {
 }
 
 async function excluirCurso(curso) {
-  if (!window.confirm(`Excluir o minicurso "${curso.titulo}"? Esta ação não pode ser desfeita.`)) return;
+  const pergunta = CONFIG.confirmacaoCitaMinicurso ? `Excluir o minicurso "${curso.titulo}"?` : 'Excluir este minicurso?';
+  if (!window.confirm(`${pergunta} Esta ação não pode ser desfeita.`)) return;
   try {
     await api(`/cursos/${curso.id}`, { method: 'DELETE' });
     avisar(`Minicurso "${curso.titulo}" excluído.`);
@@ -542,7 +553,7 @@ async function telaAdminPresencas(id) {
           const caixa = el('input', { type: 'checkbox', id: idCaixa, checked: pessoa.presente });
           caixa.addEventListener('change', () => marcar(pessoa, caixa));
           return el('li', { class: 'inscricao' },
-            el('label', { for: idCaixa, class: 'presenca' }, caixa, el('span', {}, el('strong', {}, pessoa.nome), ` · ${pessoa.email}`)));
+            el('label', { for: idCaixa, class: 'presenca' }, caixa, el('span', {}, el('strong', {}, pessoa.nome), CONFIG.mostraEmailNaPresenca ? ` · ${pessoa.email}` : null)));
         })));
 }
 

@@ -181,6 +181,10 @@ router.get('/cursos', async (req, res) => {
 router.get('/cursos/:id', async (req, res) => {
   const id = lerId(req.params.id);
   const [curso] = id ? await banco.consultar(sqlCursos(req.amb.s, 'WHERE c.id = $1'), [id]) : [];
+  if (!curso && req.amb.ativo('F26')) {
+    await req.amb.registrar('F26');
+    return res.json({ mensagem: 'Curso não encontrado.' });
+  }
   if (!curso) return erro(res, 404, 'Curso não encontrado.');
   res.json(cursoPublico(curso, req.amb.ativo('F12')));
 });

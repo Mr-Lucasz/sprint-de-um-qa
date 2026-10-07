@@ -140,7 +140,7 @@ async function carregar() {
   };
 }
 
-const SO_TELA = new Set(['F09', 'F10', 'F17']);
+const SO_TELA = new Set(['F09', 'F10', 'F17', 'F23', 'F24', 'F25', 'F27', 'F28', 'F29']);
 const RAIZ = banco.hospedado ? (process.env.AMBIENTE_RAIZ || 'turma') : 'local';
 const CONTAS_INICIAIS = 3;
 const INSCRICOES_INICIAIS = 2;
