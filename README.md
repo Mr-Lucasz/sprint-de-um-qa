@@ -59,20 +59,23 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 
 As práticas são individuais: cada pessoa escolhe **uma história** do backlog, com no máximo duas pessoas por história, e segue com ela nas três partes.
 
-### Dia 2 (07/10) · Execução, API e automação
+### Dia 2 (07/10) · Execução, API, automação e CI/CD
 
 | Horário | Bloco | Material |
 |---|---|---|
-| 19:00 | Recapitulação do dia 1 | [dia-2/](dia-2/) |
-| 19:10 | **Parte 1** · Execução manual e reporte de bugs. Prática: executar os seus cenários e relatar | [dia-2/01-execucao-e-defeitos](dia-2/01-execucao-e-defeitos/) |
-| 19:50 | **Parte 2** · Testes de API com Postman. Prática: testar a API da sua história | [dia-2/02-postman](dia-2/02-postman/) |
-| 20:25 | Intervalo | |
-| 20:40 | **Parte 3** · Automação com Cypress: live coding do zero (projeto, Sauce Demo, API e Cucumber) | [dia-2/03-cypress](dia-2/03-cypress/) |
-| 21:15 | **Parte 3** · Sua vez: automatizar no Inscrevi os cenários que você planejou | [dia-2/03-cypress](dia-2/03-cypress/) |
-| 21:50 | Encerramento e como continuar estudando | [dia-2/extras](dia-2/#material-extra) |
+| 19:00 | Recapitulação do dia 1 e instalação do Cypress em segundo plano | [dia-2/](dia-2/) |
+| 19:05 | **Parte 1** · Execução de testes e reporte de bugs, com IA | [dia-2/01-execucao-e-defeitos](dia-2/01-execucao-e-defeitos/) |
+| 19:40 | **Parte 2** · Testes de API com Postman, com IA | [dia-2/02-postman](dia-2/02-postman/) |
+| 20:10 | **Parte 3** · Live coding: Cypress e Cucumber do zero, do primeiro cenário aos testes de API | [dia-2/03-cypress](dia-2/03-cypress/) |
+| 20:45 | Intervalo | |
+| 21:00 | **Parte 3** · Live coding: Git para QA e CI/CD com GitHub Actions | [dia-2/03-cypress](dia-2/03-cypress/#publicando-o-seu-projeto-e-ligando-o-pipeline) |
+| 21:13 | **Parte 3** · Sua vez: automatizar no Inscrevi um cenário que você planejou, com IA | [dia-2/03-cypress](dia-2/03-cypress/) · [colinha](dia-2/03-cypress/COLINHA.md) |
+| 21:43 | Dicas de carreira em QA | |
+| 21:53 | Encerramento e como continuar estudando | [dia-2/extras](dia-2/#material-extra) |
 
-Você segue com a mesma história do dia 1. Git, Playwright, IA, Cucumber direto
-na API e CI/CD ficaram como material extra em [dia-2/extras](dia-2/extras/).
+Você segue com a mesma história do dia 1. Os [prompts de IA](dia-2/prompts/)
+cobrem cada etapa. Playwright, Cucumber direto na API e outros temas ficaram
+como material extra em [dia-2/extras](dia-2/extras/).
 
 ## Comandos
 
