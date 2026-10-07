@@ -56,7 +56,7 @@ jobs:
           name: relatorios-api
           path: |
             resultados/
-            dia-2/06-bdd-cucumber/relatorio.html
+            dia-2/extras/04-bdd-cucumber/relatorio.html
           retention-days: 14
 
   playwright:

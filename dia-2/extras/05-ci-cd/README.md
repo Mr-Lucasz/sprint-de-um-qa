@@ -2,7 +2,7 @@
 
 Documentação oficial: https://docs.github.com/actions · Playwright em CI: https://playwright.dev/docs/ci-intro
 
-O pipeline está em [.github/workflows/qualidade.yml](../../.github/workflows/qualidade.yml) e roda a cada push na `main` e a cada pull request.
+O pipeline está em [.github/workflows/qualidade.yml](../../../.github/workflows/qualidade.yml) e roda a cada push na `main` e a cada pull request.
 
 ## O que ele faz
 

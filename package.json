@@ -20,8 +20,8 @@
     "report": "playwright show-report",
     "test:postman": "newman run dia-2/02-postman/inscrevi.postman_collection.json -e dia-2/02-postman/local.postman_environment.json",
     "test:postman:dia1": "newman run dia-1/04-execucao-de-testes/01-api/inscrevi-api-completa.postman_collection.json -e dia-1/04-execucao-de-testes/01-api/inscrevi-api-local-run.postman_environment.json",
-    "test:bdd": "cucumber-js --config dia-2/06-bdd-cucumber/cucumber.js",
-    "massa": "node dia-2/05-ia/gerar-massa.js"
+    "test:bdd": "cucumber-js --config dia-2/extras/04-bdd-cucumber/cucumber.js",
+    "massa": "node dia-2/extras/03-ia/gerar-massa.js"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",

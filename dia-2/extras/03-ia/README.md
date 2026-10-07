@@ -69,5 +69,5 @@ O script [gerar-massa.js](gerar-massa.js) usa uma **semente fixa**, então gera 
 
 ## Exercício (15 min)
 
-1. Use o prompt 1 com a US04. Compare a saída com a tabela de decisão de [dia-1/02-requisitos](../../dia-1/02-requisitos/). O que a IA acertou, esqueceu ou inventou?
+1. Use o prompt 1 com a US04. Compare a saída com a tabela de decisão de [dia-1/02-requisitos](../../../dia-1/02-requisitos/). O que a IA acertou, esqueceu ou inventou?
 2. Use o prompt 3 e compare com o `gerar-massa.js`. Adicione ao script um caso de borda que a IA sugeriu e que faça sentido.

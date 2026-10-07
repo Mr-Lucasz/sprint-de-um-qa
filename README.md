@@ -2,7 +2,7 @@
 
 Repositório do minicurso ministrado por **Lucas da Cunha Rodrigues** na UDESC, nos dias **06 e 07/10, das 19:00 às 22:00**, no Laboratório 003 (Bloco Carvalho).
 
-Durante duas noites você vai trabalhar como QA de um time que está terminando uma Sprint do **Inscrevi**, um sistema de inscrição em minicursos. Você vai receber o backlog, analisar as histórias, testar à mão, registrar defeitos, testar a API, automatizar, usar IA a seu favor e colocar tudo para rodar num pipeline.
+Durante duas noites você vai trabalhar como QA de um time que está terminando uma Sprint do **Inscrevi**, um sistema de inscrição em minicursos. Você vai receber o backlog, analisar as histórias, testar à mão, registrar defeitos, testar a API e automatizar os seus cenários.
 
 > O Inscrevi tem defeitos **de propósito**. Encontrá-los é o seu trabalho.
 
@@ -59,17 +59,20 @@ No dia 1 a turma inteira testa o mesmo sistema, hospedado em https://inscrevi.ve
 
 As práticas são individuais: cada pessoa escolhe **uma história** do backlog, com no máximo duas pessoas por história, e segue com ela nas três partes.
 
-### Dia 2 (07/10) · APIs, automação, IA e CI/CD
+### Dia 2 (07/10) · Execução, API e automação
 
 | Horário | Bloco | Material |
 |---|---|---|
-| 19:00 | Recapitulação e Git para QA | [dia-2/01-git-para-qa](dia-2/01-git-para-qa/) |
-| 19:20 | Testes de API com Postman | [dia-2/02-postman](dia-2/02-postman/) |
-| 20:00 | Intervalo | |
-| 20:15 | Automação com Playwright (hands-on) e Cypress (demonstração) | [dia-2/03-playwright](dia-2/03-playwright/), [dia-2/04-cypress](dia-2/04-cypress/) |
-| 21:05 | IA para cenários e massa de teste, BDD com Cucumber | [dia-2/05-ia](dia-2/05-ia/), [dia-2/06-bdd-cucumber](dia-2/06-bdd-cucumber/) |
-| 21:25 | CI/CD com GitHub Actions | [dia-2/07-ci-cd](dia-2/07-ci-cd/) |
-| 21:50 | Sprint Review e Retrospectiva | |
+| 19:00 | Recapitulação do dia 1 | [dia-2/](dia-2/) |
+| 19:10 | **Parte 1** · Execução manual e reporte de bugs. Prática: executar os seus cenários e relatar | [dia-2/01-execucao-e-defeitos](dia-2/01-execucao-e-defeitos/) |
+| 19:50 | **Parte 2** · Testes de API com Postman. Prática: testar a API da sua história | [dia-2/02-postman](dia-2/02-postman/) |
+| 20:25 | Intervalo | |
+| 20:40 | **Parte 3** · Automação com Cypress: live coding do zero (projeto, Sauce Demo, API e Cucumber) | [dia-2/03-cypress](dia-2/03-cypress/) |
+| 21:15 | **Parte 3** · Sua vez: automatizar no Inscrevi os cenários que você planejou | [dia-2/03-cypress](dia-2/03-cypress/) |
+| 21:50 | Encerramento e como continuar estudando | [dia-2/extras](dia-2/#material-extra) |
+
+Você segue com a mesma história do dia 1. Git, Playwright, IA, Cucumber direto
+na API e CI/CD ficaram como material extra em [dia-2/extras](dia-2/extras/).
 
 ## Comandos
 
@@ -84,6 +87,7 @@ As práticas são individuais: cada pessoa escolhe **uma história** do backlog,
 | `npm run test:postman:dia1` | Roda a coleção completa do dia 1, com todas as rotas (app precisa estar no ar) |
 | `npm run test:bdd` | Roda os cenários Gherkin com Cucumber (app precisa estar no ar) |
 | `npm run massa` | Gera massa de teste com Faker |
+| `npm run cy:open` / `npm run cy:run` | Dentro de `dia-2/03-cypress`: abre o Cypress ou roda os testes no terminal |
 | `npm run test:app` | Testes das rotas das histórias US07 a US16 |
 | `npm run start:hospedado` | Sobe o Inscrevi ligado a um Postgres externo (precisa do `.env.hospedado`, veja `.env.example`) |
 | `npm run banco:preparar` | Cria as tabelas e os dados iniciais no Postgres externo |
@@ -94,15 +98,17 @@ As práticas são individuais: cada pessoa escolhe **uma história** do backlog,
 app/                 o sistema sob teste (API + front)
 sprint/              backlog com as histórias e Definition of Done
 dia-1/               fundamentos, requisitos, casos e plano de teste, execução e defeitos
-dia-2/               Git, Postman, Playwright, Cypress, IA, Cucumber, CI/CD
+dia-2/               execução manual e bugs, Postman, Cypress e material extra
 .github/             template de defeito, template de PR e pipeline
 ```
 
 ## Referências oficiais
 
 - Syllabus ISTQB CTFL v4.0.1: https://www.istqb.org (a tradução oficial em português é publicada pelo BSTQB, o board brasileiro)
-- Playwright: https://playwright.dev/docs/intro
 - Cypress: https://docs.cypress.io
+- Sauce Demo: https://www.saucedemo.com
+- Cucumber no Cypress: https://github.com/badeball/cypress-cucumber-preprocessor
+- Playwright: https://playwright.dev/docs/intro
 - Cucumber e Gherkin: https://cucumber.io/docs/gherkin/reference/
 - Postman: https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/
 - GitHub Actions: https://docs.github.com/actions

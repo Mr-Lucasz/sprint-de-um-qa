@@ -12,7 +12,7 @@ npm run report          # relatório HTML da última execução
 npx playwright codegen http://localhost:3000   # gravar ações e gerar locators
 ```
 
-O [playwright.config.ts](../../playwright.config.ts) sobe o app sozinho (`webServer`), então não precisa rodar `npm start` antes.
+O [playwright.config.ts](../../../playwright.config.ts) sobe o app sozinho (`webServer`), então não precisa rodar `npm start` antes.
 
 ## Organização
 

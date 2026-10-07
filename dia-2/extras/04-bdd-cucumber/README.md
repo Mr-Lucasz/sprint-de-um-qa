@@ -11,7 +11,7 @@ npm start            # em um terminal
 npm run test:bdd     # em outro
 ```
 
-O relatório HTML é gerado em `dia-2/06-bdd-cucumber/relatorio.html`.
+O relatório HTML é gerado em `dia-2/extras/04-bdd-cucumber/relatorio.html`.
 
 ## Gherkin em português
 

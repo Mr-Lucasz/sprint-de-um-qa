@@ -23,7 +23,7 @@ git --version
 
 ## 2. Crie sua conta no GitHub
 
-Você vai precisar dela no dia 1 (registrar defeitos como issues) e no dia 2 (pull request e pipeline): https://github.com/signup
+Você vai precisar dela no dia 1 (registrar defeitos como issues) e no dia 2 (relatar os bugs da execução): https://github.com/signup
 
 ## 3. Clone e instale o projeto
 
@@ -44,14 +44,19 @@ npm start
 
 Abra http://localhost:3000. Se aparecer a programação de minicursos, está pronto.
 
-## Opcional: Cypress
+## 5. Cypress (para o dia 2)
 
-O Cypress é apresentado em demonstração. Se quiser acompanhar no seu computador:
+A automação do dia 2 é feita com Cypress, que tem instalação separada:
 
 ```bash
-cd dia-2/04-cypress
+cd dia-2/03-cypress
 npm install
+npx cypress install
+npx cypress verify
 ```
+
+O download do aplicativo do Cypress tem algumas centenas de MB. Se possível,
+faça em casa.
 
 ## Problemas comuns
 

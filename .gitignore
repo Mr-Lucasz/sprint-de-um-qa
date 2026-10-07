@@ -4,10 +4,10 @@ playwright-report/
 blob-report/
 playwright/.cache/
 resultados/
-dia-2/06-bdd-cucumber/relatorio.html
-dia-2/04-cypress/cypress/screenshots/
-dia-2/04-cypress/cypress/videos/
-dia-2/04-cypress/cypress/downloads/
+dia-2/extras/04-bdd-cucumber/relatorio.html
+dia-2/03-cypress/cypress/screenshots/
+dia-2/03-cypress/cypress/videos/
+dia-2/03-cypress/cypress/downloads/
 .DS_Store
 instrutor/
 .env

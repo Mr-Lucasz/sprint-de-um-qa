@@ -9,7 +9,7 @@ const PORTA = 3000;
 const MODO = process.env.MODO ?? 'sprint';
 
 export default defineConfig({
-  testDir: './dia-2/03-playwright/tests',
+  testDir: './dia-2/extras/02-playwright/tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -25,11 +25,11 @@ export default defineConfig({
   projects: [
     {
       name: 'api',
-      testDir: './dia-2/03-playwright/tests/api',
+      testDir: './dia-2/extras/02-playwright/tests/api',
     },
     {
       name: 'e2e',
-      testDir: './dia-2/03-playwright/tests/e2e',
+      testDir: './dia-2/extras/02-playwright/tests/e2e',
       use: { ...devices['Desktop Chrome'] },
     },
   ],
