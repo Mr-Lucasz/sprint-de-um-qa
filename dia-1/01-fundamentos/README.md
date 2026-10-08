@@ -2,10 +2,6 @@
 
 Base: syllabus **ISTQB CTFL v4.0.1**, capítulos 1, 2 e 5. As seções citadas permitem aprofundar no documento oficial (versão em português publicada pelo BSTQB).
 
-> 💬 **Visão do instrutor sobre qualidade**
->
-> _Espaço para o Lucas: o que qualidade significa na prática, histórias de projetos reais, o que o mercado espera de um QA._
-
 ---
 
 ## O que é testar (CTFL 1.1)
@@ -26,8 +22,6 @@ Testar é um conjunto de atividades para **encontrar defeitos e avaliar a qualid
 | **Falha** | O comportamento errado observado ao executar | A pessoa conclui um pedido sem nenhum produto, com total de $0.00 |
 
 A **causa raiz** é o motivo fundamental do erro (pressa, requisito ambíguo, falta de revisão). Atacar a causa raiz evita defeitos parecidos no futuro.
-
-> 💬 **Visão do instrutor:** _causa raiz na prática, exemplos de RCA._
 
 ## Os 7 princípios de teste (CTFL 1.3)
 
@@ -149,8 +143,6 @@ Esse é um dos principais motivos que justificam o shift-left: testar cedo e em 
           componente        │     segurança, carga
             Voltado à tecnologia
 ```
-
-> 💬 **Visão do instrutor:** _como é a rotina de um QA numa Sprint real._
 
 ## Fluxo atual de qualidade em uma Sprint
 
