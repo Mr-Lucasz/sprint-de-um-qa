@@ -2,9 +2,10 @@
 # Baseado em: https://playwright.dev/docs/ci-intro
 #             https://docs.github.com/actions
 #
-# Em push e pull request o app sobe no modo "sprint" (o mesmo que os alunos testam),
-# então o pipeline FALHA enquanto houver defeitos. Para ver tudo verde, rode
-# manualmente (aba Actions > Qualidade > Run workflow) escolhendo o modo "estavel".
+# Em push e pull request o app sobe no modo "estavel" (a versão de referência, sem
+# defeitos), então o pipeline fica verde e mostra que os testes funcionam. Para ver
+# os testes pegando os defeitos do curso, rode manualmente (aba Actions > Qualidade >
+# Run workflow) escolhendo o modo "sprint": nesse modo o pipeline FALHA de propósito.
 
 name: Qualidade
 
@@ -17,11 +18,11 @@ on:
       modo:
         description: 'Modo do app'
         type: choice
-        options: [sprint, estavel]
-        default: sprint
+        options: [estavel, sprint]
+        default: estavel
 
 env:
-  MODO: ${{ inputs.modo || 'sprint' }}
+  MODO: ${{ inputs.modo || 'estavel' }}
 
 jobs:
   api:
