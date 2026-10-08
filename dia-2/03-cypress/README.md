@@ -1,5 +1,7 @@
 # 03 · Automação de testes com Cypress
 
+[Trilha](../../README.md#a-trilha) › [Dia 2](../README.md) › [Desafio](DESAFIO.md)
+
 Documentação oficial: https://docs.cypress.io · Boas práticas: https://docs.cypress.io/app/core-concepts/best-practices
 
 Esta fase tem duas partes:

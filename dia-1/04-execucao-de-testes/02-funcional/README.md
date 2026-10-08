@@ -1,5 +1,7 @@
 # 04.2 · Execução de testes funcionais
 
+[Trilha](../../../README.md#a-trilha) › [Dia 1](../../README.md) › [04 · Execução de testes](../README.md) › [Desafio](DESAFIO.md)
+
 Base: CTFL v4.0.1, seção **4.4** (técnicas baseadas na experiência).
 
 Na execução funcional, você valida o comportamento observável do produto pela

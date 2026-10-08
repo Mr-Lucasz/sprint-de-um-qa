@@ -1,5 +1,7 @@
 # Desafio 02 · A coleção da sua história
 
+[Trilha](../../README.md#a-trilha) › [Dia 2](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Testes de API com Postman](README.md).
 
 No dia 1 você testou a sua história pela API conferindo a resposta com os

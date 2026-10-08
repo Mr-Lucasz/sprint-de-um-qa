@@ -1,5 +1,7 @@
 # 02 · Análise de requisitos e técnicas de teste
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Desafio](DESAFIO.md)
+
 Base: CTFL v4.0.1, seções **3.2** (revisões), **4.2** (técnicas caixa-preta) e **4.5** (abordagens colaborativas).
 
 ## Testar começa antes do código

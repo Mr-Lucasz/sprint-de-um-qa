@@ -1,5 +1,7 @@
 # 02 · Testes de API com Postman
 
+[Trilha](../../README.md#a-trilha) › [Dia 2](../README.md) › [Desafio](DESAFIO.md)
+
 Documentação oficial: https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/
 
 Na [lição de API do dia 1](../../dia-1/04-execucao-de-testes/01-api/) você

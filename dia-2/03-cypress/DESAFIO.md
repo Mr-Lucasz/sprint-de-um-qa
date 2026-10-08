@@ -1,5 +1,7 @@
 # Desafio 03 · Automatizar a sua história no Inscrevi
 
+[Trilha](../../README.md#a-trilha) › [Dia 2](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Automação de testes com Cypress](README.md) ·
 [colinha](COLINHA.md)
 

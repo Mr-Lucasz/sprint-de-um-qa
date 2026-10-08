@@ -1,5 +1,7 @@
 # Desafio 01 · Reconhecimento do Inscrevi
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Fundamentos de teste](README.md).
 
 Você acabou de entrar no time do **Inscrevi**, um sistema de inscrição em

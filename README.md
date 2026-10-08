@@ -118,6 +118,7 @@ você vai precisar ao relatar defeitos.
 | Backlog refinado (16 histórias em 5 épicos) | [sprint/backlog.md](sprint/backlog.md) |
 | Protótipos de tela | https://claude.ai/artifact/EppH87VQmyfY2aCtzQXuov |
 | Definition of Done | [sprint/definition-of-done.md](sprint/definition-of-done.md) |
+| Slides da aula original | [dia 1](dia-1/slides-dia-1.pdf) · [estratégia e execução de testes](dia-1/slides-estrategia-e-execucao-de-testes.pdf) · [dia 2](dia-2/slides-dia-2.pdf) |
 | Quadro da Sprint da turma original | https://github.com/users/Mr-Lucasz/projects/4 |
 
 ## Para quem vai dar aula com este material

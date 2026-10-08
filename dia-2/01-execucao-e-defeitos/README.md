@@ -1,5 +1,7 @@
 # 01 · Execução manual e reporte de bugs, com IA
 
+[Trilha](../../README.md#a-trilha) › [Dia 2](../README.md) › [Desafio](DESAFIO.md)
+
 Base: CTFL v4.0.1, seções **4.4** (técnicas baseadas na experiência) e **5.5**
 (gestão de defeitos).
 

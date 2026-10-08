@@ -1,5 +1,7 @@
 # 05 · Gestão de defeitos
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Desafio](DESAFIO.md)
+
 Base: CTFL v4.0.1, seção **5.5**.
 
 Um relato de defeito serve para três coisas: dar a quem corrige **informação suficiente para reproduzir**, permitir **acompanhar** a qualidade do produto e gerar **ideias de melhoria** do processo.

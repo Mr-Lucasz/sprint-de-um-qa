@@ -1,5 +1,7 @@
 # 03 · Casos de teste e plano de teste
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Desafio](DESAFIO.md)
+
 Base: CTFL v4.0.1, seções **1.4.3** (testware), **2.1.3** (BDD), **4.2** e **5.2**.
 
 Os casos de teste deste repositório seguem a abordagem ágil de **Behavior-Driven

@@ -1,5 +1,7 @@
 # Desafio 02 · QA de plantão no refinamento
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Análise de requisitos e técnicas de teste](README.md).
 
 O PO trouxe 16 histórias do Inscrevi para o refinamento. **Nenhuma está

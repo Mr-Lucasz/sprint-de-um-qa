@@ -37,6 +37,13 @@ com ela até o fim do dia 2.
   defeito.
 - **Guarde as entregas na pasta `minha-sprint/`**, na raiz do seu fork.
 
+## Slides da aula original
+
+- [slides-dia-1.pdf](slides-dia-1.pdf): a apresentação do dia 1 (21 slides).
+- [slides-estrategia-e-execucao-de-testes.pdf](slides-estrategia-e-execucao-de-testes.pdf):
+  resumo visual de plano de teste, risco, BDD e execução (5 slides), para as
+  fases 03 e 04.
+
 A lição de API é a exceção ao Sauce Demo: a loja não tem API pública, então o
 exemplo usa as rotas de login do Inscrevi.
 

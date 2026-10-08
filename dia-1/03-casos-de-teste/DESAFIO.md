@@ -1,5 +1,7 @@
 # Desafio 03 · Cenários e plano de teste da sua história
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Casos de teste e plano de teste](README.md).
 
 O refinamento acabou e a sua história do Inscrevi entrou na Sprint. Antes de o
