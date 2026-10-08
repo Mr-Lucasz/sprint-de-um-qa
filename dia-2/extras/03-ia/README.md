@@ -2,8 +2,6 @@
 
 A IA acelera, mas **não substitui o julgamento**. Toda saída é tratada como sugestão de um colega júnior muito rápido: revise, questione e confira contra o backlog.
 
-> 💬 **Visão do instrutor:** _como uso IA no meu fluxo de QA._
-
 ## Onde a IA ajuda
 
 | Tarefa | Ganho | Cuidado |
