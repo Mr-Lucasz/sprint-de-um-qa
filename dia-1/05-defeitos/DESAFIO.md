@@ -1,5 +1,7 @@
 # Desafio 05 · Relatar os defeitos do Inscrevi
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Gestão de defeitos](README.md).
 
 Você executou os seus casos e explorou a sua história. Cada cenário com status

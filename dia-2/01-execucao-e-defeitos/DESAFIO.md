@@ -1,5 +1,7 @@
 # Desafio 01 · Executar e reportar no Inscrevi, com IA
 
+[Trilha](../../README.md#a-trilha) › [Dia 2](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Execução manual e reporte de bugs, com IA](README.md).
 
 Você continua com a mesma história do dia 1. Se já executou os seus casos no

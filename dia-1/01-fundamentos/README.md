@@ -1,5 +1,7 @@
 # 01 · Fundamentos de teste
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md) › [Desafio](DESAFIO.md)
+
 Base: syllabus **ISTQB CTFL v4.0.1**, capítulos 1, 2 e 5. As seções citadas permitem aprofundar no documento oficial (versão em português publicada pelo BSTQB).
 
 ---

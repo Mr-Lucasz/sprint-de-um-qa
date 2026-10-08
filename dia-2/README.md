@@ -19,6 +19,8 @@ Cada fase tem duas partes:
 
 A fase 02 é a exceção ao Sauce Demo: a loja não tem API pública.
 
+Os slides usados na aula original estão em [slides-dia-2.pdf](slides-dia-2.pdf).
+
 ## Antes de começar
 
 ```bash

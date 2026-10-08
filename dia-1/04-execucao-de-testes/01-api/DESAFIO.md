@@ -1,5 +1,7 @@
 # Desafio 04.1 · A sua história pela API
 
+[Trilha](../../../README.md#a-trilha) › [Dia 1](../../README.md) › [04 · Execução de testes](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Execução de testes de API com Postman](README.md).
 
 A tela do Inscrevi pode estar protegendo uma regra que a API deixa passar.

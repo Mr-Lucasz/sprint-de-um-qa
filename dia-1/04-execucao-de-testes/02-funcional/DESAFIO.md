@@ -1,5 +1,7 @@
 # Desafio 04.2 · Executar e explorar a sua história no Inscrevi
 
+[Trilha](../../../README.md#a-trilha) › [Dia 1](../../README.md) › [04 · Execução de testes](../README.md) › [Lição](README.md)
+
 Lição desta fase: [Execução de testes funcionais](README.md).
 
 O Inscrevi tem defeitos **de propósito**. Os seus casos de teste e o charter da

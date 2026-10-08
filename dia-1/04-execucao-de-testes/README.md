@@ -1,5 +1,7 @@
 # 04 · Execução de testes
 
+[Trilha](../../README.md#a-trilha) › [Dia 1](../README.md)
+
 Nesta fase o plano vira execução. Há dois caminhos para executar os cenários de
 uma história, e cada um tem a sua lição e o seu desafio:
 

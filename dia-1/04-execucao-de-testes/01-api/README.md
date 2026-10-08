@@ -1,5 +1,7 @@
 # 04.1 · Execução de testes de API com Postman
 
+[Trilha](../../../README.md#a-trilha) › [Dia 1](../../README.md) › [04 · Execução de testes](../README.md) › [Desafio](DESAFIO.md)
+
 Base: CTFL v4.0.1, testes funcionais e teste de interfaces.
 
 Por trás de uma tela existe uma API. Testar direto nela mostra se a regra de
