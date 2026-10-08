@@ -1,18 +1,18 @@
-# Prompts de QA para a aula
+# Prompts de QA
 
 Prompts prontos para usar com qualquer IA de chat (Claude, ChatGPT, Gemini,
-Copilot) nas práticas de hoje. Cada arquivo traz o prompt, o que colar nele e o
+Copilot) nas lições e nos desafios. Cada arquivo traz o prompt, o que colar nele e o
 que conferir na resposta antes de usar.
 
-| # | Quando usar | Prompt | Parte da aula |
+| # | Quando usar | Prompt | Fase |
 |---|---|---|---|
-| 1 | Revisar uma história antes de testar | [01-refinamento.md](01-refinamento.md) | Recapitulação do dia 1 |
-| 2 | Gerar casos de teste e plano de teste | [02-plano-de-teste.md](02-plano-de-teste.md) | Recapitulação do dia 1 |
-| 3 | Preparar e conduzir a execução manual | [03-execucao-de-testes.md](03-execucao-de-testes.md) | Parte 1 |
-| 4 | Escrever ou revisar um bug | [04-reporte-de-bug.md](04-reporte-de-bug.md) | Parte 1 |
-| 5 | Testar a API com o Postman | [05-testes-de-api.md](05-testes-de-api.md) | Parte 2 |
-| 6 | Automatizar um cenário no Cypress | [06-automacao-cypress.md](06-automacao-cypress.md) | Parte 3 |
-| 7 | Revisar o código de um teste automatizado | [07-review-de-automacao.md](07-review-de-automacao.md) | Parte 3 |
+| 1 | Revisar uma história antes de testar | [01-refinamento.md](01-refinamento.md) | Dia 1, fases 02 e 03 |
+| 2 | Gerar casos de teste e plano de teste | [02-plano-de-teste.md](02-plano-de-teste.md) | Dia 1, fases 02 e 03 |
+| 3 | Preparar e conduzir a execução manual | [03-execucao-de-testes.md](03-execucao-de-testes.md) | Dia 2, fase 01 |
+| 4 | Escrever ou revisar um bug | [04-reporte-de-bug.md](04-reporte-de-bug.md) | Dia 2, fase 01 |
+| 5 | Testar a API com o Postman | [05-testes-de-api.md](05-testes-de-api.md) | Dia 2, fase 02 |
+| 6 | Automatizar um cenário no Cypress | [06-automacao-cypress.md](06-automacao-cypress.md) | Dia 2, fase 03 |
+| 7 | Revisar o código de um teste automatizado | [07-review-de-automacao.md](07-review-de-automacao.md) | Dia 2, fase 03 |
 | 8 | Calcular métricas e decidir se a história está pronta | [08-metricas-e-kpis.md](08-metricas-e-kpis.md) | Encerramento |
 
 ## Como usar

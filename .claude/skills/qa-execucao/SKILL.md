@@ -46,7 +46,7 @@ Base: CTFL v4.0.1, 4.4 (técnicas baseadas na experiência) e 5.5.
 ## Sessão exploratória
 
 Quando pedirem exploração, pegue o charter da história na tabela de
-`dia-1/04-execucao-de-testes/02-funcional/README.md` e explore por tempo fixo:
+`dia-1/04-execucao-de-testes/02-funcional/DESAFIO.md` e explore por tempo fixo:
 bordas e logo depois delas; campos vazios, só com espaços, com acento e emoji;
 a mesma ação duas vezes; botão Voltar e endereço digitado à mão; a mesma
 operação com outra conta ou sem login. Ao final separe **defeitos**, **dúvidas

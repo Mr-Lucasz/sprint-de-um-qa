@@ -97,7 +97,7 @@ body:
     id: ambiente
     attributes:
       label: Ambiente
-      placeholder: "Windows 11, Chrome 140, ambiente turma, versão 1.0.0-sprint (os dois últimos estão no rodapé do app)"
+      placeholder: "Windows 11, Chrome 140, ambiente local, versão 1.0.0-sprint (os dois últimos estão no rodapé do app)"
     validations:
       required: true
 

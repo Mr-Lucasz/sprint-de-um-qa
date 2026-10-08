@@ -3,7 +3,7 @@
 Para revisar uma história antes de escrever os testes. Material de apoio:
 [dia-1/02-requisitos](../../dia-1/02-requisitos/).
 
-**O que colar:** a sua história inteira do [backlog](../../sprint/backlog.md),
+**O que colar:** a sua história inteira do [backlog em rascunho](../../sprint/backlog-rascunho.md),
 da narrativa aos critérios de aceite.
 
 ## Prompt

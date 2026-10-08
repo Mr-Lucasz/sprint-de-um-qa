@@ -68,7 +68,7 @@ Caso de teste ou charter de origem:
 
 ## Revisando um relato pronto
 
-Passe pelo checklist de `dia-2/01-execucao-e-defeitos/README.md` e aponte, item
+Passe pelo checklist de `dia-2/01-execucao-e-defeitos/DESAFIO.md` e aponte, item
 a item, o que passa e o que falta, citando o trecho. Depois entregue a versão
 reescrita, **sem mudar os fatos**: não suavize, não acrescente passo que a
 pessoa não fez, não troque o que foi observado.

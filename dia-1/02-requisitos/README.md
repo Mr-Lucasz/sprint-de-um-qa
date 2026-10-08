@@ -6,7 +6,7 @@ Base: CTFL v4.0.1, seções **3.2** (revisões), **4.2** (técnicas caixa-preta)
 
 Revisar uma história é **teste estático** (CTFL 3.1). Um requisito ambíguo vira defeito no código; uma pergunta no refinamento é o defeito mais barato que existe.
 
-Critérios de aceite podem ser escritos como **regras** (lista) ou como **cenários** (Dado/Quando/Então) (CTFL 4.5.2). No backlog do Inscrevi eles estão em cenários Gherkin.
+Critérios de aceite podem ser escritos como **regras** (lista) ou como **cenários** (Dado/Quando/Então) (CTFL 4.5.2). Nos exemplos e no backlog deste repositório eles estão em cenários Gherkin.
 
 ## INVEST: a régua do refinamento
 
@@ -25,107 +25,105 @@ Além do INVEST, confira o **Gherkin**: o `Dado` descreve o estado de partida co
 
 ---
 
-## Prática da Parte 1 · QA de plantão no refinamento (30 min, individual)
+## Exemplo resolvido · refinando uma história do Sauce Demo
 
-O PO trouxe 16 histórias para o refinamento. **Nenhuma está pronta**: todas chegaram como rascunho e têm problemas. Você é o "amigo do teste" na conversa dos três amigos, e a sua história só entra na Sprint depois que passar por você.
+O [Sauce Demo](https://www.saucedemo.com) não tem backlog público, então as
+lições usam uma história escrita para ele: a **SD01 · Finalizar compra**. O
+rascunho, a ficha preenchida e a versão refinada estão em
+[exemplo-saucedemo.md](exemplo-saucedemo.md).
 
-**Cada pessoa escolhe uma história, e cada história pode ter no máximo duas pessoas.** O trabalho é individual: quem dividir a história com alguém faz a própria ficha e compara os achados no final. A história que você escolher agora acompanha você nas próximas dinâmicas (casos de teste, plano de teste e execução).
+Leia o rascunho com a loja aberta ao lado (`standard_user` / `secret_sauce`) e
+tente achar os problemas antes de olhar a ficha. O raciocínio, trecho a trecho:
 
-As histórias estão no [backlog](../../sprint/backlog.md) e no [quadro da Sprint](https://github.com/users/Mr-Lucasz/projects/4), na coluna **Em refinamento**, agrupadas por épico.
+| Trecho do rascunho | Letra | Por que é problema | Pergunta para o PO |
+|---|---|---|---|
+| "finalizo a compra **rapidamente**" | T | Não dá para medir "rapidamente" | Existe um tempo máximo? Se não, tirar a palavra |
+| "o pedido deve ser processado **adequadamente**" | T | O `Então` não diz o que a pessoa vê | Qual mensagem e qual tela confirmam o pedido? |
+| "informo um **nome válido**" | E | Não há regra para o que é válido, nem cenário para campo vazio | Quais campos são obrigatórios? Qual a mensagem de cada um? |
+| "o botão Continue deve ser **verde com 16px**" | N | Detalhe de implementação visual dentro do critério de aceite | Isso é regra de negócio ou cabe ao design? |
+| "vejo o total **com o imposto**" | E | Não diz de quanto é o imposto nem como arredonda | Qual a alíquota? Como arredonda? |
+| "**E também** quero ordenar os produtos por preço" | S, I | Outra funcionalidade, de outra tela, na mesma história | Podemos separar em outra história? |
+| Nenhum cenário com o carrinho vazio | E | Falta o cenário negativo mais óbvio | Dá para iniciar o checkout sem nenhum item? |
+| "**Quando** adiciono produtos **e** finalizo a compra" | Gherkin | Duas ações num `Quando` só | Separar: adicionar é pré-condição (`Dado`) |
 
-Cada história tem também um **protótipo de tela**, feito pelo time de design a partir do mesmo rascunho: [protótipos do Inscrevi](https://claude.ai/artifact/EppH87VQmyfY2aCtzQXuov). Cada tela leva no título o número da história. Protótipo também é artefato de teste: revisá-lo é teste estático, do mesmo jeito que revisar a história.
+Um cenário reescrito fica assim:
 
-**Tarefas**
-
-1. Escolha a sua história no quadro e comente "é minha" na issue, para a turma ver quais já têm duas pessoas.
-2. Leia a história inteira: narrativa de negócio, problemática, solução, história e critérios de aceite.
-3. Preencha a **ficha INVEST** abaixo, dando uma nota de 0 a 2 para cada letra.
-4. Liste **todos os problemas** que encontrar e as **perguntas para o PO**. Para cada problema, indique a letra do INVEST e o trecho da história.
-5. Abra o **protótipo** da história e compare com o texto: a tela mostra o que a história pede? Mostra algo que a história não pede? Os números, nomes e mensagens batem entre si?
-6. Reescreva **um cenário** corrigido em Gherkin.
-7. Publique a ficha como **comentário na issue** da história.
-
-**Dicas para o protótipo:** contadores que não batem com a lista; nome de pessoa ou de minicurso diferente entre partes da tela; botão habilitado quando a regra proíbe; campo sem rótulo; ação destrutiva em destaque ou sem confirmação; informação que a história pede e a tela não mostra.
-
-**Dicas para caçar problemas na história:** palavras vagas (*rapidamente*, *razoável*, *adequadamente*, *automaticamente*); números que mudam entre a solução e os cenários; o que acontece quando dá errado; quem pode fazer a ação; conflito com as regras de outra história.
-
-### Ficha INVEST
-
-```
-História:                                Nome:
-
-Nota: 0 = não atende · 1 = atende em parte · 2 = atende
-
-| Letra | Nota | Justificativa |
-|-------|------|---------------|
-| I     |      |               |
-| N     |      |               |
-| V     |      |               |
-| E     |      |               |
-| S     |      |               |
-| T     |      |               |
-Total:    / 12
-
-Problemas encontrados (letra do INVEST · trecho · por que é problema):
-1.
-2.
-3.
-
-Protótipo (o que a tela mostra · o que a história diz · por que é problema):
-1.
-2.
-
-Perguntas para o PO:
--
-
-Cenário reescrito:
+```gherkin
+Cenário: Campo obrigatório vazio no checkout
+  Dado que estou logado e tenho o produto "Sauce Labs Backpack" no carrinho
+  E estou na tela "Checkout: Your Information"
+  Quando clico em "Continue" sem preencher o campo "First Name"
+  Então continuo na mesma tela
+  E vejo a mensagem "Error: First Name is required"
 ```
 
-**Socialização (10 min):** algumas pessoas apresentam o que encontraram; onde duas pessoas pegaram a mesma história, elas comparam as fichas. Ao final, o PO publica a versão fechada no refinamento das 16 histórias, que passa a ser a referência para os casos de teste, o plano de teste e a execução.
+Repare no que mudou: o `Dado` tem dados concretos, o `Quando` é uma ação só e o
+`Então` é algo que qualquer pessoa confere olhando para a tela.
 
 ---
 
 ## Técnicas de teste caixa-preta (CTFL 4.2)
 
-> Esta seção abre a **Parte 2** da noite, depois do intervalo e com o backlog refinado já publicado.
+Com a história refinada, as técnicas ajudam a escolher **poucos testes que
+cobrem muito**. Os exemplos usam o Sauce Demo e a SD01.
 
 ### Particionamento de equivalência (4.2.1)
 
 Divida as entradas em grupos que o sistema deve tratar **da mesma forma**. Testar um valor de cada partição cobre o grupo.
 
-Senha (US01, de 8 a 64 caracteres):
+Usuário na tela de login:
 
 | Partição | Exemplo | Esperado |
 |---|---|---|
-| Curta demais (0 a 7) | `abc` | Recusar |
-| Válida (8 a 64) | `Senha@1234` | Aceitar |
-| Longa demais (65 ou mais) | 70 caracteres | Recusar |
+| Conta ativa | `standard_user` | Entra e vê a lista de produtos |
+| Conta bloqueada | `locked_out_user` | Recusa: "Sorry, this user has been locked out." |
+| Conta inexistente | `fulano` | Recusa: "Username and password do not match any user in this service" |
+| Campo vazio | (nada) | Recusa: "Username is required" |
+
+Quatro testes cobrem o login. Testar dez contas inexistentes diferentes não
+acrescenta nada: elas estão na mesma partição.
 
 ### Análise de valor limite (4.2.2)
 
 Defeitos se escondem nas **bordas** das partições. Na análise de 2 valores, testamos o limite e o vizinho da partição ao lado; na de 3 valores, o limite e os dois vizinhos.
 
-Senha com 2 valores: **7, 8, 64 e 65**.
-Vagas de um curso com 2 vagas: a **2ª** inscrição é aceita, a **3ª** é recusada.
+Itens no carrinho (a loja tem 6 produtos, um de cada):
+
+| Partição | Valores | Limites a testar | Esperado |
+|---|---|---|---|
+| Carrinho vazio | 0 | **0** | Sem contador no ícone; checkout não inicia (SD01, regra 3) |
+| Carrinho com itens | 1 a 6 | **1** e **6** | Contador mostra a quantidade; checkout disponível |
+
+O imposto da SD01 (8% do subtotal, com 2 casas) também tem bordas: escolha
+produtos cujo imposto caia perto de meio centavo e confira o arredondamento. Um
+produto de $29.99 dá $2.3992, que vira **$2.40**.
 
 ### Tabela de decisão (4.2.3)
 
-Útil quando várias condições se combinam. Regras de inscrição (US04):
+Útil quando várias condições se combinam. Checkout da SD01:
 
 | Condição | R1 | R2 | R3 | R4 | R5 |
 |---|---|---|---|---|---|
-| Está logado? | N | S | S | S | S |
-| Já inscrito no curso? | – | S | N | N | N |
-| Curso tem vaga? | – | – | N | S | S |
-| Conflito de horário? | – | – | – | S | N |
-| **Resultado** | **401** | **409 duplicada** | **409 sem vagas** | **409 conflito** | **201** |
+| Carrinho tem item? | N | S | S | S | S |
+| First Name preenchido? | – | N | S | S | S |
+| Last Name preenchido? | – | – | N | S | S |
+| Postal Code preenchido? | – | – | – | N | S |
+| **Resultado** | **Checkout não inicia** | **First Name is required** | **Last Name is required** | **Postal Code is required** | **Segue para o resumo** |
+
+Cada coluna vira um caso de teste. O traço quer dizer "tanto faz": a decisão já
+foi tomada por uma condição anterior.
 
 ### Transição de estado (4.2.4)
 
-Uma vaga passa por estados: **livre → ocupada → livre** (após cancelamento). Cada transição é um caso de teste, inclusive as **inválidas**, como cancelar algo que já foi cancelado.
+O botão de um produto tem dois estados: **Add to cart ⇄ Remove**. O pedido
+passa por **carrinho → dados → resumo → concluído**. Cada transição é um caso
+de teste, inclusive as **inválidas**: abrir o endereço do resumo direto, sem
+passar pelos dados, ou voltar com o botão do navegador depois de concluir.
 
 ---
 
-## Aplicando as técnicas
+## Agora é com você
 
-As técnicas acima são usadas na prática da Parte 2, em [03 · Casos de teste e plano de teste](../03-casos-de-teste/): é lá que você escreve os cenários da sua história, indicando a técnica usada em cada um.
+No [desafio desta fase](DESAFIO.md) você faz o papel de QA no refinamento de
+uma história do Inscrevi. As técnicas voltam na fase seguinte,
+[03 · Casos de teste e plano de teste](../03-casos-de-teste/).

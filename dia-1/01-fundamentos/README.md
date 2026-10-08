@@ -19,11 +19,11 @@ Testar é um conjunto de atividades para **encontrar defeitos e avaliar a qualid
 
 ## Erro, defeito e falha (CTFL 1.2.3)
 
-| Termo | O que é | Exemplo no Inscrevi |
+| Termo | O que é | Exemplo numa loja virtual |
 |---|---|---|
-| **Erro (engano)** | Uma ação humana equivocada | A dev entendeu "até 42 vagas" como "mais de 42 bloqueia" |
-| **Defeito** | O problema que ficou no artefato (código, requisito) | A comparação usa `>` em vez de `>=` |
-| **Falha** | O comportamento errado observado ao executar | A 43ª pessoa consegue se inscrever |
+| **Erro (engano)** | Uma ação humana equivocada | Ao escrever a história do checkout, ninguém pensou no carrinho vazio, e a dev implementou só o caminho com itens |
+| **Defeito** | O problema que ficou no artefato (código, requisito) | O botão **Checkout** não confere se há itens no carrinho |
+| **Falha** | O comportamento errado observado ao executar | A pessoa conclui um pedido sem nenhum produto, com total de $0.00 |
 
 A **causa raiz** é o motivo fundamental do erro (pressa, requisito ambíguo, falta de revisão). Atacar a causa raiz evita defeitos parecidos no futuro.
 
@@ -47,9 +47,9 @@ A **causa raiz** é o motivo fundamental do erro (pressa, requisito ambíguo, fa
 
 **Tipos** (o que avaliamos):
 
-- **Funcional:** o que o sistema faz (as regras da US04).
+- **Funcional:** o que o sistema faz (as regras de negócio de uma história).
 - **Não funcional:** como faz (desempenho, usabilidade, segurança, acessibilidade).
-- **Caixa-preta:** baseado na especificação, sem olhar o código. É o que faremos hoje.
+- **Caixa-preta:** baseado na especificação, sem olhar o código. É como você vai trabalhar nos desafios do dia 1.
 - **Caixa-branca:** baseado na estrutura interna (código).
 
 **Confirmação e regressão (2.2.3):** depois de uma correção, o teste de confirmação verifica se o defeito sumiu; o de regressão verifica se a mudança não quebrou outra coisa. Regressão é a candidata número 1 à automação, como veremos no dia 2.
@@ -313,8 +313,37 @@ Em resumo, o fluxo atual de qualidade em times modernos costuma seguir uma lógi
 
 Essa visão mostra que a qualidade deixou de ser apenas uma “etapa final” e passou a ser um processo contínuo, compartilhado por toda a equipe.
 
-## Para revisar
+## Vendo os conceitos no Sauce Demo
 
-1. Encontrar 10 falhas no Inscrevi prova que ele tem qualidade baixa? E não encontrar nenhuma prova que tem qualidade alta? Qual princípio responde?
-2. A pessoa dev corrigiu o limite de vagas. Que dois tipos de teste você executa em seguida?
-3. Em qual quadrante fica o teste exploratório que faremos daqui a pouco?
+O [Sauce Demo](https://www.saucedemo.com) é uma loja de mentira, pública, feita
+para praticar teste. Todas as lições deste repositório usam essa loja como
+exemplo. As contas ficam na própria tela de login (a senha de todas é
+`secret_sauce`).
+
+Entre com `standard_user`, coloque um produto no carrinho e finalize a compra.
+Depois saia e repita com `problem_user`. Com o que você viu, responda:
+
+1. O que você observou de errado com `problem_user` é um **erro**, um
+   **defeito** ou uma **falha**? Por quê?
+2. Você comprou um produto sem problemas com `standard_user`. Isso prova que o
+   checkout não tem defeitos? Qual princípio responde?
+3. Você testou a loja sem ver o código. Que **tipo** de teste foi esse? E em
+   que **nível**?
+4. Se a equipe corrigir as imagens de `problem_user`, que dois tipos de teste
+   você executa em seguida?
+
+<details>
+<summary>Respostas</summary>
+
+1. **Falha**: é o comportamento errado que aparece ao executar. O defeito está
+   no código, que você não viu, e o erro foi de quem o escreveu.
+2. Não. Princípio 1: o teste mostra a presença de defeitos, não a ausência.
+3. Caixa-preta, no nível de sistema.
+4. Teste de **confirmação** (as imagens voltaram?) e de **regressão** (o resto
+   da loja continua funcionando?).
+
+</details>
+
+## Agora é com você
+
+O [desafio desta fase](DESAFIO.md) leva as mesmas perguntas para o Inscrevi.

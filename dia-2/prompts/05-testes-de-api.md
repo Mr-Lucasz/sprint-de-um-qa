@@ -1,7 +1,7 @@
 # 5 · Testes de API
 
 Para planejar os testes de API da sua história e escrever os scripts do
-Postman. Roteiro da aula: [02-postman](../02-postman/).
+Postman. Lição e desafio: [02-postman](../02-postman/).
 
 **O que colar:** a sua história e a documentação das rotas dela. Copie da
 página https://inscrevi.vercel.app/docs ou do contrato em
@@ -66,7 +66,7 @@ Regras:
   guardados em variável, porque o ambiente é compartilhado.
 - Valide o formato da resposta de sucesso com
   pm.response.to.have.jsonSchema(schema).
-- Não confira tempo de resposta: a rede do laboratório varia.
+- Não confira tempo de resposta: a rede varia.
 
 Exemplo do estilo:
 

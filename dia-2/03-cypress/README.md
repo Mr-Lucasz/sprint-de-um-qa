@@ -2,21 +2,20 @@
 
 Documentação oficial: https://docs.cypress.io · Boas práticas: https://docs.cypress.io/app/core-concepts/best-practices
 
-A parte tem dois momentos:
+Esta fase tem duas partes:
 
-1. **Live coding do zero.** O instrutor monta um projeto de automação a partir
-   de uma pasta vazia, usando o Sauce Demo (https://www.saucedemo.com), um site
-   público feito para praticar. Acompanhe digitando junto.
-2. **Sua vez.** Você automatiza, sozinho, os cenários que planejou no dia 1
-   para o Inscrevi.
-
-Esta pasta é um projeto Cypress já configurado e **sem testes prontos**: os
-testes do Inscrevi são seus.
+1. **A lição (esta página).** Você monta um projeto de automação a partir de
+   uma pasta vazia, usando o Sauce Demo (https://www.saucedemo.com), um site
+   público feito para praticar. O projeto pronto está em
+   [exemplo-saucedemo](exemplo-saucedemo/), para consultar quando travar.
+2. **O [desafio](DESAFIO.md).** Você automatiza, sozinho, os cenários que
+   planejou para o Inscrevi. Esta pasta é um projeto Cypress já configurado e
+   **sem testes prontos**: os testes do Inscrevi são seus.
 
 > Se perdeu no meio do caminho? A [colinha](COLINHA.md) tem os comandos mais
 > usados e o que fazer com os erros mais comuns.
 
-## Momento 1 · Acompanhando o live coding
+## Construindo o projeto do zero
 
 Crie o seu projeto numa pasta nova, fora deste repositório:
 
@@ -83,6 +82,30 @@ describe('assunto', () => {        // agrupa os testes
 | `'have.attr', 'nome', 'valor'` | Atributo |
 | `'be.enabled'` / `'be.disabled'` | Habilitado ou não |
 
+### Roteiro da lição
+
+Escreva cada passo no seu projeto antes de abrir o arquivo de exemplo
+correspondente, em [exemplo-saucedemo/cypress/e2e/saucedemo](exemplo-saucedemo/cypress/e2e/saucedemo/).
+
+| Passo | O que você escreve | Arquivo de exemplo |
+|---|---|---|
+| 1 | Login válido, senha errada e usuário bloqueado | `01-login.cy.js` |
+| 2 | Uma compra completa, com o login no `beforeEach` | `02-compra.cy.js` |
+| 3 | As formas de encontrar um elemento | `03-seletores.cy.js` |
+| 4 | Ações e asserções mais usadas | `04-acoes-e-assercoes.cy.js` |
+| 5 | Fixtures, apelidos, comando customizado e `cy.session` | `05-fixtures-comandos-sessao.cy.js` |
+| 6 | Endereço, viewport, cookies e capturas de tela | `06-navegador.cy.js` |
+| 7 | Os casos da [SD01](../../dia-1/03-casos-de-teste/exemplo-saucedemo.csv) virando testes | `07-sd01-checkout.cy.js` |
+| 8 | O login e o carrinho em Gherkin, com page objects | `compra.feature`, `carrinho.feature` |
+| 9 | Testes de API com `cy.request` e passos genéricos | `../inscrevi/api.feature` |
+
+O passo 7 fecha o ciclo do dia 1: o caso de teste que você leu no CSV e
+executou à mão vira um `it`. O `CT-06` fica **vermelho de propósito**: a loja
+aceita o checkout com o carrinho vazio, e o teste descreve o comportamento
+esperado pela história. Ele só fica verde quando o defeito for corrigido.
+
+O Sauce Demo não tem API pública, então o passo 9 usa a API do Inscrevi.
+
 ### Três ideias que evitam dor de cabeça
 
 - **Seletor estável.** Prefira atributos feitos para teste (`data-test` no
@@ -100,8 +123,9 @@ describe('assunto', () => {        // agrupa os testes
 npm install --save-dev @badeball/cypress-cucumber-preprocessor @bahmutov/cypress-esbuild-preprocessor esbuild
 ```
 
-A configuração está pronta nesta pasta: veja o [cypress.config.js](cypress.config.js)
-e o bloco `cypress-cucumber-preprocessor` do [package.json](package.json).
+A configuração comentada linha a linha está no projeto de exemplo: veja o
+[cypress.config.js](exemplo-saucedemo/cypress.config.js) e o bloco
+`cypress-cucumber-preprocessor` do [package.json](exemplo-saucedemo/package.json).
 
 | No Gherkin | No código | Papel |
 |---|---|---|
@@ -113,96 +137,15 @@ e o bloco `cypress-cucumber-preprocessor` do [package.json](package.json).
 | `Dado` / `Quando` / `Então` / `E` | `Given` / `When` / `Then` | Preparar, agir, conferir |
 | `"texto"` | `{string}` | Parâmetro passado para o passo |
 
-## Momento 2 · Sua vez no Inscrevi
-
-Você pode continuar no projeto que criou no live coding ou usar esta pasta, que
-já vem configurada:
-
-```bash
-cd dia-2/03-cypress
-npm install
-npx cypress install
-npx cypress open
-```
-
-O `baseUrl` é `https://inscrevi.vercel.app`, a homologação do Inscrevi, então
-`cy.visit('/#/entrar')` basta e não é preciso subir nada na sua máquina.
-
-O ambiente é o mesmo da execução manual, compartilhado com a turma: os testes
-criam contas, minicursos e inscrições de verdade. Gere os seus próprios dados
-(e-mail novo, curso novo) em vez de contar com o que já está lá.
-
-### O que a pasta entrega
-
-```
-cypress.config.js                      baseUrl e plugin do Cucumber
-cypress/
-  e2e/
-    minha-historia.cy.js               modelo em JavaScript
-    minha-historia.feature             modelo em Gherkin
-  support/
-    commands.js                        comandos customizados
-    e2e.js                             carregado antes de todos os testes
-    step_definitions/                  passos do Cucumber
-```
-
-Comandos customizados, para montar a pré-condição sem passar pela tela:
-
-| Comando | O que faz |
-|---|---|
-| `cy.getByTestId('campo-email')` | Atalho para `cy.get('[data-testid="campo-email"]')` |
-| `cy.loginPelaApi()` | Cria uma conta nova e entra **pela API** |
-| `cy.criarCurso({ vagas: 3 })` | Cria um minicurso como administrador e devolve os dados dele |
-
-Rotas da interface: `/#/cursos`, `/#/entrar`, `/#/criar-conta`,
-`/#/minhas-inscricoes`, `/#/perfil`, `/#/recuperar-senha` e `/#/admin/cursos`.
-A API fica em `/api` e está documentada em https://inscrevi.vercel.app/docs.
-
-Para descobrir o `data-testid` de um elemento, clique nele com o botão direito
-e escolha **Inspecionar**. No modo interativo do Cypress, o ícone de alvo ao
-lado da barra de endereço sugere o seletor.
-
-### Do caso de teste para o Cypress
-
-| No caso de teste | Em JavaScript (`.cy.js`) | Em Cucumber (`.feature` + passos) |
-|---|---|---|
-| Cenário | `it('...')` | `Cenário:` |
-| Dado | `beforeEach`, `cy.visit`, `cy.loginPelaApi`, `cy.criarCurso` | `Given('...', () => { ... })` |
-| Quando | `.type`, `.click` | `When('...', () => { ... })` |
-| Então | `.should` | `Then('...', () => { ... })` |
-
-### Prática (30 min, individual)
-
-1. Copie `cypress/e2e/minha-historia.cy.js` com o nome da sua história, por
-   exemplo `us06-cancelamento.cy.js`. Se preferir Cucumber, copie o
-   `minha-historia.feature` e escreva os passos em `step_definitions/`.
-2. Automatize **um cenário de sucesso** da sua história.
-3. Automatize **um cenário de erro** (regra de negócio ou valor limite).
-4. Acrescente **um teste de API** com `cy.request` para a mesma regra.
-5. Se sobrar tempo, automatize o cenário do bug que você relatou na Parte 1.
-6. Rode no terminal: `npx cypress run --spec "cypress/e2e/<seu-arquivo>"`.
-
-Se o teste do seu bug ficar vermelho, ele está certo: o teste descreve o
-comportamento **esperado** pela história, e fica vermelho até o defeito ser
-corrigido. Não ajuste a asserção para o teste passar.
-
-### Antes de dar o teste por pronto
-
-- [ ] O nome do `it` ou do cenário diz a regra que está sendo conferida?
-- [ ] O teste falharia se o comportamento estivesse errado?
-- [ ] Ele passa rodando sozinho e também junto com os outros?
-- [ ] Não há `cy.wait` com número?
-- [ ] Os dados são criados pelo próprio teste (e-mail novo, curso novo)?
-
 ## Publicando o seu projeto e ligando o pipeline
 
 Teste automatizado é código: vai para o Git e roda sozinho a cada mudança.
 Publique o projeto que **você** criou num repositório seu no GitHub. Não é
 preciso fazer fork deste repositório.
 
-Se você usou esta pasta em vez de criar o projeto do zero, copie-a antes para
-fora do repositório do curso (por exemplo, para `cypress-do-zero`) e trabalhe
-na cópia.
+Se você usou esta pasta ou a de exemplo em vez de criar o projeto do zero,
+copie-a antes para fora do repositório do curso (por exemplo, para
+`cypress-do-zero`) e trabalhe na cópia.
 
 ### 1. Primeiro commit
 
@@ -306,8 +249,8 @@ rodapé do PR ou na aba **Actions**.
 | `ci:` | Mudança no pipeline |
 | `chore:` | Configuração e dependências |
 
-Se o pipeline ficar vermelho por causa de um bug do Inscrevi, ele está fazendo
-o trabalho dele. Os prints da falha ficam no artefato `cypress-screenshots`, na
+Se o pipeline ficar vermelho por causa de um defeito do sistema em teste (como
+o `CT-06` do exemplo), ele está fazendo o trabalho dele. Os prints da falha ficam no artefato `cypress-screenshots`, na
 página da execução.
 
 ## Rodando no terminal
@@ -322,3 +265,8 @@ página da execução.
 
 Quando um teste falha no terminal, o Cypress salva um print em
 `cypress/screenshots/`.
+
+## Agora é com você
+
+No [desafio desta fase](DESAFIO.md) você automatiza os cenários da sua história
+no Inscrevi.

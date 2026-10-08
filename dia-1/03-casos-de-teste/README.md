@@ -1,8 +1,8 @@
 # 03 · Casos de teste e plano de teste
 
-Base: CTFL v4.0.1, seções **1.4.3** (testware), **2.1.3** (BDD) e **4.2**.
+Base: CTFL v4.0.1, seções **1.4.3** (testware), **2.1.3** (BDD), **4.2** e **5.2**.
 
-Neste exercício, os casos de teste seguem a abordagem ágil de **Behavior-Driven
+Os casos de teste deste repositório seguem a abordagem ágil de **Behavior-Driven
 Development (BDD)**. O caso é um exemplo concreto do comportamento esperado,
 escrito com a estrutura do Gherkin:
 
@@ -14,62 +14,68 @@ BDD não é apenas trocar o nome dos campos. O cenário deve ser compreensível
 para negócio, desenvolvimento e teste, e servir como critério de aceite e como
 base para uma execução manual ou automatizada.
 
-## Template
+## O formato
 
-Use o arquivo [casos-de-teste.csv](casos-de-teste.csv): ele abre no Excel, no
-Google Planilhas ou no próprio VS Code. Os 3 primeiros casos são exemplos.
+Os casos ficam num CSV separado por ponto e vírgula, que abre no Excel, no
+Google Planilhas ou no próprio VS Code:
 
-As colunas `dado`, `quando` e `entao` representam o cenário BDD. A coluna
-`regra` mantém a rastreabilidade com a regra de negócio e `tecnica` registra a
-técnica complementar usada (por exemplo, valor limite ou tabela de decisão).
-As colunas `resultado_obtido` e `status` são preenchidas somente após a
-execução.
+| Coluna | O que vai nela |
+|---|---|
+| `id` | Identificador do caso (`CT-01`) |
+| `historia` | A história testada |
+| `regra` | A regra de negócio coberta: é a rastreabilidade |
+| `tecnica` | A técnica usada (valor limite, particionamento, tabela de decisão, transição de estado) |
+| `cenario` | Um título que diz a regra conferida |
+| `dado`, `quando`, `entao` | O cenário BDD |
+| `dados` | A massa de teste usada |
+| `resultado_obtido`, `status` | Preenchidos só depois da execução |
 
-### Exemplo de cenário
+## Exemplo resolvido · os casos da SD01 no Sauce Demo
+
+A história é a [SD01 · Finalizar compra](../02-requisitos/exemplo-saucedemo.md),
+na versão refinada. Os oito casos estão em
+[exemplo-saucedemo.csv](exemplo-saucedemo.csv). Como eles nasceram:
+
+| Regra da SD01 | Técnica | Casos | Raciocínio |
+|---|---|---|---|
+| 1 · Campos obrigatórios | Tabela de decisão | CT-01 a CT-03 | Uma coluna da tabela por campo vazio |
+| 2 · Subtotal, imposto e total | Particionamento e valor limite | CT-04, CT-05 | Um produto (o caso comum) e os seis (o máximo que a loja permite) |
+| 3 · Carrinho vazio | Valor limite | CT-06 | O limite inferior: zero itens |
+| 4 · Pedido concluído | Transição de estado | CT-07, CT-08 | Resumo → concluído e resumo → cancelado |
+
+Um deles, por extenso:
 
 ```gherkin
-Cenário: Aceitar senha com exatamente 8 caracteres
-  Dado que estou na tela "Criar conta" e ainda não possuo uma conta
-  Quando informo nome, e-mail e uma senha com 8 caracteres
-  Então a conta é criada e sou redirecionado para "Entrar"
+Cenário: Calcular o resumo de um produto
+  Dado que estou logado como "standard_user" e tenho apenas o "Sauce Labs Backpack" no carrinho
+  Quando informo os dados de entrega e clico em "Continue"
+  Então vejo "Item total: $29.99", "Tax: $2.40" e "Total: $32.39"
 ```
 
-## Prática da Parte 2 · Cenários e plano de teste (25 min, individual)
+### Um caso ruim e o mesmo caso consertado
 
-1. Trabalhe com a **sua história**, a mesma do refinamento, na versão refinada
-   do [backlog](../../sprint/backlog.md), e escreva pelo menos 5 cenários no CSV.
-   Todas as 16 histórias estão implementadas no sistema e podem ser testadas.
-2. Para cada cenário, use uma única ação em `quando` e um resultado
-   observável em `entao`.
-3. Inclua exemplos positivos, negativos e valores de fronteira quando a regra
-   exigir.
-4. Indique na coluna `tecnica` a técnica usada em cada cenário (valor limite,
-   particionamento, tabela de decisão ou transição de estado, vistas em
-   [02 · Requisitos](../02-requisitos/)).
-5. Preencha o [plano de teste](plano-de-teste.md) da sua história (seção abaixo).
-6. Troque os cenários e o plano com uma pessoa de **outra história** e revise:
-   dá para executar sem perguntar nada a quem escreveu?
+| | Ruim | Bom |
+|---|---|---|
+| Título | Testar checkout | Recusar checkout sem First Name |
+| Dado | que estou no site | que estou logado como "standard_user", tenho o "Sauce Labs Backpack" no carrinho e estou em "Checkout: Your Information" |
+| Quando | preencho o formulário errado e clico em continuar e depois volto | clico em "Continue" com o First Name vazio |
+| Então | o sistema valida corretamente | continuo na mesma tela e vejo "Error: First Name is required" |
 
-Reserve uns 15 minutos para os cenários e 10 para o plano. As colunas
-`resultado_obtido` e `status` ficam em branco por enquanto: a execução é a
-prática da Parte 3, em [04 · Execução de testes](../04-execucao-de-testes/).
-
-> O passo 6 é de propósito: se a outra pessoa não conseguiria executar o cenário
-> sem te perguntar nada, o `Dado`, o `Quando` ou o `Então` precisa de ajuste.
+O teste do caso ruim: entregue a outra pessoa e veja se ela executa sem te
+perguntar nada. "Formulário errado" como? "Valida corretamente" como?
 
 ## Plano de teste
 
-Depois de escrever os casos, organize a estratégia de validação no
-[plano de teste](plano-de-teste.md). Casos de teste e plano de teste fazem
-parte da mesma dinâmica: os casos dizem **o que verificar** e o plano registra
-**como, onde, com quais dados, riscos e critérios de saída** a validação será
-conduzida.
+Os casos dizem **o que verificar**. O plano registra **como, onde, com quais
+dados, riscos e critérios de saída** a validação será conduzida. O template e a
+explicação de cada seção estão em [plano-de-teste.md](plano-de-teste.md).
 
-Individualmente, para a sua história:
+O plano da SD01, preenchido e comentado, está em
+[exemplo-plano-saucedemo.md](exemplo-plano-saucedemo.md). Repare que ele cabe
+numa tela: um plano de teste é uma decisão baseada em risco, não uma lista de
+todos os testes possíveis.
 
-1. defina o objetivo, escopo e fora de escopo;
-2. priorize os riscos da história;
-3. escolha a abordagem e os tipos de teste;
-4. registre ambiente, dados, dependências e evidências;
-5. defina critérios de entrada e saída;
-6. troque o plano com outra pessoa e revise os pontos ambíguos.
+## Agora é com você
+
+No [desafio desta fase](DESAFIO.md) você escreve os cenários e o plano da sua
+história do Inscrevi.

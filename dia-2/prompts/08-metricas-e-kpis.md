@@ -11,7 +11,7 @@ A IA erra conta. Peça sempre o numerador e o denominador, e confira.
 que você abriu (título, história, severidade, prioridade, aberto ou fechado) e
 o resultado dos testes automatizados.
 
-Para listar os bugs da turma pela linha de comando:
+Para listar os bugs do seu repositório pela linha de comando:
 
 ```bash
 gh issue list --repo Mr-Lucasz/sprint-de-um-qa --label defeito --state all --limit 200

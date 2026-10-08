@@ -143,11 +143,11 @@ Preencha o template de `dia-1/03-casos-de-teste/plano-de-teste.md`, com a
 estratégia em "Abordagem e tipos de teste":
 
 - Ambiente: homologação em https://inscrevi.vercel.app, com versão do rodapé;
-  dados compartilhados pela turma, o que é um risco de projeto.
+  dados compartilhados com outras pessoas, o que é um risco de projeto.
 - Dados e pré-condições: a massa que cada grupo de casos precisa e quem a cria.
 - Evidências: o que guardar por caso (print, método, rota, status, corpo).
 - Charter exploratório da história, de
-  `dia-1/04-execucao-de-testes/02-funcional/README.md`.
+  `dia-1/04-execucao-de-testes/02-funcional/DESAFIO.md`.
 
 ## Regras
 
