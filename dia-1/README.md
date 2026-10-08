@@ -39,7 +39,7 @@ com ela até o fim do dia 2.
 
 ## Slides da aula original
 
-- [slides-dia-1.pdf](slides-dia-1.pdf): a apresentação do dia 1 (17 slides).
+- [slides-dia-1.pdf](slides-dia-1.pdf): a apresentação do dia 1 (14 slides).
 - [slides-estrategia-e-execucao-de-testes.pdf](slides-estrategia-e-execucao-de-testes.pdf):
   resumo visual de plano de teste, risco, BDD e execução (4 slides), para as
   fases 03 e 04.
