@@ -1,7 +1,7 @@
 # 6 · Automação com Cypress
 
 Para transformar um cenário em teste automatizado e para entender um teste que
-falhou. Roteiro da aula: [03-cypress](../03-cypress/).
+falhou. Lição e desafio: [03-cypress](../03-cypress/).
 
 A IA não vê a tela do Inscrevi. Se você não informar os `data-testid`, ela
 inventa. Descubra os seus com **botão direito → Inspecionar** ou com o ícone de

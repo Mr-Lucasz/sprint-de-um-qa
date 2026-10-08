@@ -11,8 +11,11 @@ achar o defeito enquanto ele ainda é uma pergunta.
 ## Entrada
 
 - A história: um identificador (`US01` a `US16`) ou o texto colado.
-- Se for um identificador, leia a seção `## USxx` de `sprint/backlog.md`. Se o
-  pedido não disser qual história, pergunte.
+- Se for um identificador, leia a seção `## USxx` de
+  `sprint/backlog-rascunho.md` (a versão que ainda não passou pelo
+  refinamento). Use `sprint/backlog.md`, a versão refinada, só se pedirem para
+  revisar a história já refinada. Se o pedido não disser qual história,
+  pergunte.
 - Opcional: descrição ou print do protótipo da tela.
 
 ## Como revisar
@@ -51,7 +54,7 @@ achar o defeito enquanto ele ainda é uma pergunta.
 
 ## Saída
 
-Use exatamente a ficha de `dia-1/02-requisitos/README.md`:
+Use exatamente a ficha de `dia-1/02-requisitos/DESAFIO.md`:
 
 ```
 História:

@@ -11,7 +11,7 @@ Alinhado ao conteúdo sugerido pelo syllabus:
 | Campo | Para quê |
 |---|---|
 | Identificador e título | Achar e entender o problema só pelo título |
-| Objeto de teste e ambiente | Saber **onde** e **em que versão/configuração** aconteceu. No Inscrevi, o ambiente e a versão estão no rodapé |
+| Objeto de teste e ambiente | Saber **onde** e **em que versão/configuração** aconteceu |
 | Contexto | Qual caso de teste, charter ou história estava sendo testado |
 | Passos para reproduzir | Sequência mínima e numerada, com dados concretos |
 | Resultado esperado × obtido | A diferença que caracteriza o defeito |
@@ -27,7 +27,7 @@ São coisas diferentes. **Severidade** é técnica (quanto o defeito afeta o sis
 
 | Exemplo | Severidade | Prioridade |
 |---|---|---|
-| Nome do evento com erro de digitação na página inicial na véspera da abertura | Baixa | Alta |
+| Nome da loja com erro de digitação na página inicial na véspera de uma campanha | Baixa | Alta |
 | Falha rara num relatório administrativo que ninguém usa este mês | Alta | Baixa |
 
 ## Ciclo de vida (exemplo)
@@ -41,15 +41,91 @@ Novo → Em triagem → Aberto → Em correção → Pronto para teste → Fecha
 
 | Evite | Prefira |
 |---|---|
-| "Inscrição não funciona" | "Inscrição aceita quando o curso já não tem vagas" |
-| "Deu erro" | "A tela mostra 'Erro' sem dizer o que corrigir" |
+| "Checkout não funciona" | "Checkout inicia com o carrinho vazio" |
+| "Deu erro" | "A tela mostra 'Error' sem dizer o que corrigir" |
 | "Testei e quebrou" | Passos numerados com os dados usados |
 | Opinião ("o dev esqueceu de validar") | Fato observado (o que fez, o que esperava, o que aconteceu) |
 
-## Prática · Relatar os defeitos encontrados (junto com a execução, na Parte 3)
+O título segue o padrão **[Bug] [área] - [comportamento observado] - [condição]**.
 
-1. No repositório da turma no GitHub, abra **Issues → New issue → Relatar defeito**.
-2. Registre os defeitos que você encontrou nos casos de teste, na execução de
-   API e na execução funcional.
-3. Antes de criar, procure se alguém já relatou o mesmo. Se sim, comente com informações novas em vez de duplicar.
-4. Revise o relato de outra pessoa: dá para reproduzir só com o que está escrito?
+## Exemplo resolvido · o bug do CT-06 no Sauce Demo
+
+Na [lição de execução](../04-execucao-de-testes/02-funcional/), o caso CT-06 da
+SD01 falhou. Veja o relato nascer em três versões.
+
+**Primeira tentativa (ruim):**
+
+```text
+Título: Bug no carrinho
+O checkout está com problema quando não tem nada. Acho que esqueceram de
+validar. Favor corrigir urgente.
+```
+
+Quem lê não sabe o que fazer para ver o problema, o que era esperado nem onde
+aconteceu. E há uma hipótese sobre a causa no lugar do fato.
+
+**Segunda tentativa (melhor, ainda incompleta):**
+
+```text
+Título: Checkout funciona com carrinho vazio
+Entrei no site, fui no carrinho sem adicionar nada e cliquei em checkout.
+Deixou continuar. Não deveria.
+```
+
+Já dá para reproduzir, mas faltam a conta usada, o ambiente, a regra que diz
+"não deveria" e a evidência.
+
+**Versão final:**
+
+```text
+Título: [Bug] Checkout - inicia e conclui o pedido - quando o carrinho está vazio
+
+Descrição breve:
+Com o carrinho vazio, o botão "Checkout" leva à tela de dados de entrega e o
+pedido pode ser concluído sem nenhum produto.
+
+Ambiente: https://www.saucedemo.com · Chrome · Windows 11
+Contexto: caso de teste CT-06, história SD01 (regra 3)
+
+Pré-condições:
+- conta standard_user
+- carrinho vazio (sem contador no ícone)
+
+Passos para reproduzir:
+1. Entrar com standard_user / secret_sauce
+2. Clicar no ícone do carrinho, sem adicionar nenhum produto
+3. Clicar em "Checkout"
+4. Preencher Ana / Lima / 89219-710 e clicar em "Continue"
+5. Clicar em "Finish"
+
+Resultado esperado:
+No passo 3, o checkout não inicia (SD01, regra 3: só é possível iniciar o
+checkout com pelo menos um item no carrinho).
+
+Resultado obtido:
+O passo 3 abre "Checkout: Your Information". O resumo mostra "Item total: $0",
+e o passo 5 exibe "Thank you for your order!".
+
+Evidências: ct06-carrinho-vazio.png, ct06-resumo-zero.png, ct06-concluido.png
+
+Severidade: Média. Nenhum dado é corrompido e não há cobrança, mas o sistema
+registra um pedido inválido.
+Prioridade: a definir com o PO. Sugestão: média, pois o caminho exige uma ação
+incomum e não bloqueia quem compra normalmente.
+```
+
+O que a versão final tem que as outras não tinham:
+
+- o **título** diz a área, o que acontece e em que condição;
+- os **passos** começam do zero e trazem os dados usados;
+- o **esperado** cita a regra da história, e não a opinião de quem testou;
+- o **obtido** é um fato, com o texto que apareceu na tela;
+- **severidade** e **prioridade** têm justificativa separada.
+
+Execute os passos você mesmo antes de aceitar o relato: é assim que se revisa
+o bug de outra pessoa.
+
+## Agora é com você
+
+No [desafio desta fase](DESAFIO.md) você relata os defeitos que encontrou no
+Inscrevi.

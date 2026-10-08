@@ -10,19 +10,16 @@ Um plano de teste não precisa ser um documento enorme. Ele precisa deixar
 claro o suficiente para que o time consiga executar o trabalho e tomar uma
 decisão de qualidade.
 
-## Template da dinâmica
+## Como preencher
 
-Cada pessoa usa a **sua história**, a mesma do refinamento, na versão
-refinada do [backlog](../../sprint/backlog.md), e
-preencham o plano abaixo. Usem os casos de teste da etapa anterior como ponto
-de partida e considerem que a aplicação estará disponível no ambiente de
-homologação.
+Parta dos casos de teste que você já escreveu. Um plano preenchido e comentado
+está em [exemplo-plano-saucedemo.md](exemplo-plano-saucedemo.md).
 
-1. Definam o objetivo e o que está dentro e fora do escopo.
-2. Identifiquem os riscos mais importantes para o usuário e para o negócio.
-3. Escolham a abordagem: funcional, API, exploratória, regressão ou outra.
-4. Definam dados, ambiente, responsabilidades e evidências esperadas.
-5. Compartilhem o plano com outra pessoa e ajustem os pontos que ficaram
+1. Defina o objetivo e o que está dentro e fora do escopo.
+2. Identifique os riscos mais importantes para o usuário e para o negócio.
+3. Escolha a abordagem: funcional, API, exploratória, regressão ou outra.
+4. Defina dados, ambiente, responsabilidades e evidências esperadas.
+5. Compartilhe o plano com outra pessoa e ajuste os pontos que ficaram
    ambíguos.
 
 ## Template

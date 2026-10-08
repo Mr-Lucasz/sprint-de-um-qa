@@ -2,17 +2,14 @@
 
 Documentação oficial: https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/
 
-Na [Parte 1](../01-execucao-e-defeitos/) você testou pela tela. Agora a mesma
-história é testada direto na API, sem a interface no meio: uma regra que a tela
-protege pode estar aberta para quem chama a API.
+Na [lição de API do dia 1](../../dia-1/04-execucao-de-testes/01-api/) você
+enviou requisições e conferiu a resposta com os olhos. Agora a conferência vira
+**script**: o Postman passa a dizer sozinho se a resposta está certa, e a
+coleção pode rodar inteira num comando.
 
-Vamos testar a homologação, o mesmo ambiente da execução manual: a API fica em
-`https://inscrevi.vercel.app/api` e a documentação das rotas em
-https://inscrevi.vercel.app/docs. Não é preciso subir nada na sua máquina.
-
-O ambiente é compartilhado com a turma: as requisições criam contas e
-inscrições de verdade. Use e-mails seus e confira a pré-condição antes de
-enviar.
+> **Por que esta lição não usa o Sauce Demo?** A loja não tem API pública. O
+> exemplo é uma coleção pronta das histórias US01 a US06 do Inscrevi; o desafio
+> é escrever a da sua história.
 
 ## Conceitos rápidos
 
@@ -24,35 +21,98 @@ enviar.
 
 Faixas de status: **2xx** sucesso, **4xx** erro de quem chamou (400 dados inválidos, 401 sem login, 403 sem permissão, 404 não existe, 409 conflito com o estado atual), **5xx** erro do servidor.
 
-## Importando
+## Exemplo resolvido · do olho para o script
+
+Suba o Inscrevi (`npm start`) e, no Postman, refaça o login do dia 1:
+`POST http://localhost:3000/api/login` com
+`{ "email": "maria@inscrevi.dev", "senha": "Senha@123" }`.
+
+### 1. O primeiro teste
+
+Na aba **Scripts → Post-response**:
+
+```js
+pm.test('status 200', () => {
+  pm.response.to.have.status(200);
+});
+```
+
+Envie. A aba **Test Results** mostra o teste verde. Troque `200` por `201` e
+envie de novo para ver um teste **falhar**: um teste que você nunca viu
+vermelho pode não estar conferindo nada.
+
+### 2. Conferir o corpo
+
+```js
+const { token, usuario } = pm.response.json();
+
+pm.test('devolve token', () => {
+  pm.expect(token).to.be.a('string').and.not.empty;
+});
+
+pm.test('devolve a conta que entrou', () => {
+  pm.expect(usuario.email).to.eql('maria@inscrevi.dev');
+});
+```
+
+### 3. Encadear: guardar o token para a próxima requisição
+
+```js
+pm.collectionVariables.set('token', token);
+```
+
+Na requisição `GET /usuarios/me`, aba **Authorization → Bearer Token**, use
+`{{token}}`. O login alimenta as rotas protegidas, sem copiar e colar.
+
+### 4. Um cenário de erro também é teste
+
+Na requisição com a senha errada:
+
+```js
+pm.test('status 401', () => {
+  pm.response.to.have.status(401);
+});
+
+pm.test('não revela qual campo está errado', () => {
+  pm.expect(pm.response.json().mensagem).to.eql('E-mail ou senha incorretos.');
+});
+```
+
+## A coleção pronta
 
 1. No Postman: **Import** e selecione `inscrevi.postman_collection.json` e
-   `homologacao.postman_environment.json`.
-2. No canto superior direito, escolha o ambiente **Inscrevi homologação**.
+   `local.postman_environment.json` (ou `homologacao.postman_environment.json`).
+2. No canto superior direito, escolha o ambiente.
 3. Rode a coleção inteira com **Run collection**.
 
 Também dá para importar direto do contrato: **Import → Link** com
-`https://inscrevi.vercel.app/openapi.json`.
+`http://localhost:3000/openapi.json`.
 
-A coleção foi escrita para um ambiente recém-reiniciado. Na homologação,
-algumas falhas vêm do **ambiente**, e não do produto:
+O que observar em cada pasta:
+
+| Onde | Técnica | O que ver |
+|---|---|---|
+| *01 Usuários* → Cadastrar usuário válido | **Massa dinâmica** | A aba *Pre-request* gera um e-mail novo a cada execução |
+| *01 Usuários* → Cadastrar usuário válido | **Validação de contrato** | `pm.response.to.have.jsonSchema` confere campos e tipos |
+| *01 Usuários* → Recusar senha com 7 caracteres | **Valor limite** | O caso de teste do dia 1 virou requisição |
+| *02 Login* → Entrar com credenciais válidas | **Encadeamento** | O token vai para uma variável e as próximas usam `{{token}}` |
+| *03 Cursos* → Listar cursos | **Regra sobre uma lista** | `forEach` confere todos os cursos, não só o primeiro |
+| *04 Inscrições* | **Fluxo com estado** | Inscrever, duplicar, cancelar: a ordem importa |
+| Nível da coleção, aba *Scripts* | **Teste para todas as requisições** | Tempo de resposta conferido em toda chamada |
+
+Alguns testes da coleção **falham**. Antes de olhar o código, decida para cada
+um: é defeito do Inscrevi ou é o ambiente?
+
+Na homologação, algumas falhas vêm do **ambiente**, e não do produto:
 
 | Requisição | O que acontece na homologação | Por quê |
 |---|---|---|
-| Restaurar dados iniciais | 403 | Só o instrutor reinicia os dados de um ambiente compartilhado |
+| Restaurar dados iniciais | 403 | Só quem administra reinicia os dados de um ambiente compartilhado |
 | Inscrever-se em um curso | A contagem de vagas pode não bater, ou a inscrição ser recusada | A Oficina tem 2 vagas e outra pessoa pode tê-las ocupado |
-| Qualquer uma | "responde em menos de 1 segundo" pode falhar | A rede do laboratório e o servidor na nuvem são mais lentos que o app local |
+| Qualquer uma | "responde em menos de 1 segundo" pode falhar | A sua rede e o servidor na nuvem são mais lentos que o app local |
 
 Separar falha de ambiente de falha do produto faz parte do trabalho: antes de
 abrir um bug, confirme que ele se repete com a pré-condição certa.
-
-## O que observar na coleção
-
-- **Scripts de teste** em cada requisição (aba *Scripts → Post-response*), usando `pm.test` e `pm.expect`.
-- **Validação de contrato** com `pm.response.to.have.jsonSchema`.
-- **Encadeamento:** o login salva o token numa variável e as próximas requisições usam `{{token}}`.
-- **Massa dinâmica:** o cadastro gera um e-mail novo a cada execução (aba *Pre-request*).
-- **Teste no nível da coleção:** tempo de resposta verificado em todas as requisições.
 
 ## Linha de comando com Newman
 
@@ -65,44 +125,20 @@ Esse comando usa o ambiente `local.postman_environment.json`, que aponta para
 `http://localhost:3000/api`, onde os dados voltam ao estado inicial a cada
 execução. É o mesmo comando que roda no pipeline. Newman: https://github.com/postmanlabs/newman
 
-## Prática (25 min, individual)
+## Para consultar
 
-1. Rode a coleção e anote quais testes falham. Algum bate com um bug que você
-   relatou na Parte 1?
-2. Crie na coleção uma pasta com o nome da **sua história** e adicione uma
-   requisição para cada cenário do seu arquivo de casos de teste, com sucesso e
-   erro.
-3. Em cada requisição, escreva na aba *Scripts → Post-response* um teste para o
-   status e um para o corpo:
+- A coleção completa do dia 1, com as 31 requisições de todas as rotas, está em
+  [dia-1/04-execucao-de-testes/01-api](../../dia-1/04-execucao-de-testes/01-api/).
+- **Um desafio resolvido: US05 · Minhas inscrições.**
+  `inscrevi-us05-minhas-inscricoes.postman_collection.json`, com o ambiente
+  `inscrevi-us05-homologacao.postman_environment.json`, é a coleção de uma
+  história inteira: consulta das próprias inscrições com validação de contrato,
+  consulta de outra pessoa por estudante (403) e por administrador (200),
+  consulta sem token (401) e o fluxo encadeado `POST /inscricoes` → `GET` →
+  `DELETE` → `GET`. Execute as pastas na ordem. `studentId`, `otherUserId` e
+  `courseId` são variáveis de massa: substitua-as pelos IDs reais do ambiente.
+  Se a sua história é a US05, faça o desafio antes de abrir.
 
-   ```js
-   pm.test('responde 409 para inscrição duplicada', () => {
-     pm.response.to.have.status(409);
-   });
+## Agora é com você
 
-   pm.test('explica o motivo da recusa', () => {
-     pm.expect(pm.response.json().mensagem).to.eql('Você já está inscrito neste curso.');
-   });
-   ```
-
-4. Se a rota exige login, use `{{token}}` no header `Authorization`, como fazem
-   as requisições da pasta *04 Inscrições*.
-
-Se sobrar tempo:
-
-- adicione à pasta *04 Inscrições* uma requisição que tente se inscrever em dois
-  cursos com **horários sobrepostos** e verifique o **409**;
-- adicione um teste que confira se, após cancelar, `vagasDisponiveis` do curso
-  voltou ao valor anterior.
-
-A coleção completa do dia 1, com as 31 requisições de todas as rotas, está em
-[dia-1/04-execucao-de-testes/01-api](../../dia-1/04-execucao-de-testes/01-api/)
-e serve de consulta.
-
-## Fechamento
-
-- Alguma regra que a tela respeita falhou quando chamada direto na API?
-- O status HTTP comunica corretamente o que aconteceu?
-- Qual desses testes você colocaria para rodar a cada entrega?
-
-Próxima parte: [automação com Cypress](../03-cypress/).
+No [desafio desta fase](DESAFIO.md) você escreve a coleção da sua história.

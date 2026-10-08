@@ -1,0 +1,5 @@
+{
+  "padrao": { "usuario": "standard_user", "senha": "secret_sauce" },
+  "bloqueado": { "usuario": "locked_out_user", "senha": "secret_sauce" },
+  "cliente": { "nome": "Ana", "sobrenome": "Lima", "cep": "89219-710" }
+}

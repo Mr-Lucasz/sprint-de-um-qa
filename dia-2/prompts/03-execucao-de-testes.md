@@ -1,7 +1,7 @@
 # 3 · Execução de testes
 
 Para preparar a execução manual, ter ideias na sessão exploratória e decidir o
-status de um caso. Roteiro da aula:
+status de um caso. Lição e desafio:
 [01-execucao-e-defeitos](../01-execucao-e-defeitos/).
 
 Uma IA de chat não vê a sua tela: quem executa é você. Ela ajuda antes
@@ -43,7 +43,7 @@ executar, diga qual e por quê.
 ## Prompt B · Ideias para a sessão exploratória
 
 **O que colar:** a sua história e o charter dela, da
-[tabela do dia 1](../../dia-1/04-execucao-de-testes/02-funcional/#charters).
+[tabela de charters](../../dia-1/04-execucao-de-testes/02-funcional/DESAFIO.md#charters).
 
 ```text
 Vou fazer uma sessão de teste exploratório de <<10>> minutos com o charter

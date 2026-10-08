@@ -3,7 +3,7 @@
 Para transformar as suas anotações num relato que outra pessoa consegue
 reproduzir, ou para revisar um relato antes de enviar. Material de apoio:
 [dia-1/05-defeitos](../../dia-1/05-defeitos/) e o checklist de
-[01-execucao-e-defeitos](../01-execucao-e-defeitos/#4-reportar-10-min).
+[01-execucao-e-defeitos](../01-execucao-e-defeitos/DESAFIO.md#4-reportar-10-min).
 
 A IA organiza o que **você** observou. Ela não viu o teste: se inventar um
 passo ou um dado, o relato deixa de ser verdadeiro.

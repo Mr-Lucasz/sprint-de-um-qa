@@ -1,8 +1,8 @@
 # 7 · Review de código de teste automatizado
 
 Para revisar o seu teste antes de dar por pronto, ou o teste de outra pessoa
-num pull request. Checklist da aula:
-[03-cypress](../03-cypress/#antes-de-dar-o-teste-por-pronto).
+num pull request. Checklist da lição:
+[03-cypress](../03-cypress/DESAFIO.md#confira-antes-de-seguir).
 
 **O que colar:** o arquivo de teste, o cenário que ele deveria cobrir e, se
 houver, os comandos customizados ou os passos que ele usa.
